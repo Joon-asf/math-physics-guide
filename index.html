@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math & Physics Society Guidebook</title>
+    
+    <!-- KaTeX CSS & JS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body);"></script>
+
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .screen { display: none; }
+        .active { display: block; }
+
+        .btn {
+            background-color: #0066cc;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 8px 5px 8px 0;
+            transition: background 0.2s;
+        }
+        .btn:hover { background-color: #004b99; }
+        .btn-back { background-color: #6c757d; }
+        .btn-back:hover { background-color: #5a6268; }
+
+        .login-box { max-width: 350px; margin: 40px auto; text-align: center; }
+        .input-group { margin-bottom: 15px; text-align: left; }
+        .input-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+        .error-msg { color: #dc3545; display: none; margin-top: 10px; font-size: 14px; }
+        
+        .summary-card {
+            background: #f8f9fa;
+            border-left: 5px solid #0066cc;
+            padding: 15px 20px;
+            margin-top: 20px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- 1. Login Screen -->
+    <div id="screen-login" class="screen active">
+        <div class="login-box">
+            <h2>🔒 Member Login</h2>
+            <form onsubmit="handleLogin(event)">
+                <div class="input-group">
+                    <label>Username</label>
+                    <input type="text" id="username" required placeholder="Enter Username">
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" id="password" required placeholder="Enter Password">
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">Sign In</button>
+                <p id="login-error" class="error-msg">Invalid Username or Password.</p>
+            </form>
+        </div>
+    </div>
+
+    <!-- 2. Subject Selection Screen -->
+    <div id="screen-subject" class="screen">
+        <h2>📚 Select Subject</h2>
+        <p>Choose a course to review formulas and key concepts.</p>
+        <button class="btn" onclick="selectSubject('calc')">📐 AP Calculus AB</button>
+        <button class="btn" onclick="selectSubject('physics')">⚡ AP Physics C: Mechanics</button>
+        <div style="margin-top: 20px;">
+            <button class="btn btn-back" onclick="logout()">Log Out</button>
+        </div>
+    </div>
+
+    <!-- 3. Unit Selection Screen -->
+    <div id="screen-unit" class="screen">
+        <h2 id="subject-title">Subject Title</h2>
+        <p>Select a Unit:</p>
+        <div id="unit-buttons"></div>
+        <div style="margin-top: 20px;">
+            <button class="btn btn-back" onclick="showScreen('screen-subject')">← Back to Subjects</button>
+        </div>
+    </div>
+
+    <!-- 4. Summary Screen -->
+    <div id="screen-summary" class="screen">
+        <h2 id="summary-title">Unit Summary</h2>
+        <div id="summary-content" class="summary-card"></div>
+        <div style="margin-top: 20px;">
+            <button class="btn btn-back" onclick="showScreen('screen-unit')">← Back to Units</button>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function handleLogin(event) {
+        event.preventDefault();
+        const id = document.getElementById('username').value;
+        const pw = document.getElementById('password').value;
+        const errorMsg = document.getElementById('login-error');
+
+        if (id === "MathPhysicsSociety" && pw === "asf123") {
+            errorMsg.style.display = "none";
+            showScreen('screen-subject');
+        } else {
+            errorMsg.style.display = "block";
+        }
+    }
+
+    function logout() {
+        document.getElementById('username').value = '';
+        document.getElementById('password').value = '';
+        showScreen('screen-login');
+    }
+
+    function showScreen(screenId) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById(screenId).classList.add('active');
+    }
+
+    let currentSubject = '';
+
+    function selectSubject(subject) {
+        currentSubject = subject;
+        const unitContainer = document.getElementById('unit-buttons');
+        unitContainer.innerHTML = '';
+
+        if (subject === 'calc') {
+            document.getElementById('subject-title').innerText = "📐 AP Calculus AB";
+            const units = [
+                "Unit 1: Limits & Continuity",
+                "Unit 2: Differentiation: Definition & Basic Derivative Rules",
+                "Unit 3: Composite, Implicit, and Inverse Functions",
+                "Unit 4: Contextual Applications of Differentiation"
+            ];
+            units.forEach((u, index) => {
+                unitContainer.innerHTML += `<button class="btn" onclick="showSummary('calc', ${index + 1})">${u}</button><br>`;
+            });
+        } else if (subject === 'physics') {
+            document.getElementById('subject-title').innerText = "⚡ AP Physics C: Mechanics";
+            const units = [
+                "Unit 1: Kinematics",
+                "Unit 2: Newton's Laws of Motion",
+                "Unit 3: Work, Energy, and Power",
+                "Unit 4: Systems of Particles and Linear Momentum"
+            ];
+            units.forEach((u, index) => {
+                unitContainer.innerHTML += `<button class="btn" onclick="showSummary('physics', ${index + 1})">${u}</button><br>`;
+            });
+        }
+        showScreen('screen-unit');
+    }
+
+    function showSummary(subject, unitNum) {
+        const titleEl = document.getElementById('summary-title');
+        const contentEl = document.getElementById('summary-content');
+
+        if (subject === 'calc') {
+            titleEl.innerText = `AP Calculus AB - Unit ${unitNum}`;
+            if (unitNum === 1) {
+                contentEl.innerHTML = `<h3>Definition of Limit</h3><p>Condition for a limit to exist:</p><p>$$\\lim_{x \\to a} f(x) = L$$</p>`;
+            } else if (unitNum === 2) {
+                contentEl.innerHTML = `<h3>Definition of the Derivative</h3><p>Limit definition of a derivative:</p><p>$$f'(x) = \\lim_{h \\to 0} \\frac{f(x+h) - f(x)}{h}$$</p>`;
+            } else {
+                contentEl.innerHTML = `<p>Summary content for Unit ${unitNum} will be added here.</p>`;
+            }
+        } else if (subject === 'physics') {
+            titleEl.innerText = `AP Physics C - Unit ${unitNum}`;
+            if (unitNum === 1) {
+                contentEl.innerHTML = `<h3>Kinematics Calculus Relations</h3><p>Relationships between position, velocity, and acceleration:</p><p>$$v(t) = \\frac{dx}{dt}, \\quad a(t) = \\frac{dv}{dt} = \\frac{d^2x}{dt^2}$$</p>`;
+            } else if (unitNum === 2) {
+                contentEl.innerHTML = `<h3>Newton's Second Law</h3><p>Differential form of Newton's 2nd Law:</p><p>$$\\vec{F} = \\frac{d\\vec{p}}{dt} = m\\vec{a}$$</p>`;
+            } else {
+                contentEl.innerHTML = `<p>Summary content for Unit ${unitNum} will be added here.</p>`;
+            }
+        }
+
+        showScreen('screen-summary');
+        
+        if (window.renderMathInElement) {
+            renderMathInElement(document.body);
+        }
+    }
+</script>
+
+</body>
+</html>
