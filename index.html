@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Math & Physics Society Guidebook</title>
     
+    <!-- KaTeX CSS & JS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
@@ -99,6 +100,7 @@
 
 <div class="container">
 
+    <!-- 1. Login Screen -->
     <div id="screen-login" class="screen active">
         <div class="login-box">
             <h2>🔒 Member Login</h2>
@@ -117,6 +119,7 @@
         </div>
     </div>
 
+    <!-- 2. Subject Selection Screen -->
     <div id="screen-subject" class="screen">
         <h2>📚 Select Course</h2>
         <p>Select a course syllabus to review key concepts, formulas, and symbol breakdowns.</p>
@@ -127,6 +130,7 @@
         </div>
     </div>
 
+    <!-- 3. Unit Selection Screen -->
     <div id="screen-unit" class="screen">
         <h2 id="subject-title">Subject Title</h2>
         <p>Select a Unit from the syllabus:</p>
@@ -136,6 +140,7 @@
         </div>
     </div>
 
+    <!-- 4. Summary Screen -->
     <div id="screen-summary" class="screen">
         <h2 id="summary-title">Unit Summary</h2>
         <div id="summary-content" class="summary-card"></div>
@@ -387,19 +392,61 @@
     const physicsData = {
         1: `<h3>Unit 1: Kinematics</h3>
             <h4>📌 Unit Overview</h4>
-            <p>Describes motion using calculus. In AP Physics C, acceleration is often time-dependent, requiring integration and differentiation between position, velocity, and acceleration vectors.</p>
+            <p>Kinematics analyzes the motion of objects using position, velocity, and acceleration vectors without considering the forces causing the motion. In AP Physics C, motion with constant acceleration relies on algebraic kinematic formulas, whereas motion with variable acceleration requires calculus (differentiation and integration).</p>
 
-            <h4>Calculus Relations</h4>
+            <h4>1. Calculus Relations (Variable Acceleration)</h4>
             <p>$$v(t) = \\frac{dx}{dt}, \\quad a(t) = \\frac{dv}{dt} = \\frac{d^2x}{dt^2}$$</p>
+            <p>$$x(t) = x_0 + \\int_{t_0}^{t} v(t') dt', \\quad v(t) = v_0 + \\int_{t_0}^{t} a(t') dt'$$</p>
             <div class="symbol-box">
                 <strong>🔍 Symbol Key:</strong>
                 <ul>
-                    <li>$x(t)$ : Position vector as a function of time $t$</li>
+                    <li>$x(t)$ : Position as a function of time $t$</li>
                     <li>$v(t)$ : Instantaneous velocity</li>
                     <li>$a(t)$ : Instantaneous acceleration</li>
-                    <li>$\\frac{d^2x}{dt^2}$ : Second derivative of position with respect to time</li>
+                    <li>$x_0, v_0$ : Initial position and initial velocity at $t = 0$</li>
                 </ul>
-            </div>`,
+            </div>
+
+            <h4>2. Equations of Constant Acceleration ($a = \\text{constant}$)</h4>
+            <p>When acceleration is constant, the calculus relationships simplify to four classic kinematic equations:</p>
+            <ol>
+                <li>$$v = v_0 + at$$</li>
+                <li>$$x = x_0 + v_0 t + \\frac{1}{2}at^2$$</li>
+                <li>$$v^2 = v_0^2 + 2a(x - x_0)$$</li>
+                <li>$$x = x_0 + \\frac{1}{2}(v_0 + v)t$$</li>
+            </ol>
+            <div class="symbol-box">
+                <strong>🔍 Symbol Key:</strong>
+                <ul>
+                    <li>$x$ : Final position (or displacement $\\Delta x = x - x_0$)</li>
+                    <li>$x_0$ : Initial position</li>
+                    <li>$v$ : Final velocity</li>
+                    <li>$v_0$ : Initial velocity</li>
+                    <li>$a$ : Constant acceleration</li>
+                    <li>$t$ : Time elapsed</li>
+                </ul>
+            </div>
+
+            <h4>3. Scalars, Vectors & Vector Decomposition</h4>
+            <p>Physical quantities are divided into <strong>Scalars</strong> (magnitude only, e.g., mass, time, speed) and <strong>Vectors</strong> (magnitude and direction, e.g., displacement, velocity, force).</p>
+            <p>$$\\vec{A} = A_x \\hat{i} + A_y \\hat{j} + A_z \\hat{k}$$</p>
+            <p>$$\\text{Magnitude: } |\\vec{A}| = \\sqrt{A_x^2 + A_y^2 + A_z^2}, \\quad \\text{Direction (2D): } \\theta = \\arctan\\left(\\frac{A_y}{A_x}\\right)$$</p>
+            <div class="symbol-box">
+                <strong>🔍 Symbol Key:</strong>
+                <ul>
+                    <li>$\\vec{A}$ : Vector quantity</li>
+                    <li>$A_x, A_y, A_z$ : Vector components along x, y, and z axes</li>
+                    <li>$\\hat{i}, \\hat{j}, \\hat{k}$ (or $\\hat{x}, \\hat{y}, \\hat{z}$) : Unit vectors along coordinate axes</li>
+                    <li>$\\theta$ : Angle with respect to the positive x-axis</li>
+                </ul>
+            </div>
+
+            <h4>4. Vertical Motion & Free Fall</h4>
+            <p>An object in free fall experiences downward acceleration due to gravity with no air resistance.</p>
+            <p>$$a = -g = -9.81 \\text{ m/s}^2 \\quad (\\text{or } -9.8 \\text{ m/s}^2)$$</p>
+            <p>Vertical kinematic equation: $y = y_0 + v_{0y}t - \\frac{1}{2}gt^2$</p>
+
+            <div class="exam-tip"><strong>🎯 AP Exam Tip:</strong> Check whether acceleration is constant before picking an equation! If acceleration depends on time $a(t)$, position $a(x)$, or velocity $a(v)$, do NOT use the 4 constant acceleration formulas—you MUST use integration/calculus instead.</div>`,
 
         2: `<h3>Unit 2: Force and Dynamics</h3>
             <h4>📌 Unit Overview</h4>
