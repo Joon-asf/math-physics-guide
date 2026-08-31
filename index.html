@@ -121,7 +121,7 @@
     <!-- 2. Subject Selection Screen -->
     <div id="screen-subject" class="screen">
         <h2>📚 Select Course</h2>
-        <p>Select a course syllabus to review key concepts & formulas.</p>
+        <p>Select a course syllabus to review key concepts, formulas, and symbol breakdowns.</p>
         <button class="btn btn-subject" onclick="selectSubject('calc')">📐 AP Calculus AB</button>
         <button class="btn btn-subject" onclick="selectSubject('physics')">⚡ AP Physics C: Mechanics</button>
         <div style="margin-top: 20px;">
@@ -132,7 +132,7 @@
     <!-- 3. Unit Selection Screen -->
     <div id="screen-unit" class="screen">
         <h2 id="subject-title">Subject Title</h2>
-        <p>Select a Unit from syllabus:</p>
+        <p>Select a Unit from the syllabus:</p>
         <div id="unit-buttons"></div>
         <div style="margin-top: 20px;">
             <button class="btn btn-back" onclick="showScreen('screen-subject')">← Back to Courses</button>
@@ -231,273 +231,273 @@
 
     const calcData = {
         1: `<h3>Unit 1: Limits and Continuity</h3>
-            <h4>📌 Overview (단원 개요)</h4>
-            <p>이 단원에서는 미적분학의 기초가 되는 <strong>'극값(Limit)'</strong>과 <strong>'연속성(Continuity)'</strong>을 다룹니다. 어떤 함수가 특정 지점에서 끊어지지 않고 이어져 있는지, 그리고 특정 x값에 한없이 가까워질 때 y값이 어디로 향하는지 분석하는 법을 배웁니다.</p>
+            <h4>📌 Unit Overview</h4>
+            <p>This foundational unit introduces <strong>Limits</strong> and <strong>Continuity</strong>. You will explore how functions behave as inputs approach specific points (even when undefined) and establish formal rules to check if a function has no breaks or jumps.</p>
 
-            <h4>1. Limit Definition & One-Sided Limits</h4>
+            <h4>1. Existence of Limits</h4>
             <p>$$\\lim_{x \\to c^-} f(x) = \\lim_{x \\to c^+} f(x) = L \\iff \\lim_{x \\to c} f(x) = L$$</p>
             <div class="symbol-box">
-                <strong>🔍 기호 설명 (Symbol Key):</strong>
+                <strong>🔍 Symbol Key:</strong>
                 <ul>
-                    <li>$x \\to c^-$ : $x$가 $c$보다 작은 쪽(왼쪽)에서 $c$로 접근할 때 (좌극값)</li>
-                    <li>$x \\to c^+$ : $x$가 $c$보다 큰 쪽(오른쪽)에서 $c$로 접근할 me (우극값)</li>
-                    <li>$L$ : 좌극값과 우극값이 일치하여 도달하게 되는 목표 Y값 (극한값)</li>
+                    <li>$x \\to c^-$ : Left-hand limit ($x$ approaches $c$ from values smaller than $c$)</li>
+                    <li>$x \\to c^+$ : Right-hand limit ($x$ approaches $c$ from values larger than $c$)</li>
+                    <li>$L$ : The target y-value (Limit value) reached when both side limits match</li>
                 </ul>
             </div>
 
-            <h4>2. Continuity (연속성 3단계 검사)</h4>
-            <p>함수 $f(x)$가 $x=c$에서 연속이기 위한 조건:</p>
+            <h4>2. Continuity (3-Part Checklist)</h4>
+            <p>A function $f(x)$ is continuous at $x = c$ if and only if:</p>
             <ol>
-                <li>$f(c)$ 가 존재함 (함숫값이 정의됨)</li>
-                <li>$\\lim_{x \\to c} f(x)$ 가 존재함 (좌극한과 우극한이 같음)</li>
-                <li>$\\lim_{x \\to c} f(x) = f(c)$ (극한값과 함숫값이 동일함)</li>
+                <li>$f(c)$ is defined.</li>
+                <li>$\\lim_{x \\to c} f(x)$ exists.</li>
+                <li>$\\lim_{x \\to c} f(x) = f(c)$.</li>
             </ol>
 
-            <h4>3. Intermediate Value Theorem (IVT / 사잇값 정리)</h4>
-            <p>닫힌구간 $[a,b]$에서 연속인 함수 $f(x)$는 $f(a)$와 $f(b)$ 사이의 모든 Y값을 적어도 한 번은 통과합니다.</p>
-            <div class="exam-tip"><strong>🎯 AP Exam Tip:</strong> 서술형 문제(FRQ)에서 IVT를 적용하기 전에 반드시 <em>"Since $f(x)$ is continuous on $[a,b]$..."</em> 문구를 작성해야 점수를 잃지 않습니다.</div>`,
+            <h4>3. Intermediate Value Theorem (IVT)</h4>
+            <p>If $f(x)$ is continuous on $[a,b]$, it must take on every value between $f(a)$ and $f(b)$ at least once.</p>
+            <div class="exam-tip"><strong>🎯 AP Exam Tip:</strong> On FRQs, always write <em>"Since $f(x)$ is continuous on $[a,b]$..."</em> before invoking the IVT to earn full credit.</div>`,
 
         2: `<h3>Unit 2: Differentiation: Definition and Rules</h3>
-            <h4>📌 Overview (단원 개요)</h4>
-            <p>미분(Differentiation)의 정의와 기본 미분 공식을 다룹니다. 함수의 순간 변화율이나 그래프 상의 접선의 기울기를 구하는 핵심 기법들을 익힙니다.</p>
+            <h4>📌 Unit Overview</h4>
+            <p>This unit defines the <strong>derivative</strong> as an instantaneous rate of change or the slope of a tangent line. You will master shortcut rules to quickly differentiate polynomial, product, and quotient expressions.</p>
 
-            <h4>1. Limit Definition of Derivative (미분의 극한 정의)</h4>
+            <h4>1. Limit Definition of Derivative</h4>
             <p>$$f'(x) = \\lim_{h \\to 0} \\frac{f(x+h) - f(x)}{h}$$</p>
             <div class="symbol-box">
-                <strong>🔍 기호 설명 (Symbol Key):</strong>
+                <strong>🔍 Symbol Key:</strong>
                 <ul>
-                    <li>$f'(x)$ : 함수 $f(x)$의 미분계수 (도함수 / 순간변화율 / 접선의 기울기)</li>
-                    <li>$h$ : 두 점 사이의 X축 간격 ($\Delta x$). 이 간격이 0에 한없이 가까워짐을 의미</li>
-                    <li>$f(x+h) - f(x)$ : Y값의 변화량 ($\Delta y$)</li>
+                    <li>$f'(x)$ : Derivative of $f(x)$ (Instantaneous rate of change / Tangent slope)</li>
+                    <li>$h$ : The horizontal distance between two points ($\Delta x$), approaching zero</li>
+                    <li>$f(x+h) - f(x)$ : The vertical change ($\Delta y$)</li>
                 </ul>
             </div>
 
-            <h4>2. Basic Rules (기본 미분 공식)</h4>
-            <p><strong>Power Rule (다항식):</strong> $\\frac{d}{dx}[x^n] = n x^{n-1}$</p>
-            <p><strong>Product Rule (곱의 미분):</strong> $\\frac{d}{dx}[u \\cdot v] = u'v + uv'$</p>
-            <p><strong>Quotient Rule (분수 미분):</strong> $\\frac{d}{dx}\\left[\\frac{u}{v}\\right] = \\frac{u'v - uv'}{v^2}$</p>
+            <h4>2. Basic Differentiation Rules</h4>
+            <p><strong>Power Rule:</strong> $\\frac{d}{dx}[x^n] = n x^{n-1}$</p>
+            <p><strong>Product Rule:</strong> $\\frac{d}{dx}[u \\cdot v] = u'v + uv'$</p>
+            <p><strong>Quotient Rule:</strong> $\\frac{d}{dx}\\left[\\frac{u}{v}\\right] = \\frac{u'v - uv'}{v^2}$</p>
             <div class="symbol-box">
-                <strong>🔍 기호 설명 (Symbol Key):</strong>
+                <strong>🔍 Symbol Key:</strong>
                 <ul>
-                    <li>$\\frac{d}{dx}$ : $x$에 대해 미분하라는 연산자 기호</li>
-                    <li>$n$ : 임의의 실 수 지수 (Exponent)</li>
-                    <li>$u, v$ : $x$에 관한 두 개 이상의 독립된 함수식</li>
+                    <li>$\\frac{d}{dx}$ : Differential operator ("take derivative with respect to $x$")</li>
+                    <li>$n$ : Any real number exponent</li>
+                    <li>$u, v$ : Differentiable functions of $x$</li>
                 </ul>
             </div>`,
 
         3: `<h3>Unit 3: Composite, Implicit & Inverse Functions</h3>
-            <h4>📌 Overview (단원 개요)</h4>
-            <p>합성함수, 음함수(x와 y가 섞인 식), 역함수처럼 형태가 복잡한 함수들을 미분하는 고급 테크닉을 배웁니다.</p>
+            <h4>📌 Unit Overview</h4>
+            <p>Learn techniques to differentiate complex structures such as nested functions (Chain Rule), implicit equations where $x$ and $y$ are intertwined, and inverse functions.</p>
 
-            <h4>1. Chain Rule (합성함수의 미분)</h4>
+            <h4>1. Chain Rule</h4>
             <p>$$\\frac{d}{dx}[f(g(x))] = f'(g(x)) \\cdot g'(x)$$</p>
             <div class="symbol-box">
-                <strong>🔍 기호 설명 (Symbol Key):</strong>
+                <strong>🔍 Symbol Key:</strong>
                 <ul>
-                    <li>$f(g(x))$ : 바깥 함수 $f$ 내부에 겉함수인 $g(x)$가 들어있는 합성함수</li>
-                    <li>$f'(g(x))$ : 겉함수 $f$를 먼저 미분하되 속 알맹이 $g(x)$는 그대로 유지한 값</li>
-                    <li>$g'(x)$ : 속함수 $g(x)$를 미분한 값을 곱해주는 과정 (Chain)</li>
+                    <li>$f(g(x))$ : Composite function where $g(x)$ is inside $f(x)$</li>
+                    <li>$f'(g(x))$ : Derivative of outer function evaluated at the unmodified inner function</li>
+                    <li>$g'(x)$ : Derivative of inner function multiplied at the end</li>
                 </ul>
             </div>
 
-            <h4>2. Derivative of Inverse Functions (역함수의 미분)</h4>
+            <h4>2. Derivative of Inverse Functions</h4>
             <p>$$(f^{-1})'(a) = \\frac{1}{f'(f^{-1}(a))}$$</p>
             <div class="symbol-box">
-                <strong>🔍 기호 설명 (Symbol Key):</strong>
+                <strong>🔍 Symbol Key:</strong>
                 <ul>
-                    <li>$f^{-1}$ : 원래 함수 $f$의 역함수</li>
-                    <li>$a$ : 역함수 입력값 (원래 함수 $f$의 Output y값)</li>
+                    <li>$f^{-1}$ : Inverse function of $f$</li>
+                    <li>$a$ : Input of inverse function (which equals output $y$ of original function $f$)</li>
                 </ul>
             </div>`,
 
         4: `<h3>Unit 4: Contextual Applications of Differentiation</h3>
-            <h4>📌 Overview (단원 개요)</h4>
-            <p>미분을 실제 물체의 운동(위치, 속도, 가속도)이나 시간에 따라 변화하는 도형의 부피/넓이 문제(Related Rates)에 적용합니다.</p>
+            <h4>📌 Unit Overview</h4>
+            <p>Apply derivatives to real-world contexts, including 1D particle motion (position, velocity, acceleration) and Related Rates problems involving geometric shapes changing over time.</p>
 
-            <h4>1. Motion Variables (물체 운동 기호)</h4>
+            <h4>1. Motion Variables</h4>
             <p>$$v(t) = s'(t), \\quad a(t) = v'(t) = s''(t)$$</p>
             <div class="symbol-box">
-                <strong>🔍 기호 설명 (Symbol Key):</strong>
+                <strong>🔍 Symbol Key:</strong>
                 <ul>
-                    <li>$s(t)$ or $x(t)$ : 시간 $t$에서의 물체의 위치 (Position)</li>
-                    <li>$v(t)$ : 시간 $t$에서의 속도 (Velocity, 방향 있음)</li>
-                    <li>$a(t)$ : 시간 $t$에서의 가속도 (Acceleration)</li>
-                    <li>$|v(t)|$ : 속력 (Speed, 크기만 있음). 속도와 가속도의 부호가 같으면 속력이 증가함!</li>
+                    <li>$s(t)$ or $x(t)$ : Position function at time $t$</li>
+                    <li>$v(t)$ : Velocity function at time $t$ (vector: has direction and sign)</li>
+                    <li>$a(t)$ : Acceleration function at time $t$</li>
+                    <li>$|v(t)|$ : Speed (scalar). Speed increases when $v(t)$ and $a(t)$ have the <strong>same sign</strong>!</li>
                 </ul>
             </div>`,
 
         5: `<h3>Unit 5: Applying Derivatives to Analyze Functions</h3>
-            <h4>📌 Overview (단원 개요)</h4>
-            <p>도함수($f'$)와 2계 도함수($f''$)의 부호를 분석하여 함수 그래프의 극댓값, 극솟값, 오목/볼록(Concavity), 변곡점을 찾고 최적화 문제(Optimization)를 해결합니다.</p>
+            <h4>📌 Unit Overview</h4>
+            <p>Analyze $f'$ and $f''$ to determine critical points, relative/absolute extrema, intervals of increase/decrease, concavity, points of inflection, and solve optimization problems.</p>
 
-            <h4>Key Concepts</h4>
+            <h4>Key Analytical Rules</h4>
             <ul>
-                <li>$f'(x) > 0 \\implies f(x)$ 증가 (Increasing)</li>
-                <li>$f'(x) < 0 \\implies f(x)$ 감소 (Decreasing)</li>
-                <li>$f''(x) > 0 \\implies$ 아래로 볼록 / 위로 오목 (Concave Up)</li>
-                <li>$f''(x) < 0 \\implies$ 위로 볼록 / 아래로 오목 (Concave Down)</li>
+                <li>$f'(x) > 0 \\implies f(x)$ is Increasing</li>
+                <li>$f'(x) < 0 \\implies f(x)$ is Decreasing</li>
+                <li>$f''(x) > 0 \\implies f(x)$ is Concave Up</li>
+                <li>$f''(x) < 0 \\implies f(x)$ is Concave Down</li>
             </ul>`,
 
         6: `<h3>Unit 6: Integration and Accumulation of Change</h3>
-            <h4>📌 Overview (단원 개요)</h4>
-            <p>적분(Integration)의 개념을 배웁니다. 적분은 미분의 역연산이며, 곡선 아래의 누적 면적(Net Signed Area)을 계산합니다.</p>
+            <h4>📌 Overview</h4>
+            <p>Introduction to Integration (antidifferentiation) to find the net signed area bounded by curves, connected via the Fundamental Theorem of Calculus.</p>
 
-            <h4>1. Fundamental Theorem of Calculus (미적분학의 기본 정리)</h4>
+            <h4>1. Fundamental Theorem of Calculus (FTC)</h4>
             <p>$$\\int_{a}^{b} f(x) dx = F(b) - F(a)$$</p>
             <div class="symbol-box">
-                <strong>🔍 기호 설명 (Symbol Key):</strong>
+                <strong>🔍 Symbol Key:</strong>
                 <ul>
-                    <li>$\\int_{a}^{b}$ : $a$부터 $b$까지 정적분하라는 기호</li>
-                    <li>$f(x)$ : 적분당하는 함수 (피적분함수)</li>
-                    <li>$dx$ : $x$축 방향의 아주 미세한 변화량 (높이 $\\times$ 폭의 폭 역할)</li>
-                    <li>$F(x)$ : $f(x)$의 부정적분 함수 ($F'(x) = f(x)$)</li>
+                    <li>$\\int_{a}^{b}$ : Definite integral from lower bound $a$ to upper bound $b$</li>
+                    <li>$f(x)$ : Integrand (function being integrated)</li>
+                    <li>$dx$ : Infinitesimal width along the x-axis</li>
+                    <li>$F(x)$ : Antiderivative of $f(x)$ such that $F'(x) = f(x)$</li>
                 </ul>
             </div>`,
 
         7: `<h3>Unit 7: Differential Equations</h3>
-            <h4>📌 Overview (단원 개요)</h4>
-            <p>미분방정식($\\frac{dy}{dx}$를 포함한 방정식)을 변수분리법(Separation of Variables)으로 풀어서 인구 증가나 방사성 붕괴 모델을 분석합니다.</p>
+            <h4>📌 Unit Overview</h4>
+            <p>Solve differential equations containing $\\frac{dy}{dx}$ using Separation of Variables to model population dynamics and exponential growth or decay.</p>
 
-            <h4>Exponential Growth/Decay (지수 성장/붕괴)</h4>
+            <h4>Exponential Growth / Decay</h4>
             <p>$$\\frac{dy}{dt} = ky \\implies y(t) = y_0 e^{kt}$$</p>
             <div class="symbol-box">
-                <strong>🔍 기호 설명 (Symbol Key):</strong>
+                <strong>🔍 Symbol Key:</strong>
                 <ul>
-                    <li>$y_0$ : 초기값 ($t=0$ 일 때의 $y$ 양)</li>
-                    <li>$k$ : 성장/붕괴 비례 상수 ($k>0$ 성장, $k<0$ 붕괴)</li>
-                    <li>$e$ : 자연상수 (약 2.718)</li>
+                    <li>$y_0$ : Initial quantity at $t=0$</li>
+                    <li>$k$ : Proportionality rate constant ($k>0$ growth, $k<0$ decay)</li>
+                    <li>$e$ : Euler's constant ($\approx 2.71828$)</li>
                 </ul>
             </div>`,
 
         8: `<h3>Unit 8: Applications of Integration</h3>
-            <h4>📌 Overview (단원 개요)</h4>
-            <p>정적분을 응용하여 두 곡선 사이의 넓이, 그리고 회전체의 부피(Disc Method, Washer Method)를 계산합니다.</p>
+            <h4>📌 Unit Overview</h4>
+            <p>Utilize definite integrals to calculate areas between curves and volumes of 3D solids using the Disc and Washer methods.</p>
 
-            <h4>Disc Method (회전체 부피)</h4>
+            <h4>Disc Method Volume</h4>
             <p>$$V = \\pi \\int_{a}^{b} [R(x)]^2 dx$$</p>
             <div class="symbol-box">
-                <strong>🔍 기호 설명 (Symbol Key):</strong>
+                <strong>🔍 Symbol Key:</strong>
                 <ul>
-                    <li>$V$ : 회전체의 총 부피</li>
-                    <li>$R(x)$ : 회전축으로부터 단면 원까지의 반지름 함수</li>
+                    <li>$V$ : Total volume of the solid of revolution</li>
+                    <li>$R(x)$ : Radius function from axis of rotation to curve edge</li>
                 </ul>
             </div>`,
 
         9: `<h3>Unit 9: Course Review and Exam Preparation</h3>
-            <h4>📌 Overview (단원 개요)</h4>
-            <p>AP Calculus AB 시험 대비를 위한 총정리 단원입니다. 서술형(FRQ) 감점 방지 팁과 계산기(TI-84/Nspire) 사용 전략을 점검합니다.</p>`
+            <h4>📌 Unit Overview</h4>
+            <p>Final preparation unit for the AP Calculus AB exam covering full-length FRQ rubric guidelines, error avoidance, and graphing calculator strategies.</p>`
     };
 
     const physicsData = {
         1: `<h3>Unit 1: Kinematics</h3>
-            <h4>📌 Overview (단원 개요)</h4>
-            <p>물체의 운동을 좌표, 속도, 가속도로 표현합니다. AP Physics C에서는 가속도가 일정하지 않은 경우가 많아 미분과 적분을 사용해 위치 $x(t)$와 속도 $v(t)$를 구합니다.</p>
+            <h4>📌 Unit Overview</h4>
+            <p>Describes motion using calculus. In AP Physics C, acceleration is often time-dependent, requiring integration and differentiation between position, velocity, and acceleration vectors.</p>
 
-            <h4>Calculus Relations (미적분 관계식)</h4>
+            <h4>Calculus Relations</h4>
             <p>$$v(t) = \\frac{dx}{dt}, \\quad a(t) = \\frac{dv}{dt} = \\frac{d^2x}{dt^2}$$</p>
             <div class="symbol-box">
-                <strong>🔍 기호 설명 (Symbol Key):</strong>
+                <strong>🔍 Symbol Key:</strong>
                 <ul>
-                    <li>$x(t)$ : 시간 $t$에 따른 위치 (Position)</li>
-                    <li>$v(t)$ : 시간 $t$에 따른 순간 속도 (Velocity)</li>
-                    <li>$a(t)$ : 시간 $t$에 따른 순간 가속도 (Acceleration)</li>
-                    <li>$\\frac{d^2x}{dt^2}$ : 위치 함수를 시간에 대해 2번 미분함 (2계 도함수)</li>
+                    <li>$x(t)$ : Position vector as a function of time $t$</li>
+                    <li>$v(t)$ : Instantaneous velocity</li>
+                    <li>$a(t)$ : Instantaneous acceleration</li>
+                    <li>$\\frac{d^2x}{dt^2}$ : Second derivative of position with respect to time</li>
                 </ul>
             </div>`,
 
         2: `<h3>Unit 2: Force and Dynamics</h3>
-            <h4>📌 Overview (단원 개요)</h4>
-            <p>뉴턴의 운동 법칙을 다룹니다. 힘($\\vec{F}$)이 물체에 작용할 때 발생하는 가속도와, 유체 저항력(Drag force)이 작용할 때 종단 속도(Terminal Velocity)에 도달하는 과정을 미분방정식으로 풀어냅니다.</p>
+            <h4>📌 Unit Overview</h4>
+            <p>Covers Newton's Laws of Motion, drag forces in fluids leading to terminal velocity, and differential equations derived from $\\sum \\vec{F} = m\\vec{a}$.</p>
 
-            <h4>Newton's 2nd Law (뉴턴 제2법칙)</h4>
+            <h4>Newton's Second Law</h4>
             <p>$$\\vec{F}_{net} = \\frac{d\\vec{p}}{dt} = m\\vec{a}$$</p>
             <div class="symbol-box">
-                <strong>🔍 기호 설명 (Symbol Key):</strong>
+                <strong>🔍 Symbol Key:</strong>
                 <ul>
-                    <li>$\\vec{F}_{net}$ : 물체에 작용하는 알짜힘 (Net Force, 벡터)</li>
-                    <li>$\\vec{p}$ : 선운동량 (Linear Momentum, $\\vec{p} = m\\vec{v}$)</li>
-                    <li>$m$ : 물체의 질량 (Mass)</li>
-                    <li>$\\vec{a}$ : 물체의 가속도 (Vector Acceleration)</li>
+                    <li>$\\vec{F}_{net}$ : Net vector sum of all external forces acting on mass $m$</li>
+                    <li>$\\vec{p}$ : Linear momentum vector ($\\vec{p} = m\\vec{v}$)</li>
+                    <li>$m$ : Mass of the object</li>
+                    <li>$\\vec{a}$ : Acceleration vector</li>
                 </ul>
             </div>`,
 
         3: `<h3>Unit 3: Work, Energy and Power</h3>
-            <h4>📌 Overview (단원 개요)</h4>
-            <p>일(Work)과 에너지(Energy)의 전환을 공부합니다. 변하는 힘이 작용할 때 일의 적분 계산법과, 보존력과 퍼텐셜 에너지(위치에너지) 사이의 관계를 미분 형태로 이해합니다.</p>
+            <h4>📌 Unit Overview</h4>
+            <p>Explores work done by variable forces via line integrals, conservation of mechanical energy, potential energy curves, and conservative force gradients.</p>
 
-            <h4>1. Work & Potential Energy (일과 퍼텐셜 에너지)</h4>
+            <h4>Work & Potential Energy</h4>
             <p>$$W = \\int_{x_1}^{x_2} F(x) dx, \\quad F(x) = -\\frac{dU}{dx}$$</p>
             <div class="symbol-box">
-                <strong>🔍 기호 설명 (Symbol Key):</strong>
+                <strong>🔍 Symbol Key:</strong>
                 <ul>
-                    <li>$W$ : 힘이 물체에 한 일 (Work, 단위: Joule)</li>
-                    <li>$F(x)$ : 위치 $x$에 따라 변하는 힘</li>
-                    <li>$U(x)$ : 퍼텐셜 에너지 (Potential Energy). 힘은 퍼텐셜 에너지가 감소하는 방향($-$ 부호)으로 작용함</li>
+                    <li>$W$ : Work done by force $F$ (Joules)</li>
+                    <li>$F(x)$ : Variable force as a function of position $x$</li>
+                    <li>$U(x)$ : Potential Energy. Forces act in the direction of decreasing potential energy ($-$ sign)</li>
                 </ul>
             </div>`,
 
         4: `<h3>Unit 4: Linear Momentum</h3>
-            <h4>📌 Overview (단원 개요)</h4>
-            <p>충돌 현상에서 중요한 운동량 보존 법칙과 충격량(Impulse)을 배우며, 연속적인 질량을 가진 물체의 질량중심(Center of Mass)을 적분으로 찾는 법을 다룹니다.</p>
+            <h4>📌 Unit Overview</h4>
+            <p>Covers impulse-momentum theory, elastic vs. inelastic collisions in 1D/2D, and calculating Center of Mass for continuous rigid bodies using integration.</p>
 
-            <h4>1. Impulse (충격량) & Center of Mass (질량중심)</h4>
+            <h4>Impulse & Center of Mass</h4>
             <p>$$\\vec{J} = \\int \\vec{F} dt = \\Delta \\vec{p}, \\quad x_{cm} = \\frac{1}{M} \\int x dm$$</p>
             <div class="symbol-box">
-                <strong>🔍 기호 설명 (Symbol Key):</strong>
+                <strong>🔍 Symbol Key:</strong>
                 <ul>
-                    <li>$\\vec{J}$ : 충격량 (Impulse). 힘-시간 그래프 아래의 넓이</li>
-                    <li>$\\Delta \\vec{p}$ : 운동량의 변화량 ($\\vec{p}_{final} - \\vec{p}_{initial}$)</li>
-                    <li>$x_{cm}$ : 물체의 질량 중심 X좌표</li>
-                    <li>$M$ : 물체의 전체 질량 ($\\int dm$)</li>
-                    <li>$dm$ : 미소 질량 조각</li>
+                    <li>$\\vec{J}$ : Impulse (Area under Force vs. Time curve)</li>
+                    <li>$\\Delta \\vec{p}$ : Change in linear momentum ($\\vec{p}_f - \\vec{p}_i$)</li>
+                    <li>$x_{cm}$ : X-coordinate of Center of Mass</li>
+                    <li>$M$ : Total system mass ($\\int dm$)</li>
+                    <li>$dm$ : Infinitesimal mass element</li>
                 </ul>
             </div>`,
 
         5: `<h3>Unit 5: Torque and Rotational Dynamics</h3>
-            <h4>📌 Overview (단원 개요)</h4>
-            <p>회전 운동을 본격적으로 다룹니다. 돌림힘(Torque)과 물체가 회전에 저항하는 정도인 관성모멘트(Moment of Inertia, $I$)를 계산합니다.</p>
+            <h4>📌 Unit Overview</h4>
+            <p>Introduces rotational counterparts of force and mass: Torque ($\\vec{\\tau}$), Moment of Inertia ($I$), and rotational Newton's 2nd Law ($\\tau = I\\alpha$).</p>
 
-            <h4>1. Torque & Moment of Inertia</h4>
+            <h4>Torque & Moment of Inertia</h4>
             <p>$$\\vec{\\tau} = \\vec{r} \\times \\vec{F}, \\quad \\tau_{net} = I \\alpha, \\quad I = \\int r^2 dm$$</p>
             <div class="symbol-box">
-                <strong>🔍 기호 설명 (Symbol Key):</strong>
+                <strong>🔍 Symbol Key:</strong>
                 <ul>
-                    <li>$\\vec{\\tau}$ (타우) : 돌림힘 (Torque). 회전시키는 힘의 효과</li>
-                    <li>$\\vec{r}$ : 회전축에서 힘이 작용하는 지점까지의 위치 벡터</li>
-                    <li>$I$ : 관성 모멘트 (Moment of Inertia). 회전 운동에서의 질량 역할</li>
-                    <li>$\\alpha$ (알파) : 각가속도 (Angular Acceleration, $\\frac{d\\omega}{dt}$)</li>
-                    <li>$r$ : 회전축으로부터 미소질량 $dm$까지의 거리</li>
+                    <li>$\\vec{\\tau}$ (tau) : Torque (rotational force vector)</li>
+                    <li>$\\vec{r}$ : Position vector from axis of rotation to point of force application</li>
+                    <li>$I$ : Moment of inertia (rotational mass/resistance to rotation)</li>
+                    <li>$\\alpha$ (alpha) : Angular acceleration ($\\frac{d\\omega}{dt}$)</li>
+                    <li>$r$ : Perpendicular distance from rotational axis to mass element $dm$</li>
                 </ul>
             </div>`,
 
         6: `<h3>Unit 6: Energy and Momentum of Rotating Systems</h3>
-            <h4>📌 Overview (단원 개요)</h4>
-            <p>굴러가는 물체(Rolling Motion)의 회전 운동에너지와, 외부 돌림힘이 없을 때 유지되는 각운동량 보존 법칙(Conservation of Angular Momentum)을 다룹니다.</p>
+            <h4>📌 Unit Overview</h4>
+            <p>Analyzes rolling motion without slipping (combining translational + rotational kinetic energy) and Conservation of Angular Momentum ($L$).</p>
 
-            <h4>1. Angular Momentum (각운동량)</h4>
+            <h4>Angular Momentum</h4>
             <p>$$L = I \\omega, \\quad \\vec{L} = \\vec{r} \\times \\vec{p}$$</p>
             <div class="symbol-box">
-                <strong>🔍 기호 설명 (Symbol Key):</strong>
+                <strong>🔍 Symbol Key:</strong>
                 <ul>
-                    <li>$L$ : 각운동량 (Angular Momentum)</li>
-                    <li>$\\omega$ (오메가) : 각속도 (Angular Velocity)</li>
-                    <li>$\\vec{p}$ : 선운동량 ($m\\vec{v}$)</li>
+                    <li>$L$ : Angular momentum</li>
+                    <li>$\\omega$ (omega) : Angular velocity ($\text{rad/s}$)</li>
+                    <li>$\\vec{p}$ : Linear momentum ($m\\vec{v}$)</li>
                 </ul>
             </div>`,
 
         7: `<h3>Unit 7: Oscillations</h3>
-            <h4>📌 Overview (단원 개요)</h4>
-            <p>용수철이나 진자처럼 제자리에서 반복해서 흔들리는 단순 조화 운동(Simple Harmonic Motion, SHM)을 2계 미분방정식으로 해석하고 주기($T$)를 구합니다.</p>
+            <h4>📌 Unit Overview</h4>
+            <p>Studies Simple Harmonic Motion (SHM) for mass-spring systems and physical pendulums modeled by second-order differential equations.</p>
 
             <h4>Simple Harmonic Motion Equation</h4>
             <p>$$\\frac{d^2x}{dt^2} + \\omega^2 x = 0 \\implies T = 2\\pi \\sqrt{\\frac{m}{k}}$$</p>
             <div class="symbol-box">
-                <strong>🔍 기호 설명 (Symbol Key):</strong>
+                <strong>🔍 Symbol Key:</strong>
                 <ul>
-                    <li>$\\omega$ : 고유 각진동수 (Angular frequency, $\\omega = \\sqrt{\\frac{k}{m}}$)</li>
-                    <li>$T$ : 진동 주기 (Period, 1회 왕복하는 데 걸리는 시간)</li>
-                    <li>$k$ : 용수철 상수 (Spring Constant)</li>
-                    <li>$m$ : 매달린 물체의 질량</li>
+                    <li>$\\omega$ : Natural angular frequency ($\\omega = \\sqrt{\\frac{k}{m}}$)</li>
+                    <li>$T$ : Period (time required for 1 full cycle)</li>
+                    <li>$k$ : Spring constant</li>
+                    <li>$m$ : Mass attached to oscillator</li>
                 </ul>
             </div>`
     };
