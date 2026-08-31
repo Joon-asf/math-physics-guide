@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
-        onload="renderMathInElement(document.body);"></script>
+        onload="initKaTeX()"></script>
 
     <style>
         * { box-sizing: border-box; }
@@ -138,6 +138,16 @@
 </div>
 
 <script>
+    function initKaTeX() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false}
+            ],
+            throwOnError: false
+        });
+    }
+
     function handleLogin(event) {
         event.preventDefault();
         const id = document.getElementById('username').value;
@@ -242,7 +252,7 @@
         6: `<h3>Unit 6: Integration and Accumulation of Change</h3>
             <h4>1. Fundamental Theorem of Calculus (FTC)</h4>
             <p><strong>Part 1:</strong> $\\frac{d}{dx} \\int_{a}^{x} f(t) dt = f(x)$</p>
-            <p><strong>Part 2:</strong> $\\int_{a}^{b} f(x) dx = F(b) - F(a)$</p>
+            <p><strong>Part 2:</strong> \\int_{a}^{b} f(x) dx = F(b) - F(a)</p>
             <h4>2. u-Substitution</h4>
             <p>Used to reverse the Chain Rule for integration.</p>`,
         7: `<h3>Unit 7: Differential Equations</h3>
@@ -315,8 +325,8 @@
 
         showScreen('screen-summary');
         
-        if (window.renderMathInElement) {
-            renderMathInElement(document.body);
+        if (window.initKaTeX) {
+            initKaTeX();
         }
     }
 </script>
