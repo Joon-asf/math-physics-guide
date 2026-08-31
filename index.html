@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Math & Physics Society Guidebook</title>
     
-    <!-- KaTeX CSS & JS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
@@ -15,10 +14,10 @@
         * { box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: #f4f6f9;
+            background-color: #f7f3f3;
             margin: 0;
             padding: 20px;
-            color: #333;
+            color: #2c2c2c;
             display: flex;
             justify-content: center;
         }
@@ -28,13 +27,14 @@
             background: white;
             padding: 30px;
             border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(122, 28, 41, 0.12);
+            border-top: 6px solid #7A1C29;
         }
         .screen { display: none; }
         .active { display: block; }
 
         .btn {
-            background-color: #0066cc;
+            background-color: #7A1C29;
             color: white;
             border: none;
             padding: 12px 20px;
@@ -46,14 +46,14 @@
             text-align: left;
             width: 100%;
         }
-        .btn:hover { background-color: #004b99; }
+        .btn:hover { background-color: #5c141e; }
         .btn-subject { font-size: 18px; text-align: center; }
-        .btn-back { background-color: #6c757d; text-align: center; width: auto; }
-        .btn-back:hover { background-color: #5a6268; }
+        .btn-back { background-color: #555555; text-align: center; width: auto; }
+        .btn-back:hover { background-color: #333333; }
 
         .login-box { max-width: 350px; margin: 40px auto; text-align: center; }
         .input-group { margin-bottom: 15px; text-align: left; }
-        .input-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+        .input-group label { display: block; margin-bottom: 5px; font-weight: bold; color: #7A1C29; }
         .input-group input {
             width: 100%;
             padding: 10px;
@@ -63,32 +63,32 @@
         .error-msg { color: #dc3545; display: none; margin-top: 10px; font-size: 14px; }
         
         .summary-card {
-            background: #f8f9fa;
-            border-left: 5px solid #0066cc;
+            background: #fdfafb;
+            border-left: 5px solid #7A1C29;
             padding: 24px;
             margin-top: 20px;
             border-radius: 6px;
             line-height: 1.7;
         }
-        .summary-card h3 { color: #0066cc; margin-top: 0; border-bottom: 2px solid #e0e0e0; padding-bottom: 8px; }
-        .summary-card h4 { margin-top: 22px; margin-bottom: 8px; color: #111; font-size: 16px; border-left: 3px solid #0066cc; padding-left: 8px; }
+        .summary-card h3 { color: #7A1C29; margin-top: 0; border-bottom: 2px solid #f0d8dc; padding-bottom: 8px; }
+        .summary-card h4 { margin-top: 22px; margin-bottom: 8px; color: #7A1C29; font-size: 16px; border-left: 3px solid #D4AF37; padding-left: 8px; }
         .summary-card p { margin-top: 5px; color: #444; }
         .summary-card ul, .summary-card ol { padding-left: 20px; margin-top: 5px; color: #444; }
         
         .symbol-box {
-            background-color: #eef5fc;
-            border: 1px solid #cce0f5;
+            background-color: #fcf8f3;
+            border: 1px solid #f3e5d0;
             border-radius: 6px;
             padding: 12px 15px;
             margin: 10px 0 15px 0;
             font-size: 14px;
         }
-        .symbol-box strong { color: #004b99; }
+        .symbol-box strong { color: #7A1C29; }
 
         .exam-tip {
-            background-color: #fff3cd;
-            border: 1px solid #ffeeba;
-            color: #856404;
+            background-color: #fff8e6;
+            border: 1px solid #D4AF37;
+            color: #665000;
             padding: 12px 15px;
             border-radius: 6px;
             margin-top: 20px;
@@ -99,7 +99,6 @@
 
 <div class="container">
 
-    <!-- 1. Login Screen -->
     <div id="screen-login" class="screen active">
         <div class="login-box">
             <h2>🔒 Member Login</h2>
@@ -118,7 +117,6 @@
         </div>
     </div>
 
-    <!-- 2. Subject Selection Screen -->
     <div id="screen-subject" class="screen">
         <h2>📚 Select Course</h2>
         <p>Select a course syllabus to review key concepts, formulas, and symbol breakdowns.</p>
@@ -129,7 +127,6 @@
         </div>
     </div>
 
-    <!-- 3. Unit Selection Screen -->
     <div id="screen-unit" class="screen">
         <h2 id="subject-title">Subject Title</h2>
         <p>Select a Unit from the syllabus:</p>
@@ -139,7 +136,6 @@
         </div>
     </div>
 
-    <!-- 4. Summary Screen -->
     <div id="screen-summary" class="screen">
         <h2 id="summary-title">Unit Summary</h2>
         <div id="summary-content" class="summary-card"></div>
