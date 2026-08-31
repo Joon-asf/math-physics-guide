@@ -73,7 +73,7 @@
         .summary-card h3 { color: #0066cc; margin-top: 0; border-bottom: 2px solid #e0e0e0; padding-bottom: 8px; }
         .summary-card h4 { margin-top: 20px; margin-bottom: 5px; color: #111; font-size: 16px; }
         .summary-card p { margin-top: 5px; color: #444; }
-        .summary-card ul { padding-left: 20px; margin-top: 5px; color: #444; }
+        .summary-card ul, .summary-card ol { padding-left: 20px; margin-top: 5px; color: #444; }
         .exam-tip {
             background-color: #fff3cd;
             border: 1px solid #ffeeba;
@@ -92,7 +92,7 @@
     <div id="screen-login" class="screen active">
         <div class="login-box">
             <h2>🔒 Member Login</h2>
-            <form onsubmit="handleLogin(event)">
+            <form id="loginForm">
                 <div class="input-group">
                     <label>Username</label>
                     <input type="text" id="username" required placeholder="Enter Username">
@@ -141,19 +141,21 @@
 
 <script>
     function initKaTeX() {
-        renderMathInElement(document.body, {
-            delimiters: [
-                {left: '$$', right: '$$', display: true},
-                {left: '$', right: '$', display: false}
-            ],
-            throwOnError: false
-        });
+        if (typeof renderMathInElement === "function") {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: '$$', right: '$$', display: true},
+                    {left: '$', right: '$', display: false}
+                ],
+                throwOnError: false
+            });
+        }
     }
 
-    function handleLogin(event) {
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
         event.preventDefault();
-        const id = document.getElementById('username').value;
-        const pw = document.getElementById('password').value;
+        const id = document.getElementById('username').value.trim();
+        const pw = document.getElementById('password').value.trim();
         const errorMsg = document.getElementById('login-error');
 
         if (id === "MathPhysicsSociety" && pw === "asf123") {
@@ -162,7 +164,7 @@
         } else {
             errorMsg.style.display = "block";
         }
-    }
+    });
 
     function logout() {
         document.getElementById('username').value = '';
@@ -220,224 +222,102 @@
         1: `<h3>Unit 1: Limits and Continuity</h3>
             <h4>💡 Core Concept</h4>
             <p>Calculus begins with understanding behavior near a point. A <strong>limit</strong> describes the value a function approaches as input values get arbitrarily close to a specific value, even if the function doesn't exist at that exact point.</p>
-
             <h4>1. Existence of Limits</h4>
-            <p>For a limit to exist at $x = c$, the left-hand limit and right-hand limit must approach the exact same value $L$:</p>
             <p>$$\\lim_{x \\to c^-} f(x) = \\lim_{x \\to c^+} f(x) = L \\iff \\lim_{x \\to c} f(x) = L$$</p>
-
             <h4>2. Continuity (The 3-Part Checklist)</h4>
-            <p>Graphically, continuity means drawing a curve without lifting your pencil. Mathematically, it requires meeting 3 strict conditions at $x = c$:</p>
             <ul>
-                <li>$f(c)$ is defined (no hole or asymptote at $c$).</li>
-                <li>$\\lim_{x \\to c} f(x)$ exists (left and right sides meet).</li>
-                <li>$\\lim_{x \\to c} f(x) = f(c)$ (the limit value matches the actual point).</li>
+                <li>$f(c)$ is defined.</li>
+                <li>$\\lim_{x \\to c} f(x)$ exists.</li>
+                <li>$\\lim_{x \\to c} f(x) = f(c)$.</li>
             </ul>
-
             <h4>3. Intermediate Value Theorem (IVT)</h4>
-            <p>If a function is continuous on a closed interval $[a, b]$, it must hit every intermediate value between $f(a)$ and $f(b)$. This is used in FRQs to guarantee that a equation has a root or reaches a specific output.</p>
-            
-            <div class="exam-tip"><strong>🎯 AP Exam Strategy:</strong> On Free Response Questions, you will lose points if you don't explicitly write: <em>"Since $f(x)$ is continuous on $[a,b]..."</em> before invoking IVT.</div>`,
+            <p>If $f(x)$ is continuous on $[a, b]$, it must hit every intermediate value between $f(a)$ and $f(b)$.</p>
+            <div class="exam-tip"><strong>🎯 AP Exam Strategy:</strong> On Free Response Questions, state <em>"Since $f(x)$ is continuous on $[a,b]$..."</em> before applying IVT.</div>`,
 
         2: `<h3>Unit 2: Differentiation: Definition and Rules</h3>
             <h4>💡 Core Concept</h4>
-            <p>The <strong>derivative</strong> represents the instantaneous rate of change of a function, or geometrically, the slope of the tangent line to the curve at a given point.</p>
-
+            <p>The <strong>derivative</strong> represents the instantaneous rate of change of a function, or the slope of the tangent line to the curve at a given point.</p>
             <h4>1. Limit Definition of Derivative</h4>
-            <p>The derivative is derived from the slope formula as the distance $h$ between two points shrinks to zero:</p>
             <p>$$f'(x) = \\lim_{h \\to 0} \\frac{f(x+h) - f(x)}{h}$$</p>
-
             <h4>2. Differentiation Rules</h4>
             <ul>
-                <li><strong>Power Rule:</strong> Useful for polynomials. $\\frac{d}{dx}[x^n] = n x^{n-1}$</li>
-                <li><strong>Product Rule:</strong> Needed when two functions are multiplied. $\\frac{d}{dx}[uv] = u'v + uv'$</li>
-                <li><strong>Quotient Rule:</strong> Needed when functions are divided. $\\frac{d}{dx}\\left[\\frac{u}{v}\\right] = \\frac{u'v - uv'}{v^2}$</li>
-            </ul>
-
-            <div class="exam-tip"><strong>🎯 AP Exam Strategy:</strong> Differentiability implies continuity! If a function is differentiable at $x=c$, it is automatically continuous there. However, the reverse is NOT true (e.g., sharp turns or vertical tangents).</div>`,
+                <li><strong>Power Rule:</strong> $\\frac{d}{dx}[x^n] = n x^{n-1}$</li>
+                <li><strong>Product Rule:</strong> $\\frac{d}{dx}[uv] = u'v + uv'$</li>
+                <li><strong>Quotient Rule:</strong> $\\frac{d}{dx}\\left[\\frac{u}{v}\\right] = \\frac{u'v - uv'}{v^2}$</li>
+            </ul>`,
 
         3: `<h3>Unit 3: Composite, Implicit & Inverse Functions</h3>
             <h4>💡 Core Concept</h4>
-            <p>Real-world functions are often nested inside one another or defined implicitly ($x$ and $y$ mixed together). This unit provides techniques to differentiate complex structures.</p>
-
+            <p>Real-world functions are often nested inside one another or defined implicitly ($x$ and $y$ mixed together).</p>
             <h4>1. Chain Rule</h4>
-            <p>Used for composite functions $f(g(x))$. Differentiate the outer function while keeping the inner intact, then multiply by the derivative of the inner function:</p>
             <p>$$\\frac{d}{dx}[f(g(x))] = f'(g(x)) \\cdot g'(x)$$</p>
-
             <h4>2. Implicit Differentiation</h4>
-            <p>When you cannot solve explicitly for $y$, differentiate both sides with respect to $x$. Remember to apply the Chain Rule to any term involving $y$, attaching a $\\frac{dy}{dx}$.</p>
-
+            <p>Differentiate both sides with respect to $x$, applying the Chain Rule to $y$ terms by appending $\\frac{dy}{dx}$.</p>
             <h4>3. Inverse Function Derivative</h4>
-            <p>If $g(x) = f^{-1}(x)$, their slopes are reciprocals at corresponding points:</p>
             <p>$$(f^{-1})'(a) = \\frac{1}{f'(f^{-1}(a))}$$</p>`,
 
         4: `<h3>Unit 4: Contextual Applications of Differentiation</h3>
             <h4>💡 Core Concept</h4>
-            <p>Derivatives explain how quantities change over time in real-world contexts, such as particle motion and related rates of changing physical systems.</p>
-
+            <p>Derivatives explain how quantities change over time in real-world contexts, such as particle motion and related rates.</p>
             <h4>1. Particle Motion</h4>
-            <ul>
-                <li><strong>Velocity $v(t)$:</strong> Rate of change of position $s'(t)$. Sign indicates direction (positive = right/up, negative = left/down).</li>
-                <li><strong>Acceleration $a(t)$:</strong> Rate of change of velocity $v'(t)$.</li>
-                <li><strong>Speed:</strong> Magnitude of velocity $|v(t)|$. Speed is <em>increasing</em> when $v(t)$ and $a(t)$ have the <strong>same sign</strong>.</li>
-            </ul>
-
+            <p>Velocity: $v(t) = s'(t)$, Acceleration: $a(t) = v'(t)$. Speed increases when $v(t)$ and $a(t)$ have the <strong>same sign</strong>.</p>
             <h4>2. Related Rates</h4>
-            <p>Systematic approach for geometric rate problems (e.g., expanding spheres, draining cones):</p>
-            <ol>
-                <li>Draw a diagram and label variables vs. constants.</li>
-                <li>Write a geometric formula linking the variables.</li>
-                <li>Differentiate with respect to time $t$ using the Chain Rule.</li>
-                <li>Substitute known rates and solve for the unknown rate.</li>
-            </ol>`,
+            <p>Differentiate geometric formulas with respect to time $t$ using the Chain Rule to find unknown rates.</p>`,
 
         5: `<h3>Unit 5: Applying Derivatives to Analyze Functions</h3>
             <h4>💡 Core Concept</h4>
-            <p>By analyzing the first and second derivatives, we can sketch graphs accurately and find optimal solutions (maxima/minima) for engineering and business models.</p>
-
-            <h4>1. Critical Points & Local Extrema</h4>
-            <p>Critical points occur where $f'(x) = 0$ or $f'(x)$ is undefined.</p>
-            <ul>
-                <li><strong>First Derivative Test:</strong> If $f'$ changes from $+$ to $-$, $f$ has a local maximum. If $f'$ changes from $-$ to $+$, $f$ has a local minimum.</li>
-                <li><strong>Second Derivative Test:</strong> At a critical point where $f'(c) = 0$, if $f''(c) < 0$ (concave down), $c$ is a local max. If $f''(c) > 0$ (concave up), $c$ is a local min.</li>
-            </ul>
-
-            <h4>2. Concavity & Inflection Points</h4>
-            <p>$f''(x) > 0$ means concave up (holds water); $f''(x) < 0$ means concave down. A <strong>Point of Inflection</strong> occurs where $f''(x)$ changes sign.</p>`,
+            <p>Analyzing derivatives helps sketch graphs and determine maximum/minimum values for optimization problems.</p>
+            <h4>1. Critical Points & Extrema</h4>
+            <p>Critical points occur where $f'(x) = 0$ or is undefined. $f'(x) > 0 \\implies$ Increasing, $f''(x) > 0 \\implies$ Concave Up.</p>`,
 
         6: `<h3>Unit 6: Integration and Accumulation of Change</h3>
             <h4>💡 Core Concept</h4>
-            <p>Integration connects accumulation with rate of change. It serves as the inverse operation to differentiation and calculates the net area under a curve.</p>
-
+            <p>Integration accumulates change and calculates the net area under a curve.</p>
             <h4>1. Fundamental Theorem of Calculus (FTC)</h4>
-            <p><strong>Part 1 (Accumulation):</strong> $\\frac{d}{dx} \\int_{a}^{x} f(t) dt = f(x)$</p>
-            <p><strong>Part 2 (Evaluation):</strong> $\\int_{a}^{b} f(x) dx = F(b) - F(a)$, where $F'(x) = f(x)$.</p>
-
-            <h4>2. Integration Techniques</h4>
-            <p><strong>u-Substitution:</strong> The reverse Chain Rule. Replace an inner expression with $u$ and adjust $dx$ to $du$.</p>`,
+            <p>Part 1: $\\frac{d}{dx} \\int_{a}^{x} f(t) dt = f(x)$ | Part 2: $\\int_{a}^{b} f(x) dx = F(b) - F(a)$</p>`,
 
         7: `<h3>Unit 7: Differential Equations</h3>
             <h4>💡 Core Concept</h4>
-            <p>Differential equations relate an unknown function to its own derivatives. They model real-world growth, decay, and environmental systems.</p>
-
-            <h4>1. Separation of Variables</h4>
-            <p>To solve $\\frac{dy}{dx} = f(x)g(y)$, rewrite so all $y$ terms are on the left and $x$ terms on the right, then integrate both sides:</p>
-            <p>$$\\int \\frac{1}{g(y)} dy = \\int f(x) dx + C$$</p>
-
-            <h4>2. Exponential Growth & Decay</h4>
-            <p>When the rate of change is proportional to the amount present ($\\frac{dy}{dt} = ky$), the solution is always $y(t) = y_0 e^{kt}$.</p>`,
+            <p>Equations linking a function to its derivative. Solved via separation of variables.</p>
+            <p>$$\\frac{dy}{dt} = ky \\implies y(t) = y_0 e^{kt}$$</p>`,
 
         8: `<h3>Unit 8: Applications of Integration</h3>
             <h4>💡 Core Concept</h4>
-            <p>Integrals allow us to compute physical measurements like area between curves, volumes of 3D solids, and average values of continuous functions.</p>
-
-            <h4>1. Area & Average Value</h4>
-            <p><strong>Area:</strong> $A = \\int_{a}^{b} (\\text{Top} - \\text{Bottom}) dx$</p>
-            <p><strong>Average Value:</strong> $f_{avg} = \\frac{1}{b-a} \\int_{a}^{b} f(x) dx$</p>
-
-            <h4>2. Volumes of Revolution</h4>
-            <ul>
-                <li><strong>Disc Method:</strong> $V = \\pi \\int_{a}^{b} [R(x)]^2 dx$</li>
-                <li><strong>Washer Method:</strong> $V = \\pi \\int_{a}^{b} \\left( [R(x)]^2 - [r(x)]^2 \\right) dx$</li>
-            </ul>`,
+            <p>Integrals calculate area between curves and volumes of 3D solids.</p>
+            <p>Disc: $V = \\pi \\int [R(x)]^2 dx$ | Washer: $V = \\pi \\int ([R(x)]^2 - [r(x)]^2) dx$</p>`,
 
         9: `<h3>Unit 9: Course Review and Exam Preparation</h3>
-            <h4>💡 Exam Mastery Checklist</h4>
+            <h4>💡 AP Exam Prep</h4>
             <ul>
-                <li><strong>Justifications:</strong> Always state prerequisites (continuity, differentiability) before quoting IVT, EVT, or MVT.</li>
-                <li><strong>Calculator Efficiency:</strong> Practice storing functions in Y1 and using numerical integration (`fnInt`) and derivatives (`nDeriv`). Do not round intermediate steps.</li>
-                <li><strong>Units of Measurement:</strong> Always attach correct units to FRQ answers (e.g., $ft/sec^2$ for acceleration, $gallons$ for total accumulation).</li>
+                <li>Verify prerequisites (continuity/differentiability) before using IVT or MVT.</li>
+                <li>Do not round intermediate calculation steps on calculator sections.</li>
             </ul>`
     };
 
     const physicsData = {
         1: `<h3>Unit 1: Kinematics</h3>
             <h4>💡 Core Concept</h4>
-            <p>Kinematics describes motion without considering the forces causing it. In AP Physics C, acceleration is frequently time-dependent, requiring calculus instead of simple algebra formulas.</p>
-
-            <h4>1. Calculus Relationships</h4>
-            <p>Velocity is the derivative of position, and acceleration is the derivative of velocity:</p>
-            <p>$$v(t) = \\frac{dx}{dt}, \\quad a(t) = \\frac{dv}{dt} = \\frac{d^2x}{dt^2}$$</p>
-            <p>To go from acceleration back to position, integrate over time:</p>
-            <p>$$x(t) = x_0 + \\int_{0}^{t} v(t') dt'$$</p>
-
-            <div class="exam-tip"><strong>🎯 AP Physics Strategy:</strong> When acceleration is a function of position $a(x)$ rather than time $a(t)$, use the calculus chain rule trick: $a = v \\frac{dv}{dx}$.</div>`,
-
+            <p>Kinematics describes motion using calculus for variable acceleration.</p>
+            <p>$$v(t) = \\frac{dx}{dt}, \\quad a(t) = \\frac{dv}{dt} = \\frac{d^2x}{dt^2}$$</p>`,
         2: `<h3>Unit 2: Force and Dynamics</h3>
             <h4>💡 Core Concept</h4>
-            <p>Dynamics explains why objects move. Newton's laws govern how forces produce acceleration and change momentum.</p>
-
-            <h4>1. Newton's 2nd Law (Calculus Form)</h4>
-            <p>Force is fundamentally defined as the rate of change of momentum over time:</p>
             <p>$$\\vec{F}_{net} = \\frac{d\\vec{p}}{dt} = m\\vec{a}$$</p>
-
-            <h4>2. Drag Force & Differential Equations</h4>
-            <p>Objects moving through fluids experience velocity-dependent drag forces ($F_D = -bv$ or $-cv^2$). Finding velocity requires setting up a differential equation:</p>
-            <p>$$mg - bv = m\\frac{dv}{dt}$$</p>
-            <p><strong>Terminal Velocity ($v_T$):</strong> Occurs when net force reaches zero ($a = 0$), meaning $mg = bv_T \\implies v_T = \\frac{mg}{b}$.</p>`,
-
+            <p>Terminal Velocity ($v_T$): $mg - bv_T = 0 \\implies v_T = \\frac{mg}{b}$.</p>`,
         3: `<h3>Unit 3: Work, Energy and Power</h3>
             <h4>💡 Core Concept</h4>
-            <p>Work transfers energy to a system. Conservative forces store potential energy, while total mechanical energy remains conserved when non-conservative forces are absent.</p>
-
-            <h4>1. Variable Work & Potential Energy</h4>
-            <p>When force varies with position, Work is computed via integration:</p>
-            <p>$$W = \\int_{x_1}^{x_2} F(x) dx$$</p>
-            <p>For conservative forces, Force is the negative spatial derivative of Potential Energy:</p>
-            <p>$$F(x) = -\\frac{dU}{dx}$$</p>
-
-            <h4>2. Power</h4>
-            <p>Power is the rate of work done or energy transformed: $P = \\frac{dW}{dt} = \\vec{F} \\cdot \\vec{v}$.</p>`,
-
+            <p>$$W = \\int_{x_1}^{x_2} F(x) dx, \\quad F(x) = -\\frac{dU}{dx}, \\quad P = \\vec{F} \\cdot \\vec{v}$$</p>`,
         4: `<h3>Unit 4: Linear Momentum</h3>
             <h4>💡 Core Concept</h4>
-            <p>Momentum measures how hard it is to stop a moving body. In isolated systems, total momentum is strictly conserved during collisions.</p>
-
-            <h4>1. Impulse-Momentum Theorem</h4>
-            <p>Impulse is the accumulation of force over time, equal to the change in momentum:</p>
-            <p>$$\\vec{J} = \\int \\vec{F} dt = \\Delta \\vec{p}$$</p>
-
-            <h4>2. Center of Mass for Continuous Objects</h4>
-            <p>For extended rigid bodies with non-uniform density, the center of mass is found by integrating density over volume:</p>
-            <p>$$x_{cm} = \\frac{1}{M} \\int x dm$$</p>`,
-
+            <p>$$\\vec{J} = \\int \\vec{F} dt = \\Delta \\vec{p}, \\quad x_{cm} = \\frac{1}{M} \\int x dm$$</p>`,
         5: `<h3>Unit 5: Torque and Rotational Dynamics</h3>
             <h4>💡 Core Concept</h4>
-            <p>Rotational dynamics mirrors linear dynamics, with Torque replacing Force and Moment of Inertia replacing Mass.</p>
-
-            <h4>1. Torque & Rotational Newton's 2nd Law</h4>
-            <p>$$\\vec{\\tau} = \\vec{r} \\times \\vec{F} = r F \\sin\\theta, \\quad \\sum \\tau = I \\alpha$$</p>
-
-            <h4>2. Moment of Inertia ($I$)</h4>
-            <p>Measures rotational inertia (resistance to angular acceleration):</p>
-            <p>$$I = \\int r^2 dm$$</p>
-            <p><strong>Parallel Axis Theorem:</strong> $I = I_{cm} + M d^2$ (used when rotating around an axis away from the center of mass).</p>`,
-
+            <p>$$\\vec{\\tau} = \\vec{r} \\times \\vec{F}, \\quad \\tau_{net} = I \\alpha, \\quad I = \\int r^2 dm$$</p>`,
         6: `<h3>Unit 6: Energy and Momentum of Rotating Systems</h3>
             <h4>💡 Core Concept</h4>
-            <p>Rolling motion combines both translational and rotational kinetic energy. Angular momentum is conserved when no external net torques act on the system.</p>
-
-            <h4>1. Rolling Without Slipping</h4>
-            <p>When an object rolls smoothly, $v_{cm} = R\\omega$ and $a_{cm} = R\\alpha$. Total Kinetic Energy is:</p>
-            <p>$$K_{total} = K_{trans} + K_{rot} = \\frac{1}{2}m v_{cm}^2 + \\frac{1}{2}I \\omega^2$$</p>
-
-            <h4>2. Angular Momentum Conservation</h4>
-            <p>$$L = I\\omega \\quad \\text{or} \\quad \\vec{L} = \\vec{r} \\times \\vec{p}$$</p>
-            <p>If $\\sum \\tau_{ext} = 0$, then $L_{initial} = L_{final}$.</p>`,
-
+            <p>$$K_{rot} = \\frac{1}{2}I \\omega^2, \\quad L = I \\omega$$</p>`,
         7: `<h3>Unit 7: Oscillations</h3>
             <h4>💡 Core Concept</h4>
-            <p>Simple Harmonic Motion (SHM) occurs when a restoring force is directly proportional to displacement from equilibrium ($F = -kx$).</p>
-
-            <h4>1. SHM Differential Equation</h4>
-            <p>Combining Newton's 2nd Law with Hooke's Law yields the classic second-order differential equation:</p>
-            <p>$$\\frac{d^2x}{dt^2} + \\omega^2 x = 0$$</p>
-
-            <h4>2. Key Period Formulas</h4>
-            <ul>
-                <li><strong>Mass-Spring System:</strong> $\\omega = \\sqrt{\\frac{k}{m}}, \\quad T = 2\\pi \\sqrt{\\frac{m}{k}}$</li>
-                <li><strong>Simple Pendulum:</strong> $\\omega = \\sqrt{\\frac{g}{L}}, \\quad T = 2\\pi \\sqrt{\\frac{L}{g}}$</li>
-                <li><strong>Physical Pendulum:</strong> $T = 2\\pi \\sqrt{\\frac{I}{mgd}}$</li>
-            </ul>`
+            <p>$$\\frac{d^2x}{dt^2} + \\omega^2 x = 0 \\implies T = 2\\pi \\sqrt{\\frac{m}{k}}$$</p>`
     };
 
     function showSummary(subject, unitNum) {
@@ -454,9 +334,9 @@
 
         showScreen('screen-summary');
         
-        if (window.initKaTeX) {
+        setTimeout(() => {
             initKaTeX();
-        }
+        }, 50);
     }
 </script>
 
