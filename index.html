@@ -87,15 +87,6 @@
         }
         .symbol-box strong { color: #7A1C29; }
 
-        .exam-tip {
-            background-color: #fff8e6;
-            border: 1px solid #D4AF37;
-            color: #665000;
-            padding: 12px 15px;
-            border-radius: 6px;
-            margin-top: 20px;
-        }
-
         /* Practice Mode Styles */
         .timer-bar {
             display: flex;
@@ -135,7 +126,6 @@
         }
         .explanation-box { background: #f4f4f4; border-left-color: #6c757d; }
 
-        /* Stats Styles */
         .stat-badge {
             display: inline-block;
             padding: 6px 12px;
@@ -328,14 +318,14 @@
             document.getElementById('subject-title').innerText = "📐 AP Calculus AB";
             const units = [
                 "Unit 1: Limits and Continuity",
-                "Unit 2: Differentiation, definition and rules",
-                "Unit 3: Differentiating composite and inverse functions",
-                "Unit 4: Contextual applications of differentiation",
-                "Unit 5: Applying derivatives to analyze functions",
+                "Unit 2: Differentiation: Definition and Fundamental Rules",
+                "Unit 3: Differentiating Composite, Implicit & Inverse Functions",
+                "Unit 4: Contextual Applications of Differentiation",
+                "Unit 5: Analytical Applications of Differentiation",
                 "Unit 6: Integration and Accumulation of Change",
                 "Unit 7: Differential Equations",
-                "Unit 8: Applications of integration",
-                "Unit 9: Course review and exam preparation"
+                "Unit 8: Applications of Integration",
+                "Unit 9: Course Review and Exam Preparation"
             ];
             units.forEach((u, index) => {
                 unitContainer.innerHTML += `<button class="btn btn-subject" style="text-align:left;" onclick="showSummary('calc', ${index + 1})">${u}</button>`;
@@ -346,7 +336,7 @@
                 "Unit 1: Kinematics",
                 "Unit 2: Force and Dynamics",
                 "Unit 3: Work, Energy and Power",
-                "Unit 4: Linear Momentum",
+                "Unit 4: Linear Momentum & Systems of Particles",
                 "Unit 5: Torque and Rotational Dynamics",
                 "Unit 6: Energy and Momentum of Rotating Systems",
                 "Unit 7: Oscillations"
@@ -358,110 +348,316 @@
         showScreen('screen-unit');
     }
 
-    // --- Course Summary Data (Full Detail Restored) ---
+    // --- ENRICHED COURSE SUMMARY DATA WITH FORMULAS & SYMBOL KEYS ---
     const calcData = {
         1: `<h3>Unit 1: Limits and Continuity</h3>
             <h4>📌 Unit Overview</h4>
-            <p>This foundational unit introduces <strong>Limits</strong> and <strong>Continuity</strong>. You will explore how functions behave as inputs approach specific points (even when undefined) and establish formal rules to check if a function has no breaks or jumps.</p>
+            <p>This unit introduces <strong>Limits</strong> and <strong>Continuity</strong>. You will explore how functions behave as inputs approach specific points and establish formal rules to verify continuity.</p>
             <h4>1. Existence of Limits</h4>
             <p>$$\\lim_{x \\to c^-} f(x) = \\lim_{x \\to c^+} f(x) = L \\iff \\lim_{x \\to c} f(x) = L$$</p>
             <div class="symbol-box">
                 <strong>🔍 Symbol Key:</strong>
                 <ul>
-                    <li>$x \\to c^-$ : Left-hand limit ($x$ approaches $c$ from values smaller than $c$)</li>
-                    <li>$x \\to c^+$ : Right-hand limit ($x$ approaches $c$ from values larger than $c$)</li>
+                    <li>$x \\to c^-$ : Left-hand limit (approaching $c$ from values $< c$)</li>
+                    <li>$x \\to c^+$ : Right-hand limit (approaching $c$ from values $> c$)</li>
                     <li>$L$ : Target limit value</li>
                 </ul>
             </div>
-            <h4>2. Continuity (3-Part Checklist)</h4>
+            <h4>2. Continuity Checklist</h4>
             <ol>
                 <li>$f(c)$ is defined.</li>
                 <li>$\\lim_{x \\to c} f(x)$ exists.</li>
                 <li>$\\lim_{x \\to c} f(x) = f(c)$.</li>
             </ol>
             <h4>3. Intermediate Value Theorem (IVT)</h4>
-            <p>If $f(x)$ is continuous on $[a,b]$, it takes on every value between $f(a)$ and $f(b)$ at least once.</p>`,
+            <p>If $f$ is continuous on $[a,b]$, then $f(x)$ takes on every value between $f(a)$ and $f(b)$ at least once.</p>`,
 
-        2: `<h3>Unit 2: Differentiation: Definition and Rules</h3>
+        2: `<h3>Unit 2: Differentiation: Definition and Fundamental Rules</h3>
             <h4>📌 Unit Overview</h4>
-            <p>The derivative represents the instantaneous rate of change or tangent line slope.</p>
-            <h4>1. Limit Definition</h4>
+            <p>Focuses on computing the instantaneous rate of change of functions using limit definitions and fundamental differentiation rules.</p>
+            <h4>1. Limit Definition of Derivative</h4>
             <p>$$f'(x) = \\lim_{h \\to 0} \\frac{f(x+h) - f(x)}{h}$$</p>
-            <h4>2. Rules</h4>
-            <p><strong>Power:</strong> $\\frac{d}{dx}[x^n] = n x^{n-1}$, <strong>Product:</strong> $(uv)' = u'v + uv'$, <strong>Quotient:</strong> $\\left(\\frac{u}{v}\\right)' = \\frac{u'v - uv'}{v^2}$</p>`,
+            <div class="symbol-box">
+                <strong>🔍 Symbol Key:</strong>
+                <ul>
+                    <li>$f'(x)$ : Derivative of $f$ with respect to $x$ (slope of tangent line)</li>
+                    <li>$h$ : Infinitesimal change in $x$ ($\Delta x$)</li>
+                </ul>
+            </div>
+            <h4>2. Basic Differentiation Rules</h4>
+            <ul>
+                <li><strong>Power Rule:</strong> $\\frac{d}{dx}[x^n] = n x^{n-1}$</li>
+                <li><strong>Product Rule:</strong> $\\frac{d}{dx}[u \\cdot v] = u'v + uv'$</li>
+                <li><strong>Quotient Rule:</strong> $\\frac{d}{dx}\\left[\\frac{u}{v}\\right] = \\frac{u'v - uv'}{v^2}$</li>
+            </ul>
+            <div class="symbol-box">
+                <strong>🔍 Symbol Key:</strong>
+                <ul>
+                    <li>$u, v$ : Differentiable functions of $x$</li>
+                    <li>$u', v'$ : Respective derivatives $\\frac{du}{dx}, \\frac{dv}{dx}$</li>
+                </ul>
+            </div>`,
 
         3: `<h3>Unit 3: Composite, Implicit & Inverse Functions</h3>
+            <h4>📌 Unit Overview</h4>
+            <p>Extends differentiation rules to complex composite functions, implicitly defined curves, and inverse trigonometric functions.</p>
             <h4>1. Chain Rule</h4>
             <p>$$\\frac{d}{dx}[f(g(x))] = f'(g(x)) \\cdot g'(x)$$</p>
-            <h4>2. Inverse Derivative</h4>
-            <p>$$(f^{-1})'(a) = \\frac{1}{f'(f^{-1}(a))}$$</p>`,
+            <div class="symbol-box">
+                <strong>🔍 Symbol Key:</strong>
+                <ul>
+                    <li>$f(u)$ : Outer function where $u = g(x)$</li>
+                    <li>$g(x)$ : Inner function</li>
+                </ul>
+            </div>
+            <h4>2. Implicit Differentiation</h4>
+            <p>Differentiate both sides with respect to $x$, applying Chain Rule to $y$ terms (yielding $\\frac{dy}{dx}$), then solve for $\\frac{dy}{dx}$.</p>
+            <h4>3. Derivative of Inverse Functions</h4>
+            <p>$$(f^{-1})'(a) = \\frac{1}{f'(f^{-1}(a))}$$</p>
+            <div class="symbol-box">
+                <strong>🔍 Symbol Key:</strong>
+                <ul>
+                    <li>$f^{-1}(a)$ : The value $b$ such that $f(b) = a$</li>
+                    <li>$f'(b)$ : Derivative of original function evaluated at $b$</li>
+                </ul>
+            </div>`,
 
         4: `<h3>Unit 4: Contextual Applications of Differentiation</h3>
+            <h4>📌 Unit Overview</h4>
+            <p>Applies derivatives to real-world motion along a line, rates of change, and related rates problems.</p>
+            <h4>1. Rectilinear Motion</h4>
             <p>$$v(t) = s'(t), \\quad a(t) = v'(t) = s''(t)$$</p>
-            <p>Speed is $|v(t)|$. Speed increases when $v(t)$ and $a(t)$ have the <strong>same sign</strong>.</p>`,
+            <p>$$\\text{Speed} = |v(t)|$$</p>
+            <div class="symbol-box">
+                <strong>🔍 Symbol Key:</strong>
+                <ul>
+                    <li>$s(t)$ : Position function at time $t$</li>
+                    <li>$v(t)$ : Velocity (direction + magnitude)</li>
+                    <li>$a(t)$ : Acceleration</li>
+                </ul>
+            </div>
+            <h4>2. Related Rates</h4>
+            <p>Relates time derivatives using Chain Rule: e.g., for volume of sphere $V = \\frac{4}{3}\\pi r^3$, $\\frac{dV}{dt} = 4\\pi r^2 \\frac{dr}{dt}$.</p>`,
 
         5: `<h3>Unit 5: Analytical Applications of Differentiation</h3>
+            <h4>📌 Unit Overview</h4>
+            <p>Uses derivatives to analyze graph features: extrema, concavity, inflection points, and Optimization problems.</p>
+            <h4>1. Mean Value Theorem (MVT)</h4>
+            <p>If $f$ is continuous on $[a,b]$ and differentiable on $(a,b)$, then there exists $c \\in (a,b)$ such that:</p>
+            <p>$$f'(c) = \\frac{f(b) - f(a)}{b - a}$$</p>
+            <h4>2. Function Analysis Rules</h4>
             <ul>
                 <li>$f'(x) > 0 \\implies f(x)$ Increasing</li>
                 <li>$f'(x) < 0 \\implies f(x)$ Decreasing</li>
                 <li>$f''(x) > 0 \\implies f(x)$ Concave Up</li>
                 <li>$f''(x) < 0 \\implies f(x)$ Concave Down</li>
-            </ul>`,
+            </ul>
+            <div class="symbol-box">
+                <strong>🔍 Symbol Key:</strong>
+                <ul>
+                    <li>$f'(x) = 0 \\text{ or undefined}$ : Critical Points</li>
+                    <li>$f''(x) = 0$ (and sign changes) : Points of Inflection</li>
+                </ul>
+            </div>`,
 
-        6: `<h3>Unit 6: Integration & Accumulation</h3>
-            <p>$$\\int_{a}^{b} f(x) dx = F(b) - F(a)$$</p>`,
+        6: `<h3>Unit 6: Integration and Accumulation of Change</h3>
+            <h4>📌 Unit Overview</h4>
+            <p>Introduces Riemann sums, definite integrals, the Fundamental Theorem of Calculus, and u-substitution.</p>
+            <h4>1. Fundamental Theorem of Calculus (FTC)</h4>
+            <p>$$\\text{Part 1: } \\frac{d}{dx} \\left[ \\int_{a}^{x} f(t) dt \\right] = f(x)$$</p>
+            <p>$$\\text{Part 2: } \\int_{a}^{b} f(x) dx = F(b) - F(a) \\quad (\\text{where } F'(x) = f(x))$$</p>
+            <div class="symbol-box">
+                <strong>🔍 Symbol Key:</strong>
+                <ul>
+                    <li>$\\int_{a}^{b} f(x) dx$ : Definite integral (net accumulated area under $f(x)$ from $a$ to $b$)</li>
+                    <li>$F(x)$ : Antiderivative of $f(x)$</li>
+                </ul>
+            </div>
+            <h4>2. Integration by Substitution (u-sub)</h4>
+            <p>$$\\int f(g(x)) g'(x) dx = \\int f(u) du \\quad (\\text{let } u = g(x))$$</p>`,
 
         7: `<h3>Unit 7: Differential Equations</h3>
-            <p>$$\\frac{dy}{dt} = ky \\implies y(t) = y_0 e^{kt}$$</p>`,
+            <h4>📌 Unit Overview</h4>
+            <p>Focuses on modeling rates of change with differential equations, slope fields, and separation of variables.</p>
+            <h4>1. Separation of Variables</h4>
+            <p>$$\\frac{dy}{dx} = g(x)h(y) \\implies \\int \\frac{1}{h(y)} dy = \\int g(x) dx$$</p>
+            <h4>2. Exponential Growth & Decay</h4>
+            <p>$$\\frac{dy}{dt} = ky \\implies y(t) = y_0 e^{kt}$$</p>
+            <div class="symbol-box">
+                <strong>🔍 Symbol Key:</strong>
+                <ul>
+                    <li>$y_0$ : Initial value $y(0)$</li>
+                    <li>$k$ : Relative growth rate constant ($k > 0$ growth, $k < 0$ decay)</li>
+                </ul>
+            </div>`,
 
         8: `<h3>Unit 8: Applications of Integration</h3>
-            <p>Volume (Disc Method): $$V = \\pi \\int_{a}^{b} [R(x)]^2 dx$$</p>`,
+            <h4>📌 Unit Overview</h4>
+            <p>Uses definite integrals to calculate area between curves, average value of a function, and volumes of solids.</p>
+            <h4>1. Area Between Curves</h4>
+            <p>$$A = \\int_{a}^{b} [f(x) - g(x)] dx \\quad (\\text{where } f(x) \\ge g(x))$$</p>
+            <h4>2. Volume of Revolution (Disc Method)</h4>
+            <p>$$V = \\pi \\int_{a}^{b} [R(x)]^2 dx$$</p>
+            <div class="symbol-box">
+                <strong>🔍 Symbol Key:</strong>
+                <ul>
+                    <li>$R(x)$ : Radius function from axis of revolution to outer edge</li>
+                    <li>$a, b$ : Bounds along axis of rotation</li>
+                </ul>
+            </div>`,
 
         9: `<h3>Unit 9: Course Review and Exam Preparation</h3>
-            <p>Reviewing AP FRQ rubrics, calculator skills, and full-length exam practice.</p>`
+            <h4>📌 Unit Overview</h4>
+            <p>Comprehensive synthesis of AB Calculus topics with emphasis on AP FRQ justification standards and exam strategies.</p>
+            <ul>
+                <li><strong>Justification Rules:</strong> Always check conditions before citing IVT, MVT, or EVT.</li>
+                <li><strong>Units of Measure:</strong> Include units in contextual FRQ answers (e.g., $\\text{ft/sec}^2$).</li>
+            </ul>`
     };
 
     const physicsData = {
         1: `<h3>Unit 1: Kinematics</h3>
             <h4>📌 Unit Overview</h4>
-            <p>Kinematics analyzes the motion of objects using position, velocity, and acceleration vectors without considering the forces causing the motion. In AP Physics C, motion with constant acceleration relies on algebraic kinematic formulas, whereas motion with variable acceleration requires calculus (differentiation and integration).</p>
-
-            <h4>1. Calculus Relations (Variable Acceleration)</h4>
+            <p>Kinematics analyzes the motion of objects using position, velocity, and acceleration vectors. Calculus is required for non-constant acceleration.</p>
+            <h4>1. Calculus Relations</h4>
             <p>$$v(t) = \\frac{dx}{dt}, \\quad a(t) = \\frac{dv}{dt} = \\frac{d^2x}{dt^2}$$</p>
             <p>$$x(t) = x_0 + \\int_{t_0}^{t} v(t') dt', \\quad v(t) = v_0 + \\int_{t_0}^{t} a(t') dt'$$</p>
-
-            <h4>2. Equations of Constant Acceleration ($a = \\text{constant}$)</h4>
+            <h4>2. Constant Acceleration Equations</h4>
             <ol>
                 <li>$$v = v_0 + at$$</li>
                 <li>$$x = x_0 + v_0 t + \\frac{1}{2}at^2$$</li>
                 <li>$$v^2 = v_0^2 + 2a(x - x_0)$$</li>
-                <li>$$x = x_0 + \\frac{1}{2}(v_0 + v)t$$</li>
             </ol>
-
-            <h4>3. Scalars, Vectors & Vector Decomposition</h4>
-            <p>$$\\vec{A} = A_x \\hat{i} + A_y \\hat{j} + A_z \\hat{k}$$</p>
-            <p>$$\\text{Magnitude: } |\\vec{A}| = \\sqrt{A_x^2 + A_y^2 + A_z^2}, \\quad \\text{Direction: } \\theta = \\arctan\\left(\\frac{A_y}{A_x}\\right)$$</p>
-
-            <h4>4. Vertical Motion & Free Fall</h4>
-            <p>$$a = -g = -9.81 \\text{ m/s}^2, \\quad y = y_0 + v_{0y}t - \\frac{1}{2}gt^2$$</p>`,
+            <div class="symbol-box">
+                <strong>🔍 Symbol Key:</strong>
+                <ul>
+                    <li>$x, x_0$ : Final and initial position ($\text{m}$)</li>
+                    <li>$v, v_0$ : Final and initial velocity ($\text{m/s}$)</li>
+                    <li>$a$ : Constant acceleration ($\text{m/s}^2$)</li>
+                    <li>$t$ : Time elapsed ($\text{s}$)</li>
+                </ul>
+            </div>
+            <h4>3. Vector Representation & Projectile Motion</h4>
+            <p>$$\\vec{r}(t) = x(t)\\hat{i} + y(t)\\hat{j}, \\quad a_y = -g = -9.81\\text{ m/s}^2$$</p>`,
 
         2: `<h3>Unit 2: Force and Dynamics</h3>
-            <p>$$\\vec{F}_{net} = \\frac{d\\vec{p}}{dt} = m\\vec{a}$$</p>`,
+            <h4>📌 Unit Overview</h4>
+            <p>Studies forces as causes of acceleration using Newton's Laws and drag/resistive force differential equations.</p>
+            <h4>1. Newton's Second Law</h4>
+            <p>$$\\vec{F}_{net} = \\sum \\vec{F} = \\frac{d\\vec{p}}{dt} = m\\vec{a}$$</p>
+            <div class="symbol-box">
+                <strong>🔍 Symbol Key:</strong>
+                <ul>
+                    <li>$\\vec{F}_{net}$ : Net vector force ($\text{N}$)</li>
+                    <li>$m$ : Mass ($\text{kg}$)</li>
+                    <li>$\\vec{a}$ : Acceleration vector ($\text{m/s}^2$)</li>
+                    <li>$\\vec{p}$ : Linear momentum ($\text{kg}\\cdot\\text{m/s}$)</li>
+                </ul>
+            </div>
+            <h4>2. Friction & Resistive Drag Forces</h4>
+            <p>$$f_s \\le \\mu_s N, \\quad f_k = \\mu_k N$$</p>
+            <p>$$\\text{Velocity-Dependent Drag: } F_D = -b v \\implies m\\frac{dv}{dt} = mg - bv$$</p>
+            <div class="symbol-box">
+                <strong>🔍 Symbol Key:</strong>
+                <ul>
+                    <li>$\\mu_s, \\mu_k$ : Coefficients of static and kinetic friction</li>
+                    <li>$N$ : Normal force ($\text{N}$)</li>
+                    <li>$b$ : Drag coefficient ($\text{kg/s}$)</li>
+                </ul>
+            </div>`,
 
         3: `<h3>Unit 3: Work, Energy and Power</h3>
-            <p>$$W = \\int_{x_1}^{x_2} F(x) dx, \\quad F(x) = -\\frac{dU}{dx}$$</p>`,
+            <h4>📌 Unit Overview</h4>
+            <p>Examines work done by variable forces using integration, conservative forces, and potential energy functions.</p>
+            <h4>1. Work and Kinetic Energy</h4>
+            <p>$$W = \\int_{\\vec{r}_1}^{\\vec{r}_2} \\vec{F} \\cdot d\\vec{r}, \\quad K = \\frac{1}{2}mv^2, \\quad W_{net} = \\Delta K$$</p>
+            <h4>2. Conservative Forces & Potential Energy</h4>
+            <p>$$F(x) = -\\frac{dU}{dx} \\iff \\Delta U = -\\int_{x_1}^{x_2} F(x) dx$$</p>
+            <div class="symbol-box">
+                <strong>🔍 Symbol Key:</strong>
+                <ul>
+                    <li>$W$ : Work done ($\text{J}$)</li>
+                    <li>$K$ : Kinetic Energy ($\text{J}$)</li>
+                    <li>$U(x)$ : Potential Energy function ($\text{J}$)</li>
+                </ul>
+            </div>
+            <h4>3. Power</h4>
+            <p>$$P = \\frac{dW}{dt} = \\vec{F} \\cdot \\vec{v}$$</p>`,
 
-        4: `<h3>Unit 4: Linear Momentum</h3>
-            <p>$$\\vec{J} = \\int \\vec{F} dt = \\Delta \\vec{p}, \\quad x_{cm} = \\frac{1}{M} \\int x dm$$</p>`,
+        4: `<h3>Unit 4: Linear Momentum & Systems of Particles</h3>
+            <h4>📌 Unit Overview</h4>
+            <p>Focuses on momentum conservation in collisions, impulse integrals, and center of mass calculations.</p>
+            <h4>1. Momentum and Impulse</h4>
+            <p>$$\\vec{p} = m\\vec{v}, \\quad \\vec{J} = \\int_{t_1}^{t_2} \\vec{F} dt = \\Delta \\vec{p}$$</p>
+            <h4>2. Center of Mass (CM)</h4>
+            <p>$$x_{cm} = \\frac{\\sum m_i x_i}{\\sum m_i} = \\frac{1}{M} \\int x dm$$</p>
+            <div class="symbol-box">
+                <strong>🔍 Symbol Key:</strong>
+                <ul>
+                    <li>$\\vec{J}$ : Impulse ($\text{N}\\cdot\\text{s}$)</li>
+                    <li>$x_{cm}$ : Position of Center of Mass ($\text{m}$)</li>
+                    <li>$M$ : Total system mass $\\int dm$</li>
+                </ul>
+            </div>`,
 
         5: `<h3>Unit 5: Torque and Rotational Dynamics</h3>
-            <p>$$\\vec{\\tau} = \\vec{r} \\times \\vec{F}, \\quad \\tau_{net} = I \\alpha, \\quad I = \\int r^2 dm$$</p>`,
+            <h4>📌 Unit Overview</h4>
+            <p>Translates linear dynamics into rotational quantities: torque, rotational inertia integrals, and Newton's 2nd Law for rotation.</p>
+            <h4>1. Rotational Kinematics & Torque</h4>
+            <p>$$\\vec{\\tau} = \\vec{r} \\times \\vec{F} = r F \\sin\\theta$$</p>
+            <p>$$\\tau_{net} = I \\alpha$$</p>
+            <div class="symbol-box">
+                <strong>🔍 Symbol Key:</strong>
+                <ul>
+                    <li>$\\vec{\\tau}$ : Torque vector ($\text{N}\\cdot\\text{m}$)</li>
+                    <li>$\\vec{r}$ : Position vector from axis to force application point ($\text{m}$)</li>
+                    <li>$I$ : Rotational Inertia ($\text{kg}\\cdot\\text{m}^2$)</li>
+                    <li>$\\alpha$ : Angular acceleration ($\text{rad/s}^2$)</li>
+                </ul>
+            </div>
+            <h4>2. Moment of Inertia & Parallel Axis Theorem</h4>
+            <p>$$I = \\int r^2 dm, \\quad I = I_{cm} + M d^2$$</p>`,
 
         6: `<h3>Unit 6: Energy and Momentum of Rotating Systems</h3>
-            <p>$$L = I \\omega, \\quad \\vec{L} = \\vec{r} \\times \\vec{p}$$</p>`,
+            <h4>📌 Unit Overview</h4>
+            <p>Analyzes rotational kinetic energy, rolling motion without slipping, and conservation of angular momentum.</p>
+            <h4>1. Rotational Kinetic Energy & Rolling</h4>
+            <p>$$K_{rot} = \\frac{1}{2} I \\omega^2, \\quad K_{total} = \\frac{1}{2} M v_{cm}^2 + \\frac{1}{2} I_{cm} \\omega^2$$</p>
+            <p>$$\\text{Rolling without slipping: } v_{cm} = R \\omega, \\quad a_{cm} = R \\alpha$$</p>
+            <h4>2. Angular Momentum</h4>
+            <p>$$L = I \\omega, \\quad \\vec{L} = \\vec{r} \\times \\vec{p}, \\quad \\tau_{net} = \\frac{d\\vec{L}}{dt}$$</p>
+            <div class="symbol-box">
+                <strong>🔍 Symbol Key:</strong>
+                <ul>
+                    <li>$L$ : Angular Momentum ($\text{kg}\\cdot\\text{m}^2\\text{/s}$)</li>
+                    <li>$\\omega$ : Angular velocity ($\text{rad/s}$)</li>
+                    <li>$R$ : Radius of rolling body ($\text{m}$)</li>
+                </ul>
+            </div>`,
 
         7: `<h3>Unit 7: Oscillations</h3>
-            <p>$$\\frac{d^2x}{dt^2} + \\omega^2 x = 0 \\implies T = 2\\pi \\sqrt{\\frac{m}{k}}$$</p>`
+            <h4>📌 Unit Overview</h4>
+            <p>Studies Simple Harmonic Motion (SHM) governed by second-order linear differential equations.</p>
+            <h4>1. SHM Differential Equation</h4>
+            <p>$$\\frac{d^2x}{dt^2} + \\omega^2 x = 0 \\implies x(t) = A \\cos(\\omega t + \\phi)$$</p>
+            <div class="symbol-box">
+                <strong>🔍 Symbol Key:</strong>
+                <ul>
+                    <li>$A$ : Amplitude ($\text{m}$)</li>
+                    <li>$\\omega$ : Angular frequency ($\text{rad/s}$)</li>
+                    <li>$\\phi$ : Phase constant ($\text{rad}$)</li>
+                </ul>
+            </div>
+            <h4>2. Spring and Physical Pendulum Periods</h4>
+            <p>$$\\text{Mass-Spring: } T = 2\\pi \\sqrt{\\frac{m}{k}}, \\quad \\text{Simple Pendulum: } T = 2\\pi \\sqrt{\\frac{L}{g}}$$</p>
+            <div class="symbol-box">
+                <strong>🔍 Symbol Key:</strong>
+                <ul>
+                    <li>$T$ : Period of oscillation ($\text{s}$)</li>
+                    <li>$k$ : Spring constant ($\text{N/m}$)</li>
+                    <li>$L$ : Pendulum length ($\text{m}$)</li>
+                </ul>
+            </div>`
     };
 
     function showSummary(subject, unitNum) {
@@ -485,11 +681,10 @@
         let qSet = [];
 
         for (let i = 1; i <= 10; i++) {
-            let topicChoice = i % 4; // Cycles through 4 different sub-topics per unit
+            let topicChoice = i % 4;
 
             if (subject === 'calc') {
-                // MATH PROBLEMS
-                if (unit === 1) { // Limits & Continuity
+                if (unit === 1) { // Limits
                     if (topicChoice === 1) {
                         let a = Math.floor(Math.random() * 5) + 2;
                         qSet.push({
@@ -512,8 +707,8 @@
                         });
                     } else if (topicChoice === 3) {
                         qSet.push({
-                            title: `Intermediate Value Theorem ${i}`,
-                            text: `If $f(x)$ is continuous on $[1, 5]$ with $f(1) = -3$ and $f(5) = 7$, which theorem guarantees a root $c \\in (1,5)$ where $f(c) = 0$?`,
+                            title: `IVT Question ${i}`,
+                            text: `If $f(x)$ is continuous on $[1, 5]$ with $f(1) = -3$ and $f(5) = 7$, which theorem guarantees $f(c) = 0$ for $c \\in (1,5)$?`,
                             options: [`Intermediate Value Theorem`, `Mean Value Theorem`, `Extreme Value Theorem`, `Rolle's Theorem`],
                             correctIndex: 0,
                             hint: `Since $f(1) < 0 < f(5)$, IVT guarantees $f(c)=0$.`,
@@ -540,10 +735,10 @@
                         hint: `Apply Power Rule $\\frac{d}{dx}[x^n] = nx^{n-1}$.`,
                         explanation: `<strong>Correct: A</strong><br>$f'(x) = ${n}(3x^2) - 4 = ${3*n}x^2 - 4$.`
                     });
-                } else { // Generic Calc
+                } else { // General Calc
                     let a = Math.floor(Math.random() * 5) + 1;
                     qSet.push({
-                        title: `Integration Question ${i}`,
+                        title: `Calculus Question ${i}`,
                         text: `Evaluate $\\int_0^{${a}} 2x \\, dx$.`,
                         options: [`$${a*a}$`, `$${2*a}$`, `$${a}$`, `$${a*a*a}$`],
                         correctIndex: 0,
@@ -552,64 +747,75 @@
                     });
                 }
             } else {
-                // PHYSICS PROBLEMS (Multi-Topic Diversity)
-                if (unit === 1) { // Kinematics (Kinematics, Vectors, Freefall, Graph)
-                    if (topicChoice === 1) { // Constant Acceleration
+                // PHYSICS PROBLEMS
+                if (unit === 1) { // Kinematics
+                    if (topicChoice === 1) {
                         let v0 = Math.floor(Math.random() * 5) + 2;
                         let a = Math.floor(Math.random() * 4) + 2;
                         let t = Math.floor(Math.random() * 3) + 2;
                         let ans = v0 + a * t;
                         qSet.push({
-                            title: `1D Motion Question ${i}`,
+                            title: `1D Kinematics ${i}`,
                             text: `An object moves with $v_0 = ${v0}\\text{ m/s}$ and $a = ${a}\\text{ m/s}^2$. What is $v$ at $t = ${t}\\text{ s}$?`,
                             options: [`$${ans}\\text{ m/s}$`, `$${ans+3}\\text{ m/s}$`, `$${v0*t}\\text{ m/s}$`, `$${ans-2}\\text{ m/s}$`],
                             correctIndex: 0,
                             hint: `Use $v = v_0 + at$.`,
                             explanation: `<strong>Correct: A</strong><br>$v = ${v0} + (${a})(${t}) = ${ans}\\text{ m/s}$.`
                         });
-                    } else if (topicChoice === 2) { // Vectors
-                        let ax = Math.floor(Math.random() * 4) + 3; // 3 or 4
+                    } else if (topicChoice === 2) {
+                        let ax = Math.floor(Math.random() * 4) + 3;
                         let ay = (ax === 3) ? 4 : 3;
                         qSet.push({
                             title: `Vector Magnitude ${i}`,
-                            text: `A displacement vector is given by $\\vec{A} = ${ax}\\hat{i} + ${ay}\\hat{j}\\text{ m}$. Find $|\\vec{A}|$.`,
+                            text: `A displacement vector is $\\vec{A} = ${ax}\\hat{i} + ${ay}\\hat{j}\\text{ m}$. Find $|\\vec{A}|$.`,
                             options: [`$5\\text{ m}$`, `$7\\text{ m}$`, `$1\\text{ m}$`, `$12\\text{ m}$`],
                             correctIndex: 0,
                             hint: `Use $|\\vec{A}| = \\sqrt{A_x^2 + A_y^2}$.`,
-                            explanation: `<strong>Correct: A</strong><br>$|\\vec{A}| = \\sqrt{${ax}^2 + ${ay}^2} = \\sqrt{25} = 5\\text{ m}$.`
+                            explanation: `<strong>Correct: A</strong><br>$|\\vec{A}| = \\sqrt{${ax}^2 + ${ay}^2} = 5\\text{ m}$.`
                         });
-                    } else if (topicChoice === 3) { // Freefall
+                    } else if (topicChoice === 3) {
                         let t = Math.floor(Math.random() * 3) + 1;
                         let h = 0.5 * 9.8 * t * t;
                         qSet.push({
                             title: `Free Fall Question ${i}`,
-                            text: `A ball is dropped from rest ($v_0 = 0$). How far does it fall in $t = ${t}\\text{ s}$? ($g = 9.8\\text{ m/s}^2$)`,
+                            text: `A ball drops from rest ($v_0 = 0$). How far does it fall in $t = ${t}\\text{ s}$? ($g = 9.8\\text{ m/s}^2$)`,
                             options: [`$${h.toFixed(1)}\\text{ m}$`, `$${(9.8*t).toFixed(1)}\\text{ m}$`, `$${(h+5).toFixed(1)}\\text{ m}$`, `$2.0\\text{ m}$`],
                             correctIndex: 0,
                             hint: `Use $y = \\frac{1}{2}gt^2$.`,
                             explanation: `<strong>Correct: A</strong><br>$y = 0.5(9.8)(${t})^2 = ${h.toFixed(1)}\\text{ m}$.`
                         });
-                    } else { // Motion Graph / Calculus
+                    } else {
                         let b = Math.floor(Math.random() * 3) + 2;
                         qSet.push({
                             title: `Calculus Kinematics ${i}`,
-                            text: `Position is given by $x(t) = ${b}t^2 - 3t$. What is the acceleration $a(t)$?`,
+                            text: `Position is $x(t) = ${b}t^2 - 3t$. What is acceleration $a(t)$?`,
                             options: [`$${2*b}\\text{ m/s}^2$`, `$${b}\\text{ m/s}^2$`, `$${2*b}t\\text{ m/s}^2$`, `$0$`],
                             correctIndex: 0,
                             hint: `Take second derivative $a(t) = x''(t)$.`,
-                            explanation: `<strong>Correct: A</strong><br>$v(t) = x'(t) = ${2*b}t - 3$, so $a(t) = v'(t) = ${2*b}\\text{ m/s}^2$.`
+                            explanation: `<strong>Correct: A</strong><br>$v(t) = x'(t) = ${2*b}t - 3 \\implies a(t) = ${2*b}\\text{ m/s}^2$.`
                         });
                     }
-                } else { // Generic Physics Dynamics/Energy
+                } else if (unit === 2) { // Dynamics
                     let m = Math.floor(Math.random() * 5) + 2;
                     let a = Math.floor(Math.random() * 4) + 2;
                     qSet.push({
-                        title: `Newton's 2nd Law ${i}`,
-                        text: `Find net force required to accelerate mass $m = ${m}\\text{ kg}$ at $a = ${a}\\text{ m/s}^2$.`,
-                        options: [`$${m*a}\\text{ N}$`, `$${m+a}\\text{ N}$`, `$${m*a + 5}\\text{ N}$`, `$0\\text{ N}$`],
+                        title: `Dynamics Question ${i}`,
+                        text: `Calculate net force required to accelerate $m = ${m}\\text{ kg}$ at $a = ${a}\\text{ m/s}^2$.`,
+                        options: [`$${m*a}\\text{ N}$`, `$${m+a}\\text{ N}$`, `$${m*a+5}\\text{ N}$`, `$0\\text{ N}$`],
                         correctIndex: 0,
                         hint: `Use $F_{net} = ma$.`,
                         explanation: `<strong>Correct: A</strong><br>$F = (${m})(${a}) = ${m*a}\\text{ N}$.`
+                    });
+                } else { // General Physics
+                    let m = Math.floor(Math.random() * 4) + 2;
+                    let k = Math.floor(Math.random() * 10) + 10;
+                    qSet.push({
+                        title: `Oscillation Question ${i}`,
+                        text: `A mass-spring system has $m = ${m}\\text{ kg}$ and $k = ${k}\\text{ N/m}$. Find angular frequency $\\omega$.`,
+                        options: [`$\\sqrt{${(k/m).toFixed(2)}}\\text{ rad/s}$`, `$${(k/m).toFixed(2)}\\text{ rad/s}$`, `$${m*k}\\text{ rad/s}$`, `$2\\pi\\text{ rad/s}$`],
+                        correctIndex: 0,
+                        hint: `Use $\\omega = \\sqrt{\\frac{k}{m}}$.`,
+                        explanation: `<strong>Correct: A</strong><br>$\\omega = \\sqrt{\\frac{${k}}{${m}}} = \\sqrt{${(k/m).toFixed(2)}}\\text{ rad/s}$.`
                     });
                 }
             }
