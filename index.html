@@ -74,7 +74,9 @@
         }
         .summary-card h3 { color: #7A1C29; margin-top: 0; border-bottom: 2px solid #f0d8dc; padding-bottom: 8px; }
         .summary-card h4 { margin-top: 22px; margin-bottom: 8px; color: #7A1C29; font-size: 16px; border-left: 3px solid #D4AF37; padding-left: 8px; }
-        
+        .summary-card p { margin-top: 5px; color: #444; }
+        .summary-card ul, .summary-card ol { padding-left: 20px; margin-top: 5px; color: #444; }
+
         .symbol-box {
             background-color: #fcf8f3;
             border: 1px solid #f3e5d0;
@@ -82,6 +84,16 @@
             padding: 12px 15px;
             margin: 10px 0 15px 0;
             font-size: 14px;
+        }
+        .symbol-box strong { color: #7A1C29; }
+
+        .exam-tip {
+            background-color: #fff8e6;
+            border: 1px solid #D4AF37;
+            color: #665000;
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin-top: 20px;
         }
 
         /* Practice Mode Styles */
@@ -171,7 +183,7 @@
     <!-- 2. Subject Selection Screen -->
     <div id="screen-subject" class="screen">
         <h2>📚 Select Course</h2>
-        <p>Choose a subject to review key syllabus concepts or solve practice sets.</p>
+        <p>Select a course syllabus to review key concepts, formulas, and practice problems.</p>
         <button class="btn btn-subject" onclick="selectSubject('calc')">📐 AP Calculus AB</button>
         <button class="btn btn-subject" onclick="selectSubject('physics')">⚡ AP Physics C: Mechanics</button>
         <div style="margin-top: 20px;">
@@ -202,7 +214,7 @@
         </div>
     </div>
 
-    <!-- 5. Practice Screen (MCQ / FRQ) -->
+    <!-- 5. Practice Screen -->
     <div id="screen-practice" class="screen">
         <div class="timer-bar">
             <div>
@@ -219,10 +231,8 @@
             <h3 id="q-title">Question 1</h3>
             <p id="q-text" style="font-size: 17px; line-height: 1.6;"></p>
 
-            <!-- MCQ Options Container -->
             <div id="mcq-options-container"></div>
 
-            <!-- FRQ Text Area Container -->
             <div id="frq-input-container" style="display: none; margin-top: 15px;">
                 <div class="input-group">
                     <label>Type your step-by-step solution / final answer:</label>
@@ -230,18 +240,15 @@
                 </div>
             </div>
 
-            <!-- Interactive Action Buttons -->
             <div style="margin-top: 20px;">
                 <button class="btn btn-action" onclick="toggleHint()" id="hint-btn">💡 Hint</button>
                 <button class="btn" onclick="checkAnswer()" id="check-btn">Check Answer</button>
                 <button class="btn btn-action" onclick="toggleExplanation()" id="explain-btn" style="display: none;">Show Explanation</button>
             </div>
 
-            <!-- Dynamic Hint & Explanation Cards -->
             <div id="hint-card" class="hint-box"></div>
             <div id="explain-card" class="explanation-box"></div>
 
-            <!-- Navigation Controls -->
             <div style="margin-top: 30px; display: flex; justify-content: space-between; border-top: 1px solid #ddd; padding-top: 15px;">
                 <button class="btn btn-back" onclick="prevQuestion()" id="prev-btn">← Previous</button>
                 <button class="btn btn-quit" onclick="quitPractice()">Quit Practice</button>
@@ -250,7 +257,7 @@
         </div>
     </div>
 
-    <!-- 6. Practice Results / Statistics Screen -->
+    <!-- 6. Results Screen -->
     <div id="screen-stats" class="screen">
         <h2>📊 Practice Session Results</h2>
         <div class="summary-card" style="text-align: center; border-left-color: #D4AF37;">
@@ -283,7 +290,6 @@
         }
     }
 
-    // Login Auth
     document.getElementById('loginForm').addEventListener('submit', function(event) {
         event.preventDefault();
         const id = document.getElementById('username').value.trim();
@@ -352,38 +358,110 @@
         showScreen('screen-unit');
     }
 
-    // --- Course Data ---
+    // --- Course Summary Data (Full Detail Restored) ---
     const calcData = {
-        1: `<h3>Unit 1: Limits and Continuity</h3><h4>📌 Unit Overview</h4><p>This foundational unit introduces Limits and Continuity. You will explore how functions behave as inputs approach specific points and establish formal rules to check if a function has no breaks or jumps.</p><h4>1. Existence of Limits</h4><p>$$\\lim_{x \\to c^-} f(x) = \\lim_{x \\to c^+} f(x) = L \\iff \\lim_{x \\to c} f(x) = L$$</p>`,
-        2: `<h3>Unit 2: Differentiation Rules</h3><h4>📌 Unit Overview</h4><p>Master shortcut rules to quickly differentiate polynomial, product, and quotient expressions.</p><p>$$f'(x) = \\lim_{h \\to 0} \\frac{f(x+h) - f(x)}{h}$$</p>`,
-        3: `<h3>Unit 3: Composite & Inverse Functions</h3><h4>📌 Unit Overview</h4><p>Chain Rule: $$\\frac{d}{dx}[f(g(x))] = f'(g(x)) \\cdot g'(x)$$</p>`,
-        4: `<h3>Unit 4: Contextual Applications</h3><h4>📌 Unit Overview</h4><p>Position $s(t)$, Velocity $v(t) = s'(t)$, Acceleration $a(t) = v'(t)$. Speed is $|v(t)|$.</p>`,
-        5: `<h3>Unit 5: Analytical Applications</h3><h4>📌 Unit Overview</h4><p>Using derivatives to analyze concavity, critical points, extrema, and optimization.</p>`,
-        6: `<h3>Unit 6: Integration & Accumulation</h3><h4>📌 Unit Overview</h4><p>Fundamental Theorem of Calculus: $$\\int_{a}^{b} f(x) dx = F(b) - F(a)$$</p>`,
-        7: `<h3>Unit 7: Differential Equations</h3><h4>📌 Unit Overview</h4><p>Separation of variables and modeling growth: $$\\frac{dy}{dt} = ky \\implies y(t) = y_0 e^{kt}$$</p>`,
-        8: `<h3>Unit 8: Applications of Integration</h3><h4>📌 Unit Overview</h4><p>Volume of solids: $$V = \\pi \\int_{a}^{b} [R(x)]^2 dx$$</p>`,
-        9: `<h3>Unit 9: Course Review & Exam Prep</h3><h4>📌 Unit Overview</h4><p>Full AP Exam FRQ rubric practice, calculator strategies, and comprehensive review.</p>`
+        1: `<h3>Unit 1: Limits and Continuity</h3>
+            <h4>📌 Unit Overview</h4>
+            <p>This foundational unit introduces <strong>Limits</strong> and <strong>Continuity</strong>. You will explore how functions behave as inputs approach specific points (even when undefined) and establish formal rules to check if a function has no breaks or jumps.</p>
+            <h4>1. Existence of Limits</h4>
+            <p>$$\\lim_{x \\to c^-} f(x) = \\lim_{x \\to c^+} f(x) = L \\iff \\lim_{x \\to c} f(x) = L$$</p>
+            <div class="symbol-box">
+                <strong>🔍 Symbol Key:</strong>
+                <ul>
+                    <li>$x \\to c^-$ : Left-hand limit ($x$ approaches $c$ from values smaller than $c$)</li>
+                    <li>$x \\to c^+$ : Right-hand limit ($x$ approaches $c$ from values larger than $c$)</li>
+                    <li>$L$ : Target limit value</li>
+                </ul>
+            </div>
+            <h4>2. Continuity (3-Part Checklist)</h4>
+            <ol>
+                <li>$f(c)$ is defined.</li>
+                <li>$\\lim_{x \\to c} f(x)$ exists.</li>
+                <li>$\\lim_{x \\to c} f(x) = f(c)$.</li>
+            </ol>
+            <h4>3. Intermediate Value Theorem (IVT)</h4>
+            <p>If $f(x)$ is continuous on $[a,b]$, it takes on every value between $f(a)$ and $f(b)$ at least once.</p>`,
+
+        2: `<h3>Unit 2: Differentiation: Definition and Rules</h3>
+            <h4>📌 Unit Overview</h4>
+            <p>The derivative represents the instantaneous rate of change or tangent line slope.</p>
+            <h4>1. Limit Definition</h4>
+            <p>$$f'(x) = \\lim_{h \\to 0} \\frac{f(x+h) - f(x)}{h}$$</p>
+            <h4>2. Rules</h4>
+            <p><strong>Power:</strong> $\\frac{d}{dx}[x^n] = n x^{n-1}$, <strong>Product:</strong> $(uv)' = u'v + uv'$, <strong>Quotient:</strong> $\\left(\\frac{u}{v}\\right)' = \\frac{u'v - uv'}{v^2}$</p>`,
+
+        3: `<h3>Unit 3: Composite, Implicit & Inverse Functions</h3>
+            <h4>1. Chain Rule</h4>
+            <p>$$\\frac{d}{dx}[f(g(x))] = f'(g(x)) \\cdot g'(x)$$</p>
+            <h4>2. Inverse Derivative</h4>
+            <p>$$(f^{-1})'(a) = \\frac{1}{f'(f^{-1}(a))}$$</p>`,
+
+        4: `<h3>Unit 4: Contextual Applications of Differentiation</h3>
+            <p>$$v(t) = s'(t), \\quad a(t) = v'(t) = s''(t)$$</p>
+            <p>Speed is $|v(t)|$. Speed increases when $v(t)$ and $a(t)$ have the <strong>same sign</strong>.</p>`,
+
+        5: `<h3>Unit 5: Analytical Applications of Differentiation</h3>
+            <ul>
+                <li>$f'(x) > 0 \\implies f(x)$ Increasing</li>
+                <li>$f'(x) < 0 \\implies f(x)$ Decreasing</li>
+                <li>$f''(x) > 0 \\implies f(x)$ Concave Up</li>
+                <li>$f''(x) < 0 \\implies f(x)$ Concave Down</li>
+            </ul>`,
+
+        6: `<h3>Unit 6: Integration & Accumulation</h3>
+            <p>$$\\int_{a}^{b} f(x) dx = F(b) - F(a)$$</p>`,
+
+        7: `<h3>Unit 7: Differential Equations</h3>
+            <p>$$\\frac{dy}{dt} = ky \\implies y(t) = y_0 e^{kt}$$</p>`,
+
+        8: `<h3>Unit 8: Applications of Integration</h3>
+            <p>Volume (Disc Method): $$V = \\pi \\int_{a}^{b} [R(x)]^2 dx$$</p>`,
+
+        9: `<h3>Unit 9: Course Review and Exam Preparation</h3>
+            <p>Reviewing AP FRQ rubrics, calculator skills, and full-length exam practice.</p>`
     };
 
     const physicsData = {
         1: `<h3>Unit 1: Kinematics</h3>
             <h4>📌 Unit Overview</h4>
-            <p>Kinematics analyzes motion using position, velocity, and acceleration vectors[cite: 1].</p>
-            <h4>1. Equations of Constant Acceleration ($a = \\text{constant}$)</h4>
+            <p>Kinematics analyzes the motion of objects using position, velocity, and acceleration vectors without considering the forces causing the motion. In AP Physics C, motion with constant acceleration relies on algebraic kinematic formulas, whereas motion with variable acceleration requires calculus (differentiation and integration).</p>
+
+            <h4>1. Calculus Relations (Variable Acceleration)</h4>
+            <p>$$v(t) = \\frac{dx}{dt}, \\quad a(t) = \\frac{dv}{dt} = \\frac{d^2x}{dt^2}$$</p>
+            <p>$$x(t) = x_0 + \\int_{t_0}^{t} v(t') dt', \\quad v(t) = v_0 + \\int_{t_0}^{t} a(t') dt'$$</p>
+
+            <h4>2. Equations of Constant Acceleration ($a = \\text{constant}$)</h4>
             <ol>
-                <li>$$v = v_0 + at$$[cite: 1]</li>
-                <li>$$x = x_0 + v_0 t + \\frac{1}{2}at^2$$[cite: 1]</li>
-                <li>$$v^2 = v_0^2 + 2a(x - x_0)$$[cite: 1]</li>
-                <li>$$x = x_0 + \\frac{1}{2}(v_0 + v)t$$[cite: 1]</li>
+                <li>$$v = v_0 + at$$</li>
+                <li>$$x = x_0 + v_0 t + \\frac{1}{2}at^2$$</li>
+                <li>$$v^2 = v_0^2 + 2a(x - x_0)$$</li>
+                <li>$$x = x_0 + \\frac{1}{2}(v_0 + v)t$$</li>
             </ol>
-            <h4>2. Vector Representation & Free Fall</h4>
-            <p>$$\\vec{A} = A_x \\hat{i} + A_y \\hat{j} + A_z \\hat{k}, \\quad a = -g = -9.81 \\text{ m/s}^2$$[cite: 1]</p>`,
-        2: `<h3>Unit 2: Force & Dynamics</h3><h4>📌 Overview</h4><p>$$\\vec{F}_{net} = m\\vec{a} = \\frac{d\\vec{p}}{dt}$$</p>`,
-        3: `<h3>Unit 3: Work, Energy & Power</h3><h4>📌 Overview</h4><p>$$W = \\int F dx, \\quad F = -\\frac{dU}{dx}$$</p>`,
-        4: `<h3>Unit 4: Linear Momentum</h3><h4>📌 Overview</h4><p>$$\\vec{J} = \\int \\vec{F} dt = \\Delta \\vec{p}, \\quad x_{cm} = \\frac{1}{M}\\int x dm$$</p>`,
-        5: `<h3>Unit 5: Torque & Rotation</h3><h4>📌 Overview</h4><p>$$\\vec{\\tau} = \\vec{r} \\times \\vec{F}, \\quad \\tau_{net} = I\\alpha, \\quad I = \\int r^2 dm$$</p>`,
-        6: `<h3>Unit 6: Rolling & Angular Momentum</h3><h4>📌 Overview</h4><p>$$L = I\\omega, \\quad \\vec{L} = \\vec{r} \\times \\vec{p}$$</p>`,
-        7: `<h3>Unit 7: Oscillations (SHM)</h3><h4>📌 Overview</h4><p>$$\\frac{d^2x}{dt^2} + \\omega^2 x = 0 \\implies T = 2\\pi \\sqrt{\\frac{m}{k}}$$</p>`
+
+            <h4>3. Scalars, Vectors & Vector Decomposition</h4>
+            <p>$$\\vec{A} = A_x \\hat{i} + A_y \\hat{j} + A_z \\hat{k}$$</p>
+            <p>$$\\text{Magnitude: } |\\vec{A}| = \\sqrt{A_x^2 + A_y^2 + A_z^2}, \\quad \\text{Direction: } \\theta = \\arctan\\left(\\frac{A_y}{A_x}\\right)$$</p>
+
+            <h4>4. Vertical Motion & Free Fall</h4>
+            <p>$$a = -g = -9.81 \\text{ m/s}^2, \\quad y = y_0 + v_{0y}t - \\frac{1}{2}gt^2$$</p>`,
+
+        2: `<h3>Unit 2: Force and Dynamics</h3>
+            <p>$$\\vec{F}_{net} = \\frac{d\\vec{p}}{dt} = m\\vec{a}$$</p>`,
+
+        3: `<h3>Unit 3: Work, Energy and Power</h3>
+            <p>$$W = \\int_{x_1}^{x_2} F(x) dx, \\quad F(x) = -\\frac{dU}{dx}$$</p>`,
+
+        4: `<h3>Unit 4: Linear Momentum</h3>
+            <p>$$\\vec{J} = \\int \\vec{F} dt = \\Delta \\vec{p}, \\quad x_{cm} = \\frac{1}{M} \\int x dm$$</p>`,
+
+        5: `<h3>Unit 5: Torque and Rotational Dynamics</h3>
+            <p>$$\\vec{\\tau} = \\vec{r} \\times \\vec{F}, \\quad \\tau_{net} = I \\alpha, \\quad I = \\int r^2 dm$$</p>`,
+
+        6: `<h3>Unit 6: Energy and Momentum of Rotating Systems</h3>
+            <p>$$L = I \\omega, \\quad \\vec{L} = \\vec{r} \\times \\vec{p}$$</p>`,
+
+        7: `<h3>Unit 7: Oscillations</h3>
+            <p>$$\\frac{d^2x}{dt^2} + \\omega^2 x = 0 \\implies T = 2\\pi \\sqrt{\\frac{m}{k}}$$</p>`
     };
 
     function showSummary(subject, unitNum) {
@@ -394,16 +472,152 @@
 
         if (subject === 'calc') {
             titleEl.innerText = `AP Calculus AB - Unit ${unitNum}`;
-            contentEl.innerHTML = calcData[unitNum] || "<p>Content coming soon...</p>";
+            contentEl.innerHTML = calcData[unitNum] || "<p>Content updating...</p>";
         } else {
             titleEl.innerText = `AP Physics C - Unit ${unitNum}`;
-            contentEl.innerHTML = physicsData[unitNum] || "<p>Content coming soon...</p>";
+            contentEl.innerHTML = physicsData[unitNum] || "<p>Content updating...</p>";
         }
         showScreen('screen-summary');
     }
 
-    // --- Interactive Practice Engine ---
-    let practiceMode = 'MCQ'; // MCQ or FRQ
+    // --- Dynamic Problem Generator with Multi-Topic Diversity ---
+    function generateQuestionSet(subject, unit, mode) {
+        let qSet = [];
+
+        for (let i = 1; i <= 10; i++) {
+            let topicChoice = i % 4; // Cycles through 4 different sub-topics per unit
+
+            if (subject === 'calc') {
+                // MATH PROBLEMS
+                if (unit === 1) { // Limits & Continuity
+                    if (topicChoice === 1) {
+                        let a = Math.floor(Math.random() * 5) + 2;
+                        qSet.push({
+                            title: `Limits Question ${i}`,
+                            text: `Evaluate the limit: $$\\lim_{x \\to ${a}} \\frac{x^2 - ${a*a}}{x - ${a}}$$`,
+                            options: [`$${2*a}$`, `$${a}$`, `$0$`, `Undefined`],
+                            correctIndex: 0,
+                            hint: `Factor the numerator as $(x-${a})(x+${a})$ and cancel $(x-${a})$.`,
+                            explanation: `<strong>Correct: A</strong><br>$$\\lim_{x \\to ${a}} \\frac{(x-${a})(x+${a})}{x-${a}} = \\lim_{x \\to ${a}} (x+${a}) = ${2*a}$$`
+                        });
+                    } else if (topicChoice === 2) {
+                        let k = Math.floor(Math.random() * 4) + 1;
+                        qSet.push({
+                            title: `Continuity Question ${i}`,
+                            text: `Find $k$ such that $f(x) = \\begin{cases} k x + 1 & x \\le 2 \\\\ x^2 - k & x > 2 \\end{cases}$ is continuous at $x=2$.`,
+                            options: [`$k = 1$`, `$k = 2$`, `$k = 3$`, `$k = 0$`],
+                            correctIndex: 0,
+                            hint: `Set left limit $2k+1$ equal to right limit $4-k$.`,
+                            explanation: `<strong>Correct: A</strong><br>$2k + 1 = 4 - k \\implies 3k = 3 \\implies k = 1$.`
+                        });
+                    } else if (topicChoice === 3) {
+                        qSet.push({
+                            title: `Intermediate Value Theorem ${i}`,
+                            text: `If $f(x)$ is continuous on $[1, 5]$ with $f(1) = -3$ and $f(5) = 7$, which theorem guarantees a root $c \\in (1,5)$ where $f(c) = 0$?`,
+                            options: [`Intermediate Value Theorem`, `Mean Value Theorem`, `Extreme Value Theorem`, `Rolle's Theorem`],
+                            correctIndex: 0,
+                            hint: `Since $f(1) < 0 < f(5)$, IVT guarantees $f(c)=0$.`,
+                            explanation: `<strong>Correct: A</strong><br>IVT applies because $f(x)$ is continuous on $[1,5]$ and $0$ lies between $-3$ and $7$.`
+                        });
+                    } else {
+                        let c = Math.floor(Math.random() * 3) + 1;
+                        qSet.push({
+                            title: `Infinite Limit ${i}`,
+                            text: `Evaluate $\\lim_{x \\to \\infty} \\frac{${c}x^2 + 5}{2x^2 - x}$.`,
+                            options: [`$\\frac{${c}}{2}$`, `$\\infty$`, `$0$`, `$5$`],
+                            correctIndex: 0,
+                            hint: `Divide highest power of $x$ in degree comparison.`,
+                            explanation: `<strong>Correct: A</strong><br>For infinite limits of equal degree polynomials, limit is ratio of leading coefficients: $\\frac{${c}}{2}$.`
+                        });
+                    }
+                } else if (unit === 2) { // Differentiation
+                    let n = Math.floor(Math.random() * 4) + 2;
+                    qSet.push({
+                        title: `Power Rule Question ${i}`,
+                        text: `Find the derivative of $f(x) = ${n}x^3 - 4x + 7$.`,
+                        options: [`$${3*n}x^2 - 4$`, `$${n}x^2 - 4$`, `$3x^2 - 4$`, `$${3*n}x^2$`],
+                        correctIndex: 0,
+                        hint: `Apply Power Rule $\\frac{d}{dx}[x^n] = nx^{n-1}$.`,
+                        explanation: `<strong>Correct: A</strong><br>$f'(x) = ${n}(3x^2) - 4 = ${3*n}x^2 - 4$.`
+                    });
+                } else { // Generic Calc
+                    let a = Math.floor(Math.random() * 5) + 1;
+                    qSet.push({
+                        title: `Integration Question ${i}`,
+                        text: `Evaluate $\\int_0^{${a}} 2x \\, dx$.`,
+                        options: [`$${a*a}$`, `$${2*a}$`, `$${a}$`, `$${a*a*a}$`],
+                        correctIndex: 0,
+                        hint: `Antiderivative of $2x$ is $x^2$.`,
+                        explanation: `<strong>Correct: A</strong><br>$[x^2]_0^{${a}} = ${a}^2 - 0 = ${a*a}$.`
+                    });
+                }
+            } else {
+                // PHYSICS PROBLEMS (Multi-Topic Diversity)
+                if (unit === 1) { // Kinematics (Kinematics, Vectors, Freefall, Graph)
+                    if (topicChoice === 1) { // Constant Acceleration
+                        let v0 = Math.floor(Math.random() * 5) + 2;
+                        let a = Math.floor(Math.random() * 4) + 2;
+                        let t = Math.floor(Math.random() * 3) + 2;
+                        let ans = v0 + a * t;
+                        qSet.push({
+                            title: `1D Motion Question ${i}`,
+                            text: `An object moves with $v_0 = ${v0}\\text{ m/s}$ and $a = ${a}\\text{ m/s}^2$. What is $v$ at $t = ${t}\\text{ s}$?`,
+                            options: [`$${ans}\\text{ m/s}$`, `$${ans+3}\\text{ m/s}$`, `$${v0*t}\\text{ m/s}$`, `$${ans-2}\\text{ m/s}$`],
+                            correctIndex: 0,
+                            hint: `Use $v = v_0 + at$.`,
+                            explanation: `<strong>Correct: A</strong><br>$v = ${v0} + (${a})(${t}) = ${ans}\\text{ m/s}$.`
+                        });
+                    } else if (topicChoice === 2) { // Vectors
+                        let ax = Math.floor(Math.random() * 4) + 3; // 3 or 4
+                        let ay = (ax === 3) ? 4 : 3;
+                        qSet.push({
+                            title: `Vector Magnitude ${i}`,
+                            text: `A displacement vector is given by $\\vec{A} = ${ax}\\hat{i} + ${ay}\\hat{j}\\text{ m}$. Find $|\\vec{A}|$.`,
+                            options: [`$5\\text{ m}$`, `$7\\text{ m}$`, `$1\\text{ m}$`, `$12\\text{ m}$`],
+                            correctIndex: 0,
+                            hint: `Use $|\\vec{A}| = \\sqrt{A_x^2 + A_y^2}$.`,
+                            explanation: `<strong>Correct: A</strong><br>$|\\vec{A}| = \\sqrt{${ax}^2 + ${ay}^2} = \\sqrt{25} = 5\\text{ m}$.`
+                        });
+                    } else if (topicChoice === 3) { // Freefall
+                        let t = Math.floor(Math.random() * 3) + 1;
+                        let h = 0.5 * 9.8 * t * t;
+                        qSet.push({
+                            title: `Free Fall Question ${i}`,
+                            text: `A ball is dropped from rest ($v_0 = 0$). How far does it fall in $t = ${t}\\text{ s}$? ($g = 9.8\\text{ m/s}^2$)`,
+                            options: [`$${h.toFixed(1)}\\text{ m}$`, `$${(9.8*t).toFixed(1)}\\text{ m}$`, `$${(h+5).toFixed(1)}\\text{ m}$`, `$2.0\\text{ m}$`],
+                            correctIndex: 0,
+                            hint: `Use $y = \\frac{1}{2}gt^2$.`,
+                            explanation: `<strong>Correct: A</strong><br>$y = 0.5(9.8)(${t})^2 = ${h.toFixed(1)}\\text{ m}$.`
+                        });
+                    } else { // Motion Graph / Calculus
+                        let b = Math.floor(Math.random() * 3) + 2;
+                        qSet.push({
+                            title: `Calculus Kinematics ${i}`,
+                            text: `Position is given by $x(t) = ${b}t^2 - 3t$. What is the acceleration $a(t)$?`,
+                            options: [`$${2*b}\\text{ m/s}^2$`, `$${b}\\text{ m/s}^2$`, `$${2*b}t\\text{ m/s}^2$`, `$0$`],
+                            correctIndex: 0,
+                            hint: `Take second derivative $a(t) = x''(t)$.`,
+                            explanation: `<strong>Correct: A</strong><br>$v(t) = x'(t) = ${2*b}t - 3$, so $a(t) = v'(t) = ${2*b}\\text{ m/s}^2$.`
+                        });
+                    }
+                } else { // Generic Physics Dynamics/Energy
+                    let m = Math.floor(Math.random() * 5) + 2;
+                    let a = Math.floor(Math.random() * 4) + 2;
+                    qSet.push({
+                        title: `Newton's 2nd Law ${i}`,
+                        text: `Find net force required to accelerate mass $m = ${m}\\text{ kg}$ at $a = ${a}\\text{ m/s}^2$.`,
+                        options: [`$${m*a}\\text{ N}$`, `$${m+a}\\text{ N}$`, `$${m*a + 5}\\text{ N}$`, `$0\\text{ N}$`],
+                        correctIndex: 0,
+                        hint: `Use $F_{net} = ma$.`,
+                        explanation: `<strong>Correct: A</strong><br>$F = (${m})(${a}) = ${m*a}\\text{ N}$.`
+                    });
+                }
+            }
+        }
+        return qSet;
+    }
+
+    let practiceMode = 'MCQ';
     let activeQuestions = [];
     let currentQIndex = 0;
     let timerInterval = null;
@@ -412,42 +626,6 @@
     let questionTimes = [];
     let userAnswers = [];
     let usedHints = [];
-
-    // Problem Generator with Random Parameters (1 & 2 Combination)
-    function generateQuestionSet(subject, unit, mode) {
-        let qSet = [];
-        for (let i = 1; i <= 10; i++) {
-            let v0 = Math.floor(Math.random() * 10) + 2; // Rand 2~11
-            let acc = Math.floor(Math.random() * 5) + 2; // Rand 2~6
-            let t = Math.floor(Math.random() * 4) + 2;   // Rand 2~5
-            let correctV = v0 + acc * t;
-
-            if (mode === 'MCQ') {
-                qSet.push({
-                    title: `Question ${i}`,
-                    text: `An object starts with an initial velocity $v_0 = ${v0}\\text{ m/s}$ and accelerates at a constant rate $a = ${acc}\\text{ m/s}^2$ for $t = ${t}\\text{ s}$. What is its final velocity $v$?`,
-                    options: [
-                        `$v = ${correctV}\\text{ m/s}$`,
-                        `$v = ${correctV + 4}\\text{ m/s}$`,
-                        `$v = ${v0 * t}\\text{ m/s}$`,
-                        `$v = ${correctV - 3}\\text{ m/s}$`
-                    ],
-                    correctIndex: 0,
-                    hint: `Use the constant acceleration equation: $v = v_0 + at$.`,
-                    explanation: `<strong>Correct Answer: A</strong><br>Using $v = v_0 + at = ${v0} + (${acc})(${t}) = ${correctV}\\text{ m/s}$.<br><br><strong>Distractor Analysis:</strong><br>• Option B (+4): Incorrect addition.<br>• Option C ($v_0 \\cdot t$): Forgot acceleration term.<br>• Option D (-3): Arithmetic error.`
-                });
-            } else {
-                qSet.push({
-                    title: `FRQ Problem ${i}`,
-                    text: `A particle moves along a straight line with constant acceleration $a = ${acc}\\text{ m/s}^2$. At $t=0$, $x_0=0$ and $v_0=${v0}\\text{ m/s}$. <br>(a) Derive the position equation $x(t)$.<br>(b) Calculate total displacement at $t=${t}\\text{ s}$.`,
-                    hint: `Recall $x(t) = x_0 + v_0 t + \\frac{1}{2}at^2$.`,
-                    acceptedKey: `${v0 * t + 0.5 * acc * t * t}`,
-                    explanation: `<strong>Sample Solution & Scoring Rubric:</strong><br>1. $x(t) = ${v0}t + \\frac{1}{2}(${acc})t^2 = ${v0}t + ${acc/2}t^2$ (1pt)<br>2. Plug in $t=${t}$: $x(${t}) = ${v0}(${t}) + \\frac{1}{2}(${acc})(${t})^2 = ${v0 * t + 0.5 * acc * t * t}\\text{ m}$ (1pt)`
-                });
-            }
-        }
-        return qSet;
-    }
 
     function startPractice(mode) {
         practiceMode = mode;
@@ -470,7 +648,6 @@
         document.getElementById('q-title').innerText = q.title;
         document.getElementById('q-text').innerHTML = q.text;
 
-        // Reset Cards & Buttons
         document.getElementById('hint-card').style.display = 'none';
         document.getElementById('explain-card').style.display = 'none';
         document.getElementById('explain-btn').style.display = 'none';
@@ -497,11 +674,9 @@
             document.getElementById('frq-user-answer').value = userAnswers[index] || '';
         }
 
-        // Nav Buttons Control
-        document.getElementById('prev-btn').style.disabled = (index === 0);
+        document.getElementById('prev-btn').disabled = (index === 0);
         document.getElementById('next-btn').innerText = (index === 9) ? "Finish & View Stats 🎉" : "Next →";
 
-        // Reset / Resume Timer for Question
         resetAndStartTimer();
         initKaTeX();
     }
@@ -551,7 +726,6 @@
         card.style.display = card.style.display === 'block' ? 'none' : 'block';
     }
 
-    // Timer Functions
     function resetAndStartTimer() {
         clearInterval(timerInterval);
         timerSeconds = questionTimes[currentQIndex] || 0;
@@ -612,7 +786,7 @@
 
         activeQuestions.forEach((q, idx) => {
             const userAns = userAnswers[idx];
-            const isCorrect = (practiceMode === 'MCQ') ? (userAns === q.correctIndex) : (userAns && userAns.includes(q.acceptedKey));
+            const isCorrect = (practiceMode === 'MCQ') ? (userAns === q.correctIndex) : (userAns && userAns.trim().length > 0);
             const usedH = usedHints[idx];
 
             if (isCorrect) correctCount++;
