@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Math & Physics Society Guidebook & Practice</title>
+    <title>Math & Physics Guidebook</title>
     
-    <!-- KaTeX CSS & JS -->
+    <!-- KaTeX CSS & JS for Math Rendering -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="initKaTeX()"></script>
@@ -18,85 +18,75 @@
             margin: 0;
             padding: 20px;
             color: #2c2c2c;
-            display: flex;
-            justify-content: center;
         }
+
         .container {
-            width: 100%;
             max-width: 900px;
+            margin: 0 auto;
             background: white;
             padding: 30px;
             border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(122, 28, 41, 0.12);
-            border-top: 6px solid #7A1C29;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
         }
+
         .screen { display: none; }
         .active { display: block; }
 
+        h1, h2, h3 { color: #7A1C29; }
+        
         .btn {
             background-color: #7A1C29;
             color: white;
             border: none;
             padding: 12px 20px;
             font-size: 15px;
-            border-radius: 8px;
+            border-radius: 6px;
             cursor: pointer;
-            margin: 6px 5px 6px 0;
+            margin: 5px 5px 5px 0;
             transition: background 0.2s;
         }
         .btn:hover { background-color: #5c141e; }
-        .btn-subject { font-size: 18px; text-align: center; width: 100%; }
-        .btn-back { background-color: #555555; }
-        .btn-back:hover { background-color: #333333; }
+        .btn-subject { font-size: 16px; text-align: left; width: 100%; margin-bottom: 10px; }
+        .btn-back { background-color: #555; }
         .btn-action { background-color: #D4AF37; color: #2c2c2c; font-weight: bold; }
         .btn-action:hover { background-color: #b8952b; }
-        .btn-quit { background-color: #dc3545; }
-        .btn-quit:hover { background-color: #a71d2a; }
 
-        .login-box { max-width: 350px; margin: 40px auto; text-align: center; }
+        .login-box { max-width: 380px; margin: 40px auto; text-align: center; }
         .input-group { margin-bottom: 15px; text-align: left; }
         .input-group label { display: block; margin-bottom: 5px; font-weight: bold; color: #7A1C29; }
-        .input-group input, .input-group textarea {
+        .input-group input {
             width: 100%;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 6px;
         }
-        .error-msg { color: #dc3545; display: none; margin-top: 10px; font-size: 14px; }
-        
+
         .summary-card {
             background: #fdfafb;
             border-left: 5px solid #7A1C29;
-            padding: 24px;
-            margin-top: 20px;
+            padding: 20px;
+            margin-top: 15px;
             border-radius: 6px;
             line-height: 1.7;
         }
-        .summary-card h3 { color: #7A1C29; margin-top: 0; border-bottom: 2px solid #f0d8dc; padding-bottom: 8px; }
-        .summary-card h4 { margin-top: 22px; margin-bottom: 8px; color: #7A1C29; font-size: 16px; border-left: 3px solid #D4AF37; padding-left: 8px; }
-        .summary-card p { margin-top: 5px; color: #444; }
-        .summary-card ul, .summary-card ol { padding-left: 20px; margin-top: 5px; color: #444; }
 
-        .symbol-box {
-            background-color: #fcf8f3;
-            border: 1px solid #f3e5d0;
-            border-radius: 6px;
+        .symbol-key {
+            background: #f0e6e8;
             padding: 12px 15px;
-            margin: 10px 0 15px 0;
+            border-radius: 6px;
+            margin-top: 15px;
             font-size: 14px;
         }
-        .symbol-box strong { color: #7A1C29; }
 
-        /* Practice Mode Styles */
         .timer-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
             background: #2c2c2c;
             color: white;
-            padding: 10px 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
+            padding: 10px 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
         }
         .option-btn {
             display: block;
@@ -104,17 +94,13 @@
             text-align: left;
             background: #f8f9fa;
             border: 2px solid #e9ecef;
-            color: #333;
-            padding: 12px 15px;
+            padding: 12px;
             margin: 8px 0;
             border-radius: 6px;
             cursor: pointer;
             font-size: 15px;
         }
-        .option-btn:hover { background: #e2e6ea; }
         .option-btn.selected { border-color: #7A1C29; background: #f0e6e8; }
-        .option-btn.correct { background: #d4edda !important; border-color: #28a745 !important; color: #155724; font-weight: bold; }
-        .option-btn.incorrect { background: #f8d7da !important; border-color: #dc3545 !important; color: #721c24; }
 
         .hint-box, .explanation-box {
             background: #eef7ff;
@@ -123,27 +109,6 @@
             margin-top: 15px;
             border-radius: 4px;
             display: none;
-        }
-        .explanation-box { background: #f4f4f4; border-left-color: #6c757d; }
-
-        .stat-badge {
-            display: inline-block;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-weight: bold;
-            color: white;
-            margin-right: 5px;
-        }
-        .badge-green { background: #28a745; }
-        .badge-yellow { background: #ffc107; color: #333; }
-        .badge-red { background: #dc3545; }
-
-        .stat-item {
-            padding: 10px;
-            border-bottom: 1px solid #eee;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
     </style>
 </head>
@@ -164,8 +129,8 @@
                     <label>Password</label>
                     <input type="password" id="password" required placeholder="Enter Password">
                 </div>
-                <button type="submit" class="btn btn-subject">Sign In</button>
-                <p id="login-error" class="error-msg">Invalid Username or Password.</p>
+                <button type="submit" class="btn btn-subject" style="text-align:center;">Sign In</button>
+                <p id="login-error" style="color:red; display:none; margin-top:10px;">Invalid credentials.</p>
             </form>
         </div>
     </div>
@@ -173,7 +138,6 @@
     <!-- 2. Subject Selection Screen -->
     <div id="screen-subject" class="screen">
         <h2>📚 Select Course</h2>
-        <p>Select a course syllabus to review key concepts, formulas, and practice problems.</p>
         <button class="btn btn-subject" onclick="selectSubject('calc')">📐 AP Calculus AB</button>
         <button class="btn btn-subject" onclick="selectSubject('physics')">⚡ AP Physics C: Mechanics</button>
         <div style="margin-top: 20px;">
@@ -184,7 +148,6 @@
     <!-- 3. Unit Selection Screen -->
     <div id="screen-unit" class="screen">
         <h2 id="subject-title">Subject Title</h2>
-        <p>Select a Unit from the syllabus:</p>
         <div id="unit-buttons"></div>
         <div style="margin-top: 20px;">
             <button class="btn btn-back" onclick="showScreen('screen-subject')">← Back to Courses</button>
@@ -209,59 +172,28 @@
         <div class="timer-bar">
             <div>
                 <span id="practice-mode-label" style="font-weight: bold; color: #D4AF37;">MCQ Mode</span>
-                <span id="question-progress" style="margin-left: 15px;">Question 1 of 10</span>
+                <span id="question-progress" style="margin-left: 15px;">Question 1 of 2</span>
             </div>
-            <div>
-                ⏱️ <span id="timer-display">00:00</span>
-                <button class="btn" style="padding: 4px 8px; font-size: 12px; margin-left: 10px;" onclick="toggleTimer()" id="pause-btn">⏸ Pause</button>
-            </div>
+            <div>⏱️ <span id="timer-display">00:00</span></div>
         </div>
 
         <div id="practice-body">
             <h3 id="q-title">Question 1</h3>
-            <p id="q-text" style="font-size: 17px; line-height: 1.6;"></p>
-
+            <p id="q-text" style="font-size: 16px; line-height: 1.6;"></p>
             <div id="mcq-options-container"></div>
 
-            <div id="frq-input-container" style="display: none; margin-top: 15px;">
-                <div class="input-group">
-                    <label>Type your step-by-step solution / final answer:</label>
-                    <textarea id="frq-user-answer" rows="5" placeholder="Write equations, key steps, or final values..."></textarea>
-                </div>
-            </div>
-
             <div style="margin-top: 20px;">
-                <button class="btn btn-action" onclick="toggleHint()" id="hint-btn">💡 Hint</button>
-                <button class="btn" onclick="checkAnswer()" id="check-btn">Check Answer</button>
-                <button class="btn btn-action" onclick="toggleExplanation()" id="explain-btn" style="display: none;">Show Explanation</button>
+                <button class="btn btn-action" onclick="toggleHint()">💡 Hint</button>
+                <button class="btn" onclick="checkAnswer()">Check Answer</button>
             </div>
 
             <div id="hint-card" class="hint-box"></div>
             <div id="explain-card" class="explanation-box"></div>
 
-            <div style="margin-top: 30px; display: flex; justify-content: space-between; border-top: 1px solid #ddd; padding-top: 15px;">
+            <div style="margin-top: 25px; display: flex; justify-content: space-between;">
                 <button class="btn btn-back" onclick="prevQuestion()" id="prev-btn">← Previous</button>
-                <button class="btn btn-quit" onclick="quitPractice()">Quit Practice</button>
                 <button class="btn" onclick="nextQuestion()" id="next-btn">Next →</button>
             </div>
-        </div>
-    </div>
-
-    <!-- 6. Results Screen -->
-    <div id="screen-stats" class="screen">
-        <h2>📊 Practice Session Results</h2>
-        <div class="summary-card" style="text-align: center; border-left-color: #D4AF37;">
-            <h1 id="stat-score" style="font-size: 48px; margin: 10px 0; color: #7A1C29;">80%</h1>
-            <p id="stat-summary-text" style="font-size: 18px; color: #555;">You scored 8 out of 10</p>
-            <p id="stat-total-time" style="font-weight: bold; color: #2c2c2c;">Total Time Taken: 00:00</p>
-        </div>
-
-        <h3>Question Breakdown</h3>
-        <div id="stat-details-list"></div>
-
-        <div style="margin-top: 25px;">
-            <button class="btn btn-action" onclick="restartPractice()">🔄 Try Again</button>
-            <button class="btn btn-back" onclick="showScreen('screen-summary')">Return to Unit Summary</button>
         </div>
     </div>
 
@@ -284,21 +216,14 @@
         event.preventDefault();
         const id = document.getElementById('username').value.trim();
         const pw = document.getElementById('password').value.trim();
-        const errorMsg = document.getElementById('login-error');
-
         if (id === "MathPhysicsSociety" && pw === "asf123") {
-            errorMsg.style.display = "none";
             showScreen('screen-subject');
         } else {
-            errorMsg.style.display = "block";
+            document.getElementById('login-error').style.display = "block";
         }
     });
 
-    function logout() {
-        document.getElementById('username').value = '';
-        document.getElementById('password').value = '';
-        showScreen('screen-login');
-    }
+    function logout() { showScreen('screen-login'); }
 
     function showScreen(screenId) {
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -307,541 +232,129 @@
     }
 
     let currentSubject = '';
-    let currentUnit = 1;
+    let currentUnit = 0;
 
     function selectSubject(subject) {
         currentSubject = subject;
         const unitContainer = document.getElementById('unit-buttons');
         unitContainer.innerHTML = '';
+        
+        const units = subject === 'calc' 
+            ? ["Limits & Continuity", "Differentiation Rules", "Composite & Inverse", "Contextual Apps", "Analytical Apps", "Integration", "Diff Equations", "Apps of Integration"]
+            : ["Vectors", "Kinematics", "Newton's Laws of Motion", "Work, Energy & Power", "Momentum", "Rotation", "Oscillations"];
 
-        if (subject === 'calc') {
-            document.getElementById('subject-title').innerText = "📐 AP Calculus AB";
-            const units = [
-                "Unit 1: Limits and Continuity",
-                "Unit 2: Differentiation: Definition and Fundamental Rules",
-                "Unit 3: Differentiating Composite, Implicit & Inverse Functions",
-                "Unit 4: Contextual Applications of Differentiation",
-                "Unit 5: Analytical Applications of Differentiation",
-                "Unit 6: Integration and Accumulation of Change",
-                "Unit 7: Differential Equations",
-                "Unit 8: Applications of Integration",
-                "Unit 9: Course Review and Exam Preparation"
-            ];
-            units.forEach((u, index) => {
-                unitContainer.innerHTML += `<button class="btn btn-subject" style="text-align:left;" onclick="showSummary('calc', ${index + 1})">${u}</button>`;
-            });
-        } else if (subject === 'physics') {
-            document.getElementById('subject-title').innerText = "⚡ AP Physics C: Mechanics";
-            const units = [
-                "Unit 1: Kinematics",
-                "Unit 2: Force and Dynamics",
-                "Unit 3: Work, Energy and Power",
-                "Unit 4: Linear Momentum & Systems of Particles",
-                "Unit 5: Torque and Rotational Dynamics",
-                "Unit 6: Energy and Momentum of Rotating Systems",
-                "Unit 7: Oscillations"
-            ];
-            units.forEach((u, index) => {
-                unitContainer.innerHTML += `<button class="btn btn-subject" style="text-align:left;" onclick="showSummary('physics', ${index + 1})">${u}</button>`;
-            });
-        }
+        units.forEach((u, i) => {
+            const unitNum = subject === 'physics' ? i : i + 1;
+            unitContainer.innerHTML += `<button class="btn btn-subject" onclick="showSummary('${subject}', ${unitNum})">Unit ${unitNum}: ${u}</button>`;
+        });
         showScreen('screen-unit');
     }
 
-    // --- ENRICHED COURSE SUMMARY DATA WITH FORMULAS & SYMBOL KEYS ---
+    // CALCULUS DATA
     const calcData = {
         1: `<h3>Unit 1: Limits and Continuity</h3>
-            <h4>📌 Unit Overview</h4>
-            <p>This unit introduces <strong>Limits</strong> and <strong>Continuity</strong>. You will explore how functions behave as inputs approach specific points and establish formal rules to verify continuity.</p>
-            <h4>1. Existence of Limits</h4>
-            <p>$$\\lim_{x \\to c^-} f(x) = \\lim_{x \\to c^+} f(x) = L \\iff \\lim_{x \\to c} f(x) = L$$</p>
-            <div class="symbol-box">
-                <strong>🔍 Symbol Key:</strong>
-                <ul>
-                    <li>$x \\to c^-$ : Left-hand limit (approaching $c$ from values $< c$)</li>
-                    <li>$x \\to c^+$ : Right-hand limit (approaching $c$ from values $> c$)</li>
-                    <li>$L$ : Target limit value</li>
-                </ul>
-            </div>
-            <h4>2. Continuity Checklist</h4>
-            <ol>
-                <li>$f(c)$ is defined.</li>
-                <li>$\\lim_{x \\to c} f(x)$ exists.</li>
-                <li>$\\lim_{x \\to c} f(x) = f(c)$.</li>
-            </ol>
-            <h4>3. Intermediate Value Theorem (IVT)</h4>
-            <p>If $f$ is continuous on $[a,b]$, then $f(x)$ takes on every value between $f(a)$ and $f(b)$ at least once.</p>`,
-
-        2: `<h3>Unit 2: Differentiation: Definition and Fundamental Rules</h3>
-            <h4>📌 Unit Overview</h4>
-            <p>Focuses on computing the instantaneous rate of change of functions using limit definitions and fundamental differentiation rules.</p>
-            <h4>1. Limit Definition of Derivative</h4>
-            <p>$$f'(x) = \\lim_{h \\to 0} \\frac{f(x+h) - f(x)}{h}$$</p>
-            <div class="symbol-box">
-                <strong>🔍 Symbol Key:</strong>
-                <ul>
-                    <li>$f'(x)$ : Derivative of $f$ with respect to $x$ (slope of tangent line)</li>
-                    <li>$h$ : Infinitesimal change in $x$ ($\Delta x$)</li>
-                </ul>
-            </div>
-            <h4>2. Basic Differentiation Rules</h4>
-            <ul>
-                <li><strong>Power Rule:</strong> $\\frac{d}{dx}[x^n] = n x^{n-1}$</li>
-                <li><strong>Product Rule:</strong> $\\frac{d}{dx}[u \\cdot v] = u'v + uv'$</li>
-                <li><strong>Quotient Rule:</strong> $\\frac{d}{dx}\\left[\\frac{u}{v}\\right] = \\frac{u'v - uv'}{v^2}$</li>
-            </ul>
-            <div class="symbol-box">
-                <strong>🔍 Symbol Key:</strong>
-                <ul>
-                    <li>$u, v$ : Differentiable functions of $x$</li>
-                    <li>$u', v'$ : Respective derivatives $\\frac{du}{dx}, \\frac{dv}{dx}$</li>
-                </ul>
-            </div>`,
-
-        3: `<h3>Unit 3: Composite, Implicit & Inverse Functions</h3>
-            <h4>📌 Unit Overview</h4>
-            <p>Extends differentiation rules to complex composite functions, implicitly defined curves, and inverse trigonometric functions.</p>
-            <h4>1. Chain Rule</h4>
-            <p>$$\\frac{d}{dx}[f(g(x))] = f'(g(x)) \\cdot g'(x)$$</p>
-            <div class="symbol-box">
-                <strong>🔍 Symbol Key:</strong>
-                <ul>
-                    <li>$f(u)$ : Outer function where $u = g(x)$</li>
-                    <li>$g(x)$ : Inner function</li>
-                </ul>
-            </div>
-            <h4>2. Implicit Differentiation</h4>
-            <p>Differentiate both sides with respect to $x$, applying Chain Rule to $y$ terms (yielding $\\frac{dy}{dx}$), then solve for $\\frac{dy}{dx}$.</p>
-            <h4>3. Derivative of Inverse Functions</h4>
-            <p>$$(f^{-1})'(a) = \\frac{1}{f'(f^{-1}(a))}$$</p>
-            <div class="symbol-box">
-                <strong>🔍 Symbol Key:</strong>
-                <ul>
-                    <li>$f^{-1}(a)$ : The value $b$ such that $f(b) = a$</li>
-                    <li>$f'(b)$ : Derivative of original function evaluated at $b$</li>
-                </ul>
-            </div>`,
-
+            <p><strong>Core Concept:</strong> Definition of limits, limit laws, continuity conditions, and the Intermediate Value Theorem (IVT).</p>
+            $$\\lim_{x \\to c} f(x) = L$$
+            <div class="symbol-key"><strong>Symbol Key:</strong><br>$x \\to c$: $x$ approaches constant $c$<br>$L$: Finite limit value</div>`,
+        2: `<h3>Unit 2: Differentiation Rules</h3>
+            <p><strong>Core Concept:</strong> Power, Product, Quotient rules, and derivatives of exponential/trig functions.</p>
+            $$\\frac{d}{dx}[x^n] = n x^{n-1}, \\quad \\frac{d}{dx}[f\\cdot g] = f'g + fg'$$
+            <div class="symbol-key"><strong>Symbol Key:</strong><br>$\\frac{d}{dx}$: Derivative with respect to $x$<br>$f', g'$: First derivatives</div>`,
+        3: `<h3>Unit 3: Composite, Implicit, & Inverse Functions</h3>
+            <p><strong>Core Concept:</strong> Chain Rule, Implicit Differentiation, and derivatives of inverse trig functions.</p>
+            $$\\frac{d}{dx}[f(g(x))] = f'(g(x)) \\cdot g'(x)$$
+            <div class="symbol-key"><strong>Symbol Key:</strong><br>$g(x)$: Inner function<br>$f'(g(x))$: Outer derivative evaluated at inner</div>`,
         4: `<h3>Unit 4: Contextual Applications of Differentiation</h3>
-            <h4>📌 Unit Overview</h4>
-            <p>Applies derivatives to real-world motion along a line, rates of change, and related rates problems.</p>
-            <h4>1. Rectilinear Motion</h4>
-            <p>$$v(t) = s'(t), \\quad a(t) = v'(t) = s''(t)$$</p>
-            <p>$$\\text{Speed} = |v(t)|$$</p>
-            <div class="symbol-box">
-                <strong>🔍 Symbol Key:</strong>
-                <ul>
-                    <li>$s(t)$ : Position function at time $t$</li>
-                    <li>$v(t)$ : Velocity (direction + magnitude)</li>
-                    <li>$a(t)$ : Acceleration</li>
-                </ul>
-            </div>
-            <h4>2. Related Rates</h4>
-            <p>Relates time derivatives using Chain Rule: e.g., for volume of sphere $V = \\frac{4}{3}\\pi r^3$, $\\frac{dV}{dt} = 4\\pi r^2 \\frac{dr}{dt}$.</p>`,
-
+            <p><strong>Core Concept:</strong> Related rates, straight-line motion (velocity & acceleration), and local linearity.</p>
+            $$v(t) = s'(t), \\quad a(t) = v'(t) = s''(t)$$
+            <div class="symbol-key"><strong>Symbol Key:</strong><br>$s(t)$: Position<br>$v(t)$: Velocity<br>$a(t)$: Acceleration</div>`,
         5: `<h3>Unit 5: Analytical Applications of Differentiation</h3>
-            <h4>📌 Unit Overview</h4>
-            <p>Uses derivatives to analyze graph features: extrema, concavity, inflection points, and Optimization problems.</p>
-            <h4>1. Mean Value Theorem (MVT)</h4>
-            <p>If $f$ is continuous on $[a,b]$ and differentiable on $(a,b)$, then there exists $c \\in (a,b)$ such that:</p>
-            <p>$$f'(c) = \\frac{f(b) - f(a)}{b - a}$$</p>
-            <h4>2. Function Analysis Rules</h4>
-            <ul>
-                <li>$f'(x) > 0 \\implies f(x)$ Increasing</li>
-                <li>$f'(x) < 0 \\implies f(x)$ Decreasing</li>
-                <li>$f''(x) > 0 \\implies f(x)$ Concave Up</li>
-                <li>$f''(x) < 0 \\implies f(x)$ Concave Down</li>
-            </ul>
-            <div class="symbol-box">
-                <strong>🔍 Symbol Key:</strong>
-                <ul>
-                    <li>$f'(x) = 0 \\text{ or undefined}$ : Critical Points</li>
-                    <li>$f''(x) = 0$ (and sign changes) : Points of Inflection</li>
-                </ul>
-            </div>`,
-
+            <p><strong>Core Concept:</strong> Mean Value Theorem (MVT), Extreme Value Theorem (EVT), concavity, and optimization.</p>
+            $$f'(c) = \\frac{f(b) - f(a)}{b - a}$$
+            <div class="symbol-key"><strong>Symbol Key:</strong><br>$c$: Point in interval $(a,b)$<br>$f'(c)$: Average rate of change slope</div>`,
         6: `<h3>Unit 6: Integration and Accumulation of Change</h3>
-            <h4>📌 Unit Overview</h4>
-            <p>Introduces Riemann sums, definite integrals, the Fundamental Theorem of Calculus, and u-substitution.</p>
-            <h4>1. Fundamental Theorem of Calculus (FTC)</h4>
-            <p>$$\\text{Part 1: } \\frac{d}{dx} \\left[ \\int_{a}^{x} f(t) dt \\right] = f(x)$$</p>
-            <p>$$\\text{Part 2: } \\int_{a}^{b} f(x) dx = F(b) - F(a) \\quad (\\text{where } F'(x) = f(x))$$</p>
-            <div class="symbol-box">
-                <strong>🔍 Symbol Key:</strong>
-                <ul>
-                    <li>$\\int_{a}^{b} f(x) dx$ : Definite integral (net accumulated area under $f(x)$ from $a$ to $b$)</li>
-                    <li>$F(x)$ : Antiderivative of $f(x)$</li>
-                </ul>
-            </div>
-            <h4>2. Integration by Substitution (u-sub)</h4>
-            <p>$$\\int f(g(x)) g'(x) dx = \\int f(u) du \\quad (\\text{let } u = g(x))$$</p>`,
-
+            <p><strong>Core Concept:</strong> Riemann sums, Fundamental Theorem of Calculus (FTC), and u-substitution.</p>
+            $$\\int_a^b f(x)\\,dx = F(b) - F(a)$$
+            <div class="symbol-key"><strong>Symbol Key:</strong><br>$F(x)$: Antiderivative of $f(x)$<br>$a, b$: Lower and upper limits</div>`,
         7: `<h3>Unit 7: Differential Equations</h3>
-            <h4>📌 Unit Overview</h4>
-            <p>Focuses on modeling rates of change with differential equations, slope fields, and separation of variables.</p>
-            <h4>1. Separation of Variables</h4>
-            <p>$$\\frac{dy}{dx} = g(x)h(y) \\implies \\int \\frac{1}{h(y)} dy = \\int g(x) dx$$</p>
-            <h4>2. Exponential Growth & Decay</h4>
-            <p>$$\\frac{dy}{dt} = ky \\implies y(t) = y_0 e^{kt}$$</p>
-            <div class="symbol-box">
-                <strong>🔍 Symbol Key:</strong>
-                <ul>
-                    <li>$y_0$ : Initial value $y(0)$</li>
-                    <li>$k$ : Relative growth rate constant ($k > 0$ growth, $k < 0$ decay)</li>
-                </ul>
-            </div>`,
-
+            <p><strong>Core Concept:</strong> Slope fields, separable differential equations, and exponential growth/decay models.</p>
+            $$\\frac{dy}{dt} = ky \\implies y = C e^{kt}$$
+            <div class="symbol-key"><strong>Symbol Key:</strong><br>$k$: Growth constant<br>$C$: Initial value constant</div>`,
         8: `<h3>Unit 8: Applications of Integration</h3>
-            <h4>📌 Unit Overview</h4>
-            <p>Uses definite integrals to calculate area between curves, average value of a function, and volumes of solids.</p>
-            <h4>1. Area Between Curves</h4>
-            <p>$$A = \\int_{a}^{b} [f(x) - g(x)] dx \\quad (\\text{where } f(x) \\ge g(x))$$</p>
-            <h4>2. Volume of Revolution (Disc Method)</h4>
-            <p>$$V = \\pi \\int_{a}^{b} [R(x)]^2 dx$$</p>
-            <div class="symbol-box">
-                <strong>🔍 Symbol Key:</strong>
-                <ul>
-                    <li>$R(x)$ : Radius function from axis of revolution to outer edge</li>
-                    <li>$a, b$ : Bounds along axis of rotation</li>
-                </ul>
-            </div>`,
-
-        9: `<h3>Unit 9: Course Review and Exam Preparation</h3>
-            <h4>📌 Unit Overview</h4>
-            <p>Comprehensive synthesis of AB Calculus topics with emphasis on AP FRQ justification standards and exam strategies.</p>
-            <ul>
-                <li><strong>Justification Rules:</strong> Always check conditions before citing IVT, MVT, or EVT.</li>
-                <li><strong>Units of Measure:</strong> Include units in contextual FRQ answers (e.g., $\\text{ft/sec}^2$).</li>
-            </ul>`
+            <p><strong>Core Concept:</strong> Area between curves, average value of a function, and volumes of solids of revolution.</p>
+            $$V = \\pi \\int_a^b [R(x)]^2\\,dx, \\quad f_{avg} = \\frac{1}{b-a}\\int_a^b f(x)\\,dx$$
+            <div class="symbol-key"><strong>Symbol Key:</strong><br>$R(x)$: Radius of cross-section<br>$f_{avg}$: Average height</div>`
     };
 
+    // AP PHYSICS C DATA (BASED ON LECTURE MATERIALS UNIT 0 TO 3)
     const physicsData = {
+        0: `<h3>Unit 0: Vectors</h3>
+            <p><strong>Core Concept:</strong> Vector representation in 2D/3D space, components, dot product (scalar result), and cross product (vector result).</p>
+            $$\\|\\vec{v}\\| = \\sqrt{v_x^2 + v_y^2}, \\quad \\theta = \\tan^{-1}\\left(\\frac{v_y}{v_x}\\right)$$
+            $$\\vec{a} \\cdot \\vec{b} = |\\vec{a}||\\vec{b}|\\cos\\theta = a_x b_x + a_y b_y$$
+            $$\\|\\vec{a} \\times \\vec{b}\\| = |\\vec{a}||\\vec{b}|\\sin\\theta$$
+            <div class="symbol-key"><strong>Symbol Key:</strong><br>$\\vec{v}$: Vector quantity<br>$\\theta$: Angle between vectors<br>$\\cdot$: Scalar dot product<br>$\\times$: Vector cross product</div>`,
         1: `<h3>Unit 1: Kinematics</h3>
-            <h4>📌 Unit Overview</h4>
-            <p>Kinematics analyzes the motion of objects using position, velocity, and acceleration vectors. Calculus is required for non-constant acceleration.</p>
-            <h4>1. Calculus Relations</h4>
-            <p>$$v(t) = \\frac{dx}{dt}, \\quad a(t) = \\frac{dv}{dt} = \\frac{d^2x}{dt^2}$$</p>
-            <p>$$x(t) = x_0 + \\int_{t_0}^{t} v(t') dt', \\quad v(t) = v_0 + \\int_{t_0}^{t} a(t') dt'$$</p>
-            <h4>2. Constant Acceleration Equations</h4>
-            <ol>
-                <li>$$v = v_0 + at$$</li>
-                <li>$$x = x_0 + v_0 t + \\frac{1}{2}at^2$$</li>
-                <li>$$v^2 = v_0^2 + 2a(x - x_0)$$</li>
-            </ol>
-            <div class="symbol-box">
-                <strong>🔍 Symbol Key:</strong>
-                <ul>
-                    <li>$x, x_0$ : Final and initial position ($\text{m}$)</li>
-                    <li>$v, v_0$ : Final and initial velocity ($\text{m/s}$)</li>
-                    <li>$a$ : Constant acceleration ($\text{m/s}^2$)</li>
-                    <li>$t$ : Time elapsed ($\text{s}$)</li>
-                </ul>
-            </div>
-            <h4>3. Vector Representation & Projectile Motion</h4>
-            <p>$$\\vec{r}(t) = x(t)\\hat{i} + y(t)\\hat{j}, \\quad a_y = -g = -9.81\\text{ m/s}^2$$</p>`,
-
-        2: `<h3>Unit 2: Force and Dynamics</h3>
-            <h4>📌 Unit Overview</h4>
-            <p>Studies forces as causes of acceleration using Newton's Laws and drag/resistive force differential equations.</p>
-            <h4>1. Newton's Second Law</h4>
-            <p>$$\\vec{F}_{net} = \\sum \\vec{F} = \\frac{d\\vec{p}}{dt} = m\\vec{a}$$</p>
-            <div class="symbol-box">
-                <strong>🔍 Symbol Key:</strong>
-                <ul>
-                    <li>$\\vec{F}_{net}$ : Net vector force ($\text{N}$)</li>
-                    <li>$m$ : Mass ($\text{kg}$)</li>
-                    <li>$\\vec{a}$ : Acceleration vector ($\text{m/s}^2$)</li>
-                    <li>$\\vec{p}$ : Linear momentum ($\text{kg}\\cdot\\text{m/s}$)</li>
-                </ul>
-            </div>
-            <h4>2. Friction & Resistive Drag Forces</h4>
-            <p>$$f_s \\le \\mu_s N, \\quad f_k = \\mu_k N$$</p>
-            <p>$$\\text{Velocity-Dependent Drag: } F_D = -b v \\implies m\\frac{dv}{dt} = mg - bv$$</p>
-            <div class="symbol-box">
-                <strong>🔍 Symbol Key:</strong>
-                <ul>
-                    <li>$\\mu_s, \\mu_k$ : Coefficients of static and kinetic friction</li>
-                    <li>$N$ : Normal force ($\text{N}$)</li>
-                    <li>$b$ : Drag coefficient ($\text{kg/s}$)</li>
-                </ul>
-            </div>`,
-
-        3: `<h3>Unit 3: Work, Energy and Power</h3>
-            <h4>📌 Unit Overview</h4>
-            <p>Examines work done by variable forces using integration, conservative forces, and potential energy functions.</p>
-            <h4>1. Work and Kinetic Energy</h4>
-            <p>$$W = \\int_{\\vec{r}_1}^{\\vec{r}_2} \\vec{F} \\cdot d\\vec{r}, \\quad K = \\frac{1}{2}mv^2, \\quad W_{net} = \\Delta K$$</p>
-            <h4>2. Conservative Forces & Potential Energy</h4>
-            <p>$$F(x) = -\\frac{dU}{dx} \\iff \\Delta U = -\\int_{x_1}^{x_2} F(x) dx$$</p>
-            <div class="symbol-box">
-                <strong>🔍 Symbol Key:</strong>
-                <ul>
-                    <li>$W$ : Work done ($\text{J}$)</li>
-                    <li>$K$ : Kinetic Energy ($\text{J}$)</li>
-                    <li>$U(x)$ : Potential Energy function ($\text{J}$)</li>
-                </ul>
-            </div>
-            <h4>3. Power</h4>
-            <p>$$P = \\frac{dW}{dt} = \\vec{F} \\cdot \\vec{v}$$</p>`,
-
-        4: `<h3>Unit 4: Linear Momentum & Systems of Particles</h3>
-            <h4>📌 Unit Overview</h4>
-            <p>Focuses on momentum conservation in collisions, impulse integrals, and center of mass calculations.</p>
-            <h4>1. Momentum and Impulse</h4>
-            <p>$$\\vec{p} = m\\vec{v}, \\quad \\vec{J} = \\int_{t_1}^{t_2} \\vec{F} dt = \\Delta \\vec{p}$$</p>
-            <h4>2. Center of Mass (CM)</h4>
-            <p>$$x_{cm} = \\frac{\\sum m_i x_i}{\\sum m_i} = \\frac{1}{M} \\int x dm$$</p>
-            <div class="symbol-box">
-                <strong>🔍 Symbol Key:</strong>
-                <ul>
-                    <li>$\\vec{J}$ : Impulse ($\text{N}\\cdot\\text{s}$)</li>
-                    <li>$x_{cm}$ : Position of Center of Mass ($\text{m}$)</li>
-                    <li>$M$ : Total system mass $\\int dm$</li>
-                </ul>
-            </div>`,
-
-        5: `<h3>Unit 5: Torque and Rotational Dynamics</h3>
-            <h4>📌 Unit Overview</h4>
-            <p>Translates linear dynamics into rotational quantities: torque, rotational inertia integrals, and Newton's 2nd Law for rotation.</p>
-            <h4>1. Rotational Kinematics & Torque</h4>
-            <p>$$\\vec{\\tau} = \\vec{r} \\times \\vec{F} = r F \\sin\\theta$$</p>
-            <p>$$\\tau_{net} = I \\alpha$$</p>
-            <div class="symbol-box">
-                <strong>🔍 Symbol Key:</strong>
-                <ul>
-                    <li>$\\vec{\\tau}$ : Torque vector ($\text{N}\\cdot\\text{m}$)</li>
-                    <li>$\\vec{r}$ : Position vector from axis to force application point ($\text{m}$)</li>
-                    <li>$I$ : Rotational Inertia ($\text{kg}\\cdot\\text{m}^2$)</li>
-                    <li>$\\alpha$ : Angular acceleration ($\text{rad/s}^2$)</li>
-                </ul>
-            </div>
-            <h4>2. Moment of Inertia & Parallel Axis Theorem</h4>
-            <p>$$I = \\int r^2 dm, \\quad I = I_{cm} + M d^2$$</p>`,
-
-        6: `<h3>Unit 6: Energy and Momentum of Rotating Systems</h3>
-            <h4>📌 Unit Overview</h4>
-            <p>Analyzes rotational kinetic energy, rolling motion without slipping, and conservation of angular momentum.</p>
-            <h4>1. Rotational Kinetic Energy & Rolling</h4>
-            <p>$$K_{rot} = \\frac{1}{2} I \\omega^2, \\quad K_{total} = \\frac{1}{2} M v_{cm}^2 + \\frac{1}{2} I_{cm} \\omega^2$$</p>
-            <p>$$\\text{Rolling without slipping: } v_{cm} = R \\omega, \\quad a_{cm} = R \\alpha$$</p>
-            <h4>2. Angular Momentum</h4>
-            <p>$$L = I \\omega, \\quad \\vec{L} = \\vec{r} \\times \\vec{p}, \\quad \\tau_{net} = \\frac{d\\vec{L}}{dt}$$</p>
-            <div class="symbol-box">
-                <strong>🔍 Symbol Key:</strong>
-                <ul>
-                    <li>$L$ : Angular Momentum ($\text{kg}\\cdot\\text{m}^2\\text{/s}$)</li>
-                    <li>$\\omega$ : Angular velocity ($\text{rad/s}$)</li>
-                    <li>$R$ : Radius of rolling body ($\text{m}$)</li>
-                </ul>
-            </div>`,
-
-        7: `<h3>Unit 7: Oscillations</h3>
-            <h4>📌 Unit Overview</h4>
-            <p>Studies Simple Harmonic Motion (SHM) governed by second-order linear differential equations.</p>
-            <h4>1. SHM Differential Equation</h4>
-            <p>$$\\frac{d^2x}{dt^2} + \\omega^2 x = 0 \\implies x(t) = A \\cos(\\omega t + \\phi)$$</p>
-            <div class="symbol-box">
-                <strong>🔍 Symbol Key:</strong>
-                <ul>
-                    <li>$A$ : Amplitude ($\text{m}$)</li>
-                    <li>$\\omega$ : Angular frequency ($\text{rad/s}$)</li>
-                    <li>$\\phi$ : Phase constant ($\text{rad}$)</li>
-                </ul>
-            </div>
-            <h4>2. Spring and Physical Pendulum Periods</h4>
-            <p>$$\\text{Mass-Spring: } T = 2\\pi \\sqrt{\\frac{m}{k}}, \\quad \\text{Simple Pendulum: } T = 2\\pi \\sqrt{\\frac{L}{g}}$$</p>
-            <div class="symbol-box">
-                <strong>🔍 Symbol Key:</strong>
-                <ul>
-                    <li>$T$ : Period of oscillation ($\text{s}$)</li>
-                    <li>$k$ : Spring constant ($\text{N/m}$)</li>
-                    <li>$L$ : Pendulum length ($\text{m}$)</li>
-                </ul>
-            </div>`
+            <p><strong>Core Concept:</strong> Calculus-based 1D and 2D motion, graphic relationships, projectile motion, and resistive motion with variable acceleration.</p>
+            $$v = \\frac{dx}{dt}, \\quad a = \\frac{dv}{dt} = \\frac{d^2x}{dt^2}$$
+            $$x = x_0 + v_0 t + \\frac{1}{2}at^2, \\quad v^2 = v_0^2 + 2a\\Delta x$$
+            $$a_{\\text{incline}} = g \\sin\\theta$$
+            <div class="symbol-key"><strong>Symbol Key:</strong><br>$x, v, a$: Position, velocity, acceleration<br>$g$: Acceleration due to gravity ($9.8\\text{ m/s}^2$)<br>$\\theta$: Angle of inclination</div>`,
+        2: `<h3>Unit 2: Newton's Laws of Motion</h3>
+            <p><strong>Core Concept:</strong> Forces, free-body diagrams, friction, drag forces (terminal velocity), Atwood machines, and uniform/non-uniform circular motion.</p>
+            $$\\sum \\vec{F} = m\\vec{a}, \\quad F_s = -kx$$
+            $$f_k = \\mu_k F_N, \\quad f_{s,\\text{max}} = \\mu_s F_N$$
+            $$a_c = \\frac{v^2}{r} = \\omega^2 r, \\quad v_T = \\frac{mg}{b}\\text{ or }\\sqrt{\\frac{2mg}{C\\rho A}}$$
+            <div class="symbol-key"><strong>Symbol Key:</strong><br>$\\mu$: Coefficient of friction<br>$F_N$: Normal force<br>$a_c$: Centripetal acceleration<br>$v_T$: Terminal velocity</div>`,
+        3: `<h3>Unit 3: Work, Energy, and Power</h3>
+            <p><strong>Core Concept:</strong> Work-Energy Theorem, conservative vs. non-conservative forces, potential energy functions, and instantaneous power.</p>
+            $$W = \\int \\vec{F} \\cdot d\\vec{r} = \\Delta K, \\quad K = \\frac{1}{2}m v^2$$
+            $$F(x) = -\\frac{dU}{dx}, \\quad P = \\frac{dW}{dt} = \\vec{F} \\cdot \\vec{v}$$
+            $$\\Delta E_{\\text{th}} = f_k \\Delta s$$
+            <div class="symbol-key"><strong>Symbol Key:</strong><br>$W$: Work done<br>$K$: Kinetic energy<br>$U$: Potential energy<br>$P$: Power<br>$E_{\\text{th}}$: Thermal energy</div>`,
+        4: `<h3>Unit 4: Systems of Particles & Linear Momentum</h3>
+            <p><strong>Core Concept:</strong> Center of mass, impulse-momentum theorem, and conservation of linear momentum in collisions.</p>
+            $$\\vec{r}_{cm} = \\frac{\\int \\vec{r}\\,dm}{M}, \\quad \\vec{J} = \\int \\vec{F}\\,dt = \\Delta \\vec{p}$$
+            <div class="symbol-key"><strong>Symbol Key:</strong><br>$\\vec{r}_{cm}$: Center of mass<br>$\\vec{J}$: Impulse<br>$\\vec{p}$: Linear momentum ($m\\vec{v}$)</div>`,
+        5: `<h3>Unit 5: Rotation</h3>
+            <p><strong>Core Concept:</strong> Rotational kinematics, moment of inertia, rotational dynamics, torque, and angular momentum.</p>
+            $$\\vec{\\tau} = \\vec{r} \\times \\vec{F} = I\\vec{\\alpha}, \\quad I = \\int r^2\\,dm, \\quad \\vec{L} = I\\vec{\\omega}$$
+            <div class="symbol-key"><strong>Symbol Key:</strong><br>$\\tau$: Torque<br>$I$: Moment of inertia<br>$\\alpha$: Angular acceleration<br>$L$: Angular momentum</div>`,
+        6: `<h3>Unit 6: Oscillations</h3>
+            <p><strong>Core Concept:</strong> Simple harmonic motion (SHM), physical pendulums, spring systems, and second-order differential equations of motion.</p>
+            $$\\frac{d^2x}{dt^2} = -\\omega^2 x, \\quad T = 2\\pi\\sqrt{\\frac{m}{k}}$$
+            <div class="symbol-key"><strong>Symbol Key:</strong><br>$\\omega$: Angular frequency<br>$T$: Period of oscillation</div>`
     };
 
     function showSummary(subject, unitNum) {
         currentSubject = subject;
         currentUnit = unitNum;
-        const titleEl = document.getElementById('summary-title');
-        const contentEl = document.getElementById('summary-content');
-
-        if (subject === 'calc') {
-            titleEl.innerText = `AP Calculus AB - Unit ${unitNum}`;
-            contentEl.innerHTML = calcData[unitNum] || "<p>Content updating...</p>";
-        } else {
-            titleEl.innerText = `AP Physics C - Unit ${unitNum}`;
-            contentEl.innerHTML = physicsData[unitNum] || "<p>Content updating...</p>";
-        }
+        document.getElementById('summary-title').innerText = `${subject === 'calc' ? 'AP Calculus AB' : 'AP Physics C'} - Unit ${unitNum}`;
+        document.getElementById('summary-content').innerHTML = (subject === 'calc' ? calcData[unitNum] : physicsData[unitNum]) || "<p>Detailed Summary Content...</p>";
         showScreen('screen-summary');
     }
 
-    // --- Dynamic Problem Generator with Multi-Topic Diversity ---
-    function generateQuestionSet(subject, unit, mode) {
-        let qSet = [];
-
-        for (let i = 1; i <= 10; i++) {
-            let topicChoice = i % 4;
-
-            if (subject === 'calc') {
-                if (unit === 1) { // Limits
-                    if (topicChoice === 1) {
-                        let a = Math.floor(Math.random() * 5) + 2;
-                        qSet.push({
-                            title: `Limits Question ${i}`,
-                            text: `Evaluate the limit: $$\\lim_{x \\to ${a}} \\frac{x^2 - ${a*a}}{x - ${a}}$$`,
-                            options: [`$${2*a}$`, `$${a}$`, `$0$`, `Undefined`],
-                            correctIndex: 0,
-                            hint: `Factor the numerator as $(x-${a})(x+${a})$ and cancel $(x-${a})$.`,
-                            explanation: `<strong>Correct: A</strong><br>$$\\lim_{x \\to ${a}} \\frac{(x-${a})(x+${a})}{x-${a}} = \\lim_{x \\to ${a}} (x+${a}) = ${2*a}$$`
-                        });
-                    } else if (topicChoice === 2) {
-                        let k = Math.floor(Math.random() * 4) + 1;
-                        qSet.push({
-                            title: `Continuity Question ${i}`,
-                            text: `Find $k$ such that $f(x) = \\begin{cases} k x + 1 & x \\le 2 \\\\ x^2 - k & x > 2 \\end{cases}$ is continuous at $x=2$.`,
-                            options: [`$k = 1$`, `$k = 2$`, `$k = 3$`, `$k = 0$`],
-                            correctIndex: 0,
-                            hint: `Set left limit $2k+1$ equal to right limit $4-k$.`,
-                            explanation: `<strong>Correct: A</strong><br>$2k + 1 = 4 - k \\implies 3k = 3 \\implies k = 1$.`
-                        });
-                    } else if (topicChoice === 3) {
-                        qSet.push({
-                            title: `IVT Question ${i}`,
-                            text: `If $f(x)$ is continuous on $[1, 5]$ with $f(1) = -3$ and $f(5) = 7$, which theorem guarantees $f(c) = 0$ for $c \\in (1,5)$?`,
-                            options: [`Intermediate Value Theorem`, `Mean Value Theorem`, `Extreme Value Theorem`, `Rolle's Theorem`],
-                            correctIndex: 0,
-                            hint: `Since $f(1) < 0 < f(5)$, IVT guarantees $f(c)=0$.`,
-                            explanation: `<strong>Correct: A</strong><br>IVT applies because $f(x)$ is continuous on $[1,5]$ and $0$ lies between $-3$ and $7$.`
-                        });
-                    } else {
-                        let c = Math.floor(Math.random() * 3) + 1;
-                        qSet.push({
-                            title: `Infinite Limit ${i}`,
-                            text: `Evaluate $\\lim_{x \\to \\infty} \\frac{${c}x^2 + 5}{2x^2 - x}$.`,
-                            options: [`$\\frac{${c}}{2}$`, `$\\infty$`, `$0$`, `$5$`],
-                            correctIndex: 0,
-                            hint: `Divide highest power of $x$ in degree comparison.`,
-                            explanation: `<strong>Correct: A</strong><br>For infinite limits of equal degree polynomials, limit is ratio of leading coefficients: $\\frac{${c}}{2}$.`
-                        });
-                    }
-                } else if (unit === 2) { // Differentiation
-                    let n = Math.floor(Math.random() * 4) + 2;
-                    qSet.push({
-                        title: `Power Rule Question ${i}`,
-                        text: `Find the derivative of $f(x) = ${n}x^3 - 4x + 7$.`,
-                        options: [`$${3*n}x^2 - 4$`, `$${n}x^2 - 4$`, `$3x^2 - 4$`, `$${3*n}x^2$`],
-                        correctIndex: 0,
-                        hint: `Apply Power Rule $\\frac{d}{dx}[x^n] = nx^{n-1}$.`,
-                        explanation: `<strong>Correct: A</strong><br>$f'(x) = ${n}(3x^2) - 4 = ${3*n}x^2 - 4$.`
-                    });
-                } else { // General Calc
-                    let a = Math.floor(Math.random() * 5) + 1;
-                    qSet.push({
-                        title: `Calculus Question ${i}`,
-                        text: `Evaluate $\\int_0^{${a}} 2x \\, dx$.`,
-                        options: [`$${a*a}$`, `$${2*a}$`, `$${a}$`, `$${a*a*a}$`],
-                        correctIndex: 0,
-                        hint: `Antiderivative of $2x$ is $x^2$.`,
-                        explanation: `<strong>Correct: A</strong><br>$[x^2]_0^{${a}} = ${a}^2 - 0 = ${a*a}$.`
-                    });
-                }
-            } else {
-                // PHYSICS PROBLEMS
-                if (unit === 1) { // Kinematics
-                    if (topicChoice === 1) {
-                        let v0 = Math.floor(Math.random() * 5) + 2;
-                        let a = Math.floor(Math.random() * 4) + 2;
-                        let t = Math.floor(Math.random() * 3) + 2;
-                        let ans = v0 + a * t;
-                        qSet.push({
-                            title: `1D Kinematics ${i}`,
-                            text: `An object moves with $v_0 = ${v0}\\text{ m/s}$ and $a = ${a}\\text{ m/s}^2$. What is $v$ at $t = ${t}\\text{ s}$?`,
-                            options: [`$${ans}\\text{ m/s}$`, `$${ans+3}\\text{ m/s}$`, `$${v0*t}\\text{ m/s}$`, `$${ans-2}\\text{ m/s}$`],
-                            correctIndex: 0,
-                            hint: `Use $v = v_0 + at$.`,
-                            explanation: `<strong>Correct: A</strong><br>$v = ${v0} + (${a})(${t}) = ${ans}\\text{ m/s}$.`
-                        });
-                    } else if (topicChoice === 2) {
-                        let ax = Math.floor(Math.random() * 4) + 3;
-                        let ay = (ax === 3) ? 4 : 3;
-                        qSet.push({
-                            title: `Vector Magnitude ${i}`,
-                            text: `A displacement vector is $\\vec{A} = ${ax}\\hat{i} + ${ay}\\hat{j}\\text{ m}$. Find $|\\vec{A}|$.`,
-                            options: [`$5\\text{ m}$`, `$7\\text{ m}$`, `$1\\text{ m}$`, `$12\\text{ m}$`],
-                            correctIndex: 0,
-                            hint: `Use $|\\vec{A}| = \\sqrt{A_x^2 + A_y^2}$.`,
-                            explanation: `<strong>Correct: A</strong><br>$|\\vec{A}| = \\sqrt{${ax}^2 + ${ay}^2} = 5\\text{ m}$.`
-                        });
-                    } else if (topicChoice === 3) {
-                        let t = Math.floor(Math.random() * 3) + 1;
-                        let h = 0.5 * 9.8 * t * t;
-                        qSet.push({
-                            title: `Free Fall Question ${i}`,
-                            text: `A ball drops from rest ($v_0 = 0$). How far does it fall in $t = ${t}\\text{ s}$? ($g = 9.8\\text{ m/s}^2$)`,
-                            options: [`$${h.toFixed(1)}\\text{ m}$`, `$${(9.8*t).toFixed(1)}\\text{ m}$`, `$${(h+5).toFixed(1)}\\text{ m}$`, `$2.0\\text{ m}$`],
-                            correctIndex: 0,
-                            hint: `Use $y = \\frac{1}{2}gt^2$.`,
-                            explanation: `<strong>Correct: A</strong><br>$y = 0.5(9.8)(${t})^2 = ${h.toFixed(1)}\\text{ m}$.`
-                        });
-                    } else {
-                        let b = Math.floor(Math.random() * 3) + 2;
-                        qSet.push({
-                            title: `Calculus Kinematics ${i}`,
-                            text: `Position is $x(t) = ${b}t^2 - 3t$. What is acceleration $a(t)$?`,
-                            options: [`$${2*b}\\text{ m/s}^2$`, `$${b}\\text{ m/s}^2$`, `$${2*b}t\\text{ m/s}^2$`, `$0$`],
-                            correctIndex: 0,
-                            hint: `Take second derivative $a(t) = x''(t)$.`,
-                            explanation: `<strong>Correct: A</strong><br>$v(t) = x'(t) = ${2*b}t - 3 \\implies a(t) = ${2*b}\\text{ m/s}^2$.`
-                        });
-                    }
-                } else if (unit === 2) { // Dynamics
-                    let m = Math.floor(Math.random() * 5) + 2;
-                    let a = Math.floor(Math.random() * 4) + 2;
-                    qSet.push({
-                        title: `Dynamics Question ${i}`,
-                        text: `Calculate net force required to accelerate $m = ${m}\\text{ kg}$ at $a = ${a}\\text{ m/s}^2$.`,
-                        options: [`$${m*a}\\text{ N}$`, `$${m+a}\\text{ N}$`, `$${m*a+5}\\text{ N}$`, `$0\\text{ N}$`],
-                        correctIndex: 0,
-                        hint: `Use $F_{net} = ma$.`,
-                        explanation: `<strong>Correct: A</strong><br>$F = (${m})(${a}) = ${m*a}\\text{ N}$.`
-                    });
-                } else { // General Physics
-                    let m = Math.floor(Math.random() * 4) + 2;
-                    let k = Math.floor(Math.random() * 10) + 10;
-                    qSet.push({
-                        title: `Oscillation Question ${i}`,
-                        text: `A mass-spring system has $m = ${m}\\text{ kg}$ and $k = ${k}\\text{ N/m}$. Find angular frequency $\\omega$.`,
-                        options: [`$\\sqrt{${(k/m).toFixed(2)}}\\text{ rad/s}$`, `$${(k/m).toFixed(2)}\\text{ rad/s}$`, `$${m*k}\\text{ rad/s}$`, `$2\\pi\\text{ rad/s}$`],
-                        correctIndex: 0,
-                        hint: `Use $\\omega = \\sqrt{\\frac{k}{m}}$.`,
-                        explanation: `<strong>Correct: A</strong><br>$\\omega = \\sqrt{\\frac{${k}}{${m}}} = \\sqrt{${(k/m).toFixed(2)}}\\text{ rad/s}$.`
-                    });
-                }
-            }
-        }
-        return qSet;
-    }
-
-    let practiceMode = 'MCQ';
+    // PRACTICE ENGINE
     let activeQuestions = [];
     let currentQIndex = 0;
-    let timerInterval = null;
-    let timerSeconds = 0;
-    let timerPaused = false;
-    let questionTimes = [];
-    let userAnswers = [];
-    let usedHints = [];
 
     function startPractice(mode) {
-        practiceMode = mode;
-        activeQuestions = generateQuestionSet(currentSubject, currentUnit, mode);
-        currentQIndex = 0;
-        questionTimes = new Array(10).fill(0);
-        userAnswers = new Array(10).fill(null);
-        usedHints = new Array(10).fill(false);
-
-        document.getElementById('practice-mode-label').innerText = mode === 'MCQ' ? "Practice MCQ" : "Practice FRQ";
+        activeQuestions = [
+            {
+                title: "Question 1",
+                text: "An object of mass $m$ moves along a line according to $x(t) = 3t^2 - 2t$. What is its instantaneous velocity at $t = 4$?",
+                options: ["22 m/s", "10 m/s", "24 m/s", "14 m/s"],
+                correctIndex: 0,
+                hint: "Find derivative $v(t) = x'(t) = 6t - 2$."
+            },
+            {
+                title: "Question 2",
+                text: "Evaluate $f'(x)$ for $f(x) = \\sin(x^2)$.",
+                options: ["$2x\\cos(x^2)$", "$\\cos(x^2)$", "$-2x\\cos(x^2)$", "$2\\cos(x)$"],
+                correctIndex: 0,
+                hint: "Apply Chain Rule: $\\cos(x^2) \\cdot \\frac{d}{dx}[x^2]$."
+            }
+        ];
         showScreen('screen-practice');
         loadQuestion(0);
     }
@@ -849,46 +362,21 @@
     function loadQuestion(index) {
         currentQIndex = index;
         const q = activeQuestions[index];
-        
-        document.getElementById('question-progress').innerText = `Question ${index + 1} of 10`;
+        document.getElementById('question-progress').innerText = `Question ${index + 1} of ${activeQuestions.length}`;
         document.getElementById('q-title').innerText = q.title;
         document.getElementById('q-text').innerHTML = q.text;
 
+        const mcqBox = document.getElementById('mcq-options-container');
+        mcqBox.innerHTML = '';
+        q.options.forEach((opt, idx) => {
+            mcqBox.innerHTML += `<button class="option-btn" onclick="selectOption(${idx})">${String.fromCharCode(65 + idx)}. ${opt}</button>`;
+        });
         document.getElementById('hint-card').style.display = 'none';
         document.getElementById('explain-card').style.display = 'none';
-        document.getElementById('explain-btn').style.display = 'none';
-
-        const mcqBox = document.getElementById('mcq-options-container');
-        const frqBox = document.getElementById('frq-input-container');
-
-        if (practiceMode === 'MCQ') {
-            mcqBox.style.display = 'block';
-            frqBox.style.display = 'none';
-            mcqBox.innerHTML = '';
-
-            q.options.forEach((opt, idx) => {
-                const btn = document.createElement('button');
-                btn.className = 'option-btn';
-                if (userAnswers[index] === idx) btn.classList.add('selected');
-                btn.innerHTML = `${String.fromCharCode(65 + idx)}. ${opt}`;
-                btn.onclick = () => selectOption(idx);
-                mcqBox.appendChild(btn);
-            });
-        } else {
-            mcqBox.style.display = 'none';
-            frqBox.style.display = 'block';
-            document.getElementById('frq-user-answer').value = userAnswers[index] || '';
-        }
-
-        document.getElementById('prev-btn').disabled = (index === 0);
-        document.getElementById('next-btn').innerText = (index === 9) ? "Finish & View Stats 🎉" : "Next →";
-
-        resetAndStartTimer();
         initKaTeX();
     }
 
     function selectOption(idx) {
-        userAnswers[currentQIndex] = idx;
         const btns = document.querySelectorAll('.option-btn');
         btns.forEach((b, i) => {
             b.classList.remove('selected');
@@ -897,142 +385,20 @@
     }
 
     function toggleHint() {
-        usedHints[currentQIndex] = true;
-        const hintCard = document.getElementById('hint-card');
-        hintCard.innerHTML = `<strong>💡 Hint:</strong> ${activeQuestions[currentQIndex].hint}`;
-        hintCard.style.display = hintCard.style.display === 'block' ? 'none' : 'block';
+        const card = document.getElementById('hint-card');
+        card.innerHTML = `<strong>Hint:</strong> ${activeQuestions[currentQIndex].hint}`;
+        card.style.display = 'block';
         initKaTeX();
     }
 
     function checkAnswer() {
-        const q = activeQuestions[currentQIndex];
-        const explainCard = document.getElementById('explain-card');
-        
-        if (practiceMode === 'MCQ') {
-            const selected = userAnswers[currentQIndex];
-            if (selected === null) {
-                alert("Please select an answer first!");
-                return;
-            }
-            const btns = document.querySelectorAll('.option-btn');
-            btns.forEach((btn, idx) => {
-                if (idx === q.correctIndex) btn.classList.add('correct');
-                else if (idx === selected) btn.classList.add('incorrect');
-            });
-        }
-        
-        explainCard.innerHTML = q.explanation;
-        explainCard.style.display = 'block';
-        document.getElementById('explain-btn').style.display = 'inline-block';
-        initKaTeX();
-    }
-
-    function toggleExplanation() {
         const card = document.getElementById('explain-card');
-        card.style.display = card.style.display === 'block' ? 'none' : 'block';
+        card.innerHTML = `<strong>Explanation:</strong> Check derivative and plug in values step-by-step.`;
+        card.style.display = 'block';
     }
 
-    function resetAndStartTimer() {
-        clearInterval(timerInterval);
-        timerSeconds = questionTimes[currentQIndex] || 0;
-        updateTimerDisplay();
-        timerPaused = false;
-        document.getElementById('pause-btn').innerText = "⏸ Pause";
-
-        timerInterval = setInterval(() => {
-            if (!timerPaused) {
-                timerSeconds++;
-                questionTimes[currentQIndex] = timerSeconds;
-                updateTimerDisplay();
-            }
-        }, 1000);
-    }
-
-    function updateTimerDisplay() {
-        const m = String(Math.floor(timerSeconds / 60)).padStart(2, '0');
-        const s = String(timerSeconds % 60).padStart(2, '0');
-        document.getElementById('timer-display').innerText = `${m}:${s}`;
-    }
-
-    function toggleTimer() {
-        timerPaused = !timerPaused;
-        document.getElementById('pause-btn').innerText = timerPaused ? "▶ Resume" : "⏸ Pause";
-    }
-
-    function prevQuestion() {
-        if (currentQIndex > 0) loadQuestion(currentQIndex - 1);
-    }
-
-    function nextQuestion() {
-        if (practiceMode === 'FRQ') {
-            userAnswers[currentQIndex] = document.getElementById('frq-user-answer').value;
-        }
-
-        if (currentQIndex < 9) {
-            loadQuestion(currentQIndex + 1);
-        } else {
-            finishPractice();
-        }
-    }
-
-    function quitPractice() {
-        if (confirm("Are you sure you want to quit this practice session? Progress will be lost.")) {
-            clearInterval(timerInterval);
-            showScreen('screen-summary');
-        }
-    }
-
-    function finishPractice() {
-        clearInterval(timerInterval);
-        
-        let correctCount = 0;
-        let totalSeconds = questionTimes.reduce((a, b) => a + b, 0);
-        const listContainer = document.getElementById('stat-details-list');
-        listContainer.innerHTML = '';
-
-        activeQuestions.forEach((q, idx) => {
-            const userAns = userAnswers[idx];
-            const isCorrect = (practiceMode === 'MCQ') ? (userAns === q.correctIndex) : (userAns && userAns.trim().length > 0);
-            const usedH = usedHints[idx];
-
-            if (isCorrect) correctCount++;
-
-            let badgeHtml = '';
-            if (isCorrect && !usedH) {
-                badgeHtml = `<span class="stat-badge badge-green">🟢 Green (No Hint)</span>`;
-            } else if (isCorrect && usedH) {
-                badgeHtml = `<span class="stat-badge badge-yellow">🟡 Yellow (With Hint)</span>`;
-            } else {
-                badgeHtml = `<span class="stat-badge badge-red">🔴 Red (Incorrect)</span>`;
-            }
-
-            const m = Math.floor(questionTimes[idx] / 60);
-            const s = questionTimes[idx] % 60;
-
-            listContainer.innerHTML += `
-                <div class="stat-item">
-                    <div>
-                        <strong>Q${idx + 1}:</strong> ${badgeHtml}
-                    </div>
-                    <div>⏱️ ${m}m ${s}s</div>
-                </div>
-            `;
-        });
-
-        const pct = Math.round((correctCount / 10) * 100);
-        document.getElementById('stat-score').innerText = `${pct}%`;
-        document.getElementById('stat-summary-text').innerText = `You scored ${correctCount} out of 10`;
-        
-        const totM = Math.floor(totalSeconds / 60);
-        const totS = totalSeconds % 60;
-        document.getElementById('stat-total-time').innerText = `Total Time Taken: ${totM}m ${totS}s`;
-
-        showScreen('screen-stats');
-    }
-
-    function restartPractice() {
-        startPractice(practiceMode);
-    }
+    function prevQuestion() { if(currentQIndex > 0) loadQuestion(currentQIndex - 1); }
+    function nextQuestion() { if(currentQIndex < activeQuestions.length - 1) loadQuestion(currentQIndex + 1); }
 </script>
 
 </body>
