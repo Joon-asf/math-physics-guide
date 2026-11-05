@@ -174,7 +174,9 @@
                 <span id="practice-mode-label" style="font-weight: bold; color: #D4AF37;">MCQ Mode</span>
                 <span id="question-progress" style="margin-left: 15px;">Question 1 of 2</span>
             </div>
-            <div>⏱️ <span id="timer-display">00:00</span></div>
+            <div>
+                <button class="btn btn-back" style="padding: 4px 10px; font-size: 13px;" onclick="quitPractice()">✕ Exit Practice</button>
+            </div>
         </div>
 
         <div id="practice-body">
@@ -192,6 +194,7 @@
 
             <div style="margin-top: 25px; display: flex; justify-content: space-between;">
                 <button class="btn btn-back" onclick="prevQuestion()" id="prev-btn">← Previous</button>
+                <button class="btn btn-back" onclick="quitPractice()">Quit Practice</button>
                 <button class="btn" onclick="nextQuestion()" id="next-btn">Next →</button>
             </div>
         </div>
@@ -232,19 +235,20 @@
     }
 
     let currentSubject = '';
-    let currentUnit = 0;
+    let currentUnit = 1;
 
     function selectSubject(subject) {
         currentSubject = subject;
+        document.getElementById('subject-title').innerText = subject === 'calc' ? 'AP Calculus AB' : 'AP Physics C: Mechanics';
         const unitContainer = document.getElementById('unit-buttons');
         unitContainer.innerHTML = '';
         
         const units = subject === 'calc' 
             ? ["Limits & Continuity", "Differentiation Rules", "Composite & Inverse", "Contextual Apps", "Analytical Apps", "Integration", "Diff Equations", "Apps of Integration"]
-            : ["Vectors", "Kinematics", "Newton's Laws of Motion", "Work, Energy & Power", "Momentum", "Rotation", "Oscillations"];
+            : ["Kinematics & Vectors", "Newton's Laws of Motion", "Work, Energy & Power", "Systems of Particles & Momentum", "Rotation", "Oscillations", "Gravitation"];
 
         units.forEach((u, i) => {
-            const unitNum = subject === 'physics' ? i : i + 1;
+            const unitNum = i + 1;
             unitContainer.innerHTML += `<button class="btn btn-subject" onclick="showSummary('${subject}', ${unitNum})">Unit ${unitNum}: ${u}</button>`;
         });
         showScreen('screen-unit');
@@ -286,44 +290,37 @@
             <div class="symbol-key"><strong>Symbol Key:</strong><br>$R(x)$: Radius of cross-section<br>$f_{avg}$: Average height</div>`
     };
 
-    // AP PHYSICS C DATA
+    // AP PHYSICS C DATA (UNIT 1 TO 7)
     const physicsData = {
-        0: `<h3>Unit 0: Vectors</h3>
-            <p><strong>Core Concept:</strong> Vector representation in 2D/3D space, components, dot product (scalar result), and cross product (vector result).</p>
-            $$\\|\\vec{v}\\| = \\sqrt{v_x^2 + v_y^2}, \\quad \\theta = \\tan^{-1}\\left(\\frac{v_y}{v_x}\\right)$$
-            $$\\vec{a} \\cdot \\vec{b} = |\\vec{a}||\\vec{b}|\\cos\\theta = a_x b_x + a_y b_y$$
-            $$\\|\\vec{a} \\times \\vec{b}\\| = |\\vec{a}||\\vec{b}|\\sin\\theta$$
-            <div class="symbol-key"><strong>Symbol Key:</strong><br>$\\vec{v}$: Vector quantity<br>$\\theta$: Angle between vectors<br>$\\cdot$: Scalar dot product<br>$\\times$: Vector cross product</div>`,
-        1: `<h3>Unit 1: Kinematics</h3>
-            <p><strong>Core Concept:</strong> Calculus-based 1D and 2D motion, graphic relationships, projectile motion, and resistive motion with variable acceleration.</p>
+        1: `<h3>Unit 1: Kinematics & Vectors</h3>
+            <p><strong>Core Concept:</strong> Vector operations, dot/cross products, calculus-based 1D/2D motion, projectile motion, and resistive motion.</p>
             $$v = \\frac{dx}{dt}, \\quad a = \\frac{dv}{dt} = \\frac{d^2x}{dt^2}$$
-            $$x = x_0 + v_0 t + \\frac{1}{2}at^2, \\quad v^2 = v_0^2 + 2a\\Delta x$$
-            $$a_{\\text{incline}} = g \\sin\\theta$$
-            <div class="symbol-key"><strong>Symbol Key:</strong><br>$x, v, a$: Position, velocity, acceleration<br>$g$: Acceleration due to gravity ($9.8\\text{ m/s}^2$)<br>$\\theta$: Angle of inclination</div>`,
+            $$\\vec{a} \\cdot \\vec{b} = a_x b_x + a_y b_y, \\quad \\|\\vec{a} \\times \\vec{b}\\| = |a||b|\\sin\\theta$$
+            <div class="symbol-key"><strong>Symbol Key:</strong><br>$x, v, a$: Position, velocity, acceleration<br>$\\cdot$: Dot product<br>$\\times$: Cross product</div>`,
         2: `<h3>Unit 2: Newton's Laws of Motion</h3>
-            <p><strong>Core Concept:</strong> Forces, free-body diagrams, friction, drag forces (terminal velocity), Atwood machines, and uniform/non-uniform circular motion.</p>
-            $$\\sum \\vec{F} = m\\vec{a}, \\quad F_s = -kx$$
-            $$f_k = \\mu_k F_N, \\quad f_{s,\\text{max}} = \\mu_s F_N$$
-            $$a_c = \\frac{v^2}{r} = \\omega^2 r, \\quad v_T = \\frac{mg}{b}\\text{ or }\\sqrt{\\frac{2mg}{C\\rho A}}$$
-            <div class="symbol-key"><strong>Symbol Key:</strong><br>$\\mu$: Coefficient of friction<br>$F_N$: Normal force<br>$a_c$: Centripetal acceleration<br>$v_T$: Terminal velocity</div>`,
+            <p><strong>Core Concept:</strong> Free-body diagrams, friction, drag forces (terminal velocity), Atwood machines, and circular motion.</p>
+            $$\\sum \\vec{F} = m\\vec{a}, \\quad f_k = \\mu_k F_N, \\quad a_c = \\frac{v^2}{r}$$
+            <div class="symbol-key"><strong>Symbol Key:</strong><br>$\\mu_k$: Coefficient of friction<br>$F_N$: Normal force<br>$a_c$: Centripetal acceleration</div>`,
         3: `<h3>Unit 3: Work, Energy, and Power</h3>
-            <p><strong>Core Concept:</strong> Work-Energy Theorem, conservative vs. non-conservative forces, potential energy functions, and instantaneous power.</p>
-            $$W = \\int \\vec{F} \\cdot d\\vec{r} = \\Delta K, \\quad K = \\frac{1}{2}m v^2$$
-            $$F(x) = -\\frac{dU}{dx}, \\quad P = \\frac{dW}{dt} = \\vec{F} \\cdot \\vec{v}$$
-            $$\\Delta E_{\\text{th}} = f_k \\Delta s$$
-            <div class="symbol-key"><strong>Symbol Key:</strong><br>$W$: Work done<br>$K$: Kinetic energy<br>$U$: Potential energy<br>$P$: Power<br>$E_{\\text{th}}$: Thermal energy</div>`,
+            <p><strong>Core Concept:</strong> Work-Energy Theorem, conservative forces, potential energy functions, and power.</p>
+            $$W = \\int \\vec{F} \\cdot d\\vec{r} = \\Delta K, \\quad F(x) = -\\frac{dU}{dx}, \\quad P = \\vec{F} \\cdot \\vec{v}$$
+            <div class="symbol-key"><strong>Symbol Key:</strong><br>$W$: Work<br>$K$: Kinetic energy<br>$U$: Potential energy<br>$P$: Power</div>`,
         4: `<h3>Unit 4: Systems of Particles & Linear Momentum</h3>
-            <p><strong>Core Concept:</strong> Center of mass, impulse-momentum theorem, and conservation of linear momentum in collisions.</p>
+            <p><strong>Core Concept:</strong> Center of mass, impulse-momentum theorem, and conservation of linear momentum.</p>
             $$\\vec{r}_{cm} = \\frac{\\int \\vec{r}\\,dm}{M}, \\quad \\vec{J} = \\int \\vec{F}\\,dt = \\Delta \\vec{p}$$
-            <div class="symbol-key"><strong>Symbol Key:</strong><br>$\\vec{r}_{cm}$: Center of mass<br>$\\vec{J}$: Impulse<br>$\\vec{p}$: Linear momentum ($m\\vec{v}$)</div>`,
+            <div class="symbol-key"><strong>Symbol Key:</strong><br>$\\vec{r}_{cm}$: Center of mass<br>$\\vec{J}$: Impulse<br>$\\vec{p}$: Momentum ($m\\vec{v}$)</div>`,
         5: `<h3>Unit 5: Rotation</h3>
-            <p><strong>Core Concept:</strong> Rotational kinematics, moment of inertia, rotational dynamics, torque, and angular momentum.</p>
+            <p><strong>Core Concept:</strong> Rotational kinematics, moment of inertia, torque, and angular momentum.</p>
             $$\\vec{\\tau} = \\vec{r} \\times \\vec{F} = I\\vec{\\alpha}, \\quad I = \\int r^2\\,dm, \\quad \\vec{L} = I\\vec{\\omega}$$
             <div class="symbol-key"><strong>Symbol Key:</strong><br>$\\tau$: Torque<br>$I$: Moment of inertia<br>$\\alpha$: Angular acceleration<br>$L$: Angular momentum</div>`,
         6: `<h3>Unit 6: Oscillations</h3>
-            <p><strong>Core Concept:</strong> Simple harmonic motion (SHM), physical pendulums, spring systems, and second-order differential equations of motion.</p>
+            <p><strong>Core Concept:</strong> Simple harmonic motion (SHM), physical pendulums, and spring systems.</p>
             $$\\frac{d^2x}{dt^2} = -\\omega^2 x, \\quad T = 2\\pi\\sqrt{\\frac{m}{k}}$$
-            <div class="symbol-key"><strong>Symbol Key:</strong><br>$\\omega$: Angular frequency<br>$T$: Period of oscillation</div>`
+            <div class="symbol-key"><strong>Symbol Key:</strong><br>$\\omega$: Angular frequency<br>$T$: Period of oscillation</div>`,
+        7: `<h3>Unit 7: Gravitation</h3>
+            <p><strong>Core Concept:</strong> Newton's Law of Universal Gravitation, gravitational potential energy, orbital motion, and Kepler's laws.</p>
+            $$F_g = G \\frac{m_1 m_2}{r^2}, \\quad U_g = -G \\frac{m_1 m_2}{r}$$
+            <div class="symbol-key"><strong>Symbol Key:</strong><br>$G$: Universal gravitational constant<br>$r$: Distance between masses</div>`
     };
 
     function showSummary(subject, unitNum) {
@@ -334,108 +331,118 @@
         showScreen('screen-summary');
     }
 
-    // PRACTICE ENGINE
+    // UNIT-SPECIFIC QUESTION BANK (UNIT 1 TO 7)
+    const physicsQuestionBank = {
+        1: { // Unit 1: Kinematics & Vectors
+            MCQ: [
+                {
+                    title: "Unit 1 - MCQ 1: Vector Dot Product",
+                    text: "A force vector $\\vec{F} = (3\\hat{i} + 4\\hat{j})\\text{ N}$ acts on a particle, displacing it by $\\vec{d} = (2\\hat{i} - 1\\hat{j})\\text{ m}$. What is the work done?",
+                    options: ["2 J", "10 J", "6 J", "14 J"],
+                    correctIndex: 0,
+                    hint: "Work is the dot product: $W = \\vec{F} \\cdot \\vec{d} = F_x d_x + F_y d_y$.",
+                    explanation: "$W = (3)(2) + (4)(-1) = 6 - 4 = 2\\text{ J}$."
+                },
+                {
+                    title: "Unit 1 - MCQ 2: Calculus Kinematics",
+                    text: "The position of a particle along the x-axis is given by $x(t) = 2t^3 - 9t^2 + 12t$. At what time $t > 0$ is the particle momentarily at rest?",
+                    options: ["t = 1 s and t = 2 s", "t = 3 s only", "t = 1.5 s only", "t = 2 s and t = 4 s"],
+                    correctIndex: 0,
+                    hint: "The particle is at rest when velocity $v(t) = \\frac{dx}{dt} = 0$.",
+                    explanation: "$v(t) = 6t^2 - 18t + 12 = 6(t-1)(t-2) = 0 \\implies t = 1\\text{ s}, 2\\text{ s}$."
+                }
+            ],
+            FRQ: [
+                {
+                    title: "Unit 1 - FRQ 1: Resistive Force & Differential Equations",
+                    text: "A projectile of mass $m = 2.0\\text{ kg}$ is dropped from rest in a viscous fluid that exerts a drag force $F_D = -4v$.<br><br>" +
+                          "<b>(a)</b> Write the differential equation for velocity $v(t)$.<br>" +
+                          "<b>(b)</b> Derive the expression for $v(t)$ as a function of time.<br>" +
+                          "<b>(c)</b> Calculate terminal velocity (take $g = 9.8\\text{ m/s}^2$).",
+                    options: ["View Solution below"],
+                    correctIndex: 0,
+                    hint: "Use $m\\frac{dv}{dt} = mg - bv$. Separate variables and integrate.",
+                    explanation: "<b>(a)</b> $2\\frac{dv}{dt} = 2(9.8) - 4v \\implies \\frac{dv}{dt} = 9.8 - 2v$.<br>" +
+                                 "<b>(b)</b> $v(t) = 4.9(1 - e^{-2t})\\text{ m/s}$.<br>" +
+                                 "<b>(c)</b> $v_T = 4.9\\text{ m/s}$."
+                }
+            ]
+        },
+        2: { // Unit 2: Newton's Laws
+            MCQ: [
+                {
+                    title: "Unit 2 - MCQ 1: Inclined Plane Friction",
+                    text: "A block slides down an incline of angle $\\theta$ with constant velocity. What is the coefficient of kinetic friction $\\mu_k$?",
+                    options: ["$\\tan\\theta$", "$\\sin\\theta$", "$\\cos\\theta$", "$\\mu_k = 1$"],
+                    correctIndex: 0,
+                    hint: "$mg\\sin\\theta = f_k = \\mu_k mg\\cos\\theta$.",
+                    explanation: "$\\mu_k = \\frac{\\sin\\theta}{\\cos\\theta} = \\tan\\theta$."
+                }
+            ],
+            FRQ: [
+                {
+                    title: "Unit 2 - FRQ 1: Atwood Machine",
+                    text: "Block A ($m_1=4\\text{ kg}$) on table connected to hanging Block B ($m_2=2\\text{ kg}$). $\\mu_k = 0.25$. Find acceleration.",
+                    options: ["View Solution below"],
+                    correctIndex: 0,
+                    hint: "Net force equation: $m_2 g - \\mu_k m_1 g = (m_1 + m_2)a$.",
+                    explanation: "$a = \\frac{2(9.8) - 0.25(4)(9.8)}{6} = 1.63\\text{ m/s}^2$."
+                }
+            ]
+        },
+        3: { // Unit 3: Work & Energy
+            MCQ: [
+                {
+                    title: "Unit 3 - MCQ 1: Force from Potential Energy",
+                    text: "Potential energy $U(x) = 4x^3 - 5x$. What is $F(x)$ at $x = 2\\text{ m}$?",
+                    options: ["-43 N", "43 N", "-27 N", "37 N"],
+                    correctIndex: 0,
+                    hint: "$F(x) = -\\frac{dU}{dx}$.",
+                    explanation: "$F(2) = -(12(2)^2 - 5) = -43\\text{ N}$."
+                }
+            ],
+            FRQ: [
+                {
+                    title: "Unit 3 - FRQ 1: Block-Spring on Incline",
+                    text: "Mass $m=3\\text{ kg}$, spring $k=600\\text{ N/m}$ compressed by $x=0.4\\text{ m}$ on $30^\\circ$ incline. Find max distance $d$.",
+                    options: ["View Solution below"],
+                    correctIndex: 0,
+                    hint: "Conservation of energy: $\\frac{1}{2}kx^2 = mgh = mg(d \\sin 30^\\circ)$.",
+                    explanation: "$48 = 14.7 d \\implies d \\approx 3.27\\text{ m}$."
+                }
+            ]
+        }
+    };
+
     let activeQuestions = [];
     let currentQIndex = 0;
 
     function startPractice(mode) {
-        if (currentSubject === 'physics') {
-            if (mode === 'MCQ') {
-                activeQuestions = [
-                    {
-                        title: "Unit 0 - MCQ 1: Vector Dot Product",
-                        text: "A force vector $\\vec{F} = (3\\hat{i} + 4\\hat{j})\\text{ N}$ acts on a particle, displacing it by $\\vec{d} = (2\\hat{i} - 1\\hat{j})\\text{ m}$. What is the work done by the force?",
-                        options: ["2 J", "10 J", "6 J", "14 J"],
-                        correctIndex: 0,
-                        hint: "Work is the dot product of force and displacement: $W = \\vec{F} \\cdot \\vec{d} = F_x d_x + F_y d_y$.",
-                        explanation: "$W = (3)(2) + (4)(-1) = 6 - 4 = 2\\text{ J}$."
-                    },
-                    {
-                        title: "Unit 1 - MCQ 2: Calculus Kinematics",
-                        text: "The position of a particle along the x-axis is given by $x(t) = 2t^3 - 9t^2 + 12t$. At what time $t > 0$ is the particle momentarily at rest?",
-                        options: ["t = 1 s and t = 2 s", "t = 3 s only", "t = 1.5 s only", "t = 2 s and t = 4 s"],
-                        correctIndex: 0,
-                        hint: "The particle is at rest when velocity $v(t) = \\frac{dx}{dt} = 0$.",
-                        explanation: "$v(t) = 6t^2 - 18t + 12 = 6(t-1)(t-2) = 0 \\implies t = 1\\text{ s}, 2\\text{ s}$."
-                    },
-                    {
-                        title: "Unit 1 - MCQ 3: Terminal Velocity",
-                        text: "A ball of mass $m$ falls vertically under gravity while experiencing a resistive drag force $F_D = -bv$. What is its terminal velocity $v_T$?",
-                        options: ["$v_T = \\frac{mg}{b}$", "$v_T = \\sqrt{\\frac{mg}{b}}$", "$v_T = \\frac{b}{mg}$", "$v_T = \\frac{mg}{2b}$"],
-                        correctIndex: 0,
-                        hint: "At terminal velocity, acceleration is zero, so net force $\\sum F = mg - bv_T = 0$.",
-                        explanation: "When $a = 0$, $mg - bv_T = 0 \\implies v_T = \\frac{mg}{b}$."
-                    },
-                    {
-                        title: "Unit 2 - MCQ 4: Inclined Plane with Friction",
-                        text: "A block of mass $m$ slides down an incline of angle $\\theta$ with constant velocity. What is the coefficient of kinetic friction $\\mu_k$ between the block and the incline?",
-                        options: ["$\\tan\\theta$", "$\\sin\\theta$", "$\\cos\\theta$", "$\\mu_k = 1$"],
-                        correctIndex: 0,
-                        hint: "Constant velocity means $a = 0$. Balance components: $mg\\sin\\theta = f_k = \\mu_k mg\\cos\\theta$.",
-                        explanation: "$mg\\sin\\theta = \\mu_k mg\\cos\\theta \\implies \\mu_k = \\frac{\\sin\\theta}{\\cos\\theta} = \\tan\\theta$."
-                    },
-                    {
-                        title: "Unit 2 - MCQ 5: Vertical Circle Critical Speed",
-                        text: "A roller coaster car goes through a vertical loop of radius $R$. What is the minimum speed $v_{\\text{min}}$ at the top of the loop so that the car maintains contact with the track?",
-                        options: ["$\\sqrt{gR}$", "$\\sqrt{2gR}$", "$gR$", "$\\frac{1}{2}gR$"],
-                        correctIndex: 0,
-                        hint: "At the minimum (critical) speed, the normal force becomes zero ($F_N = 0$) at the top point.",
-                        explanation: "$\\sum F_c = F_N + mg = \\frac{mv^2}{R}$. Setting $F_N = 0$ gives $mg = \\frac{mv^2}{R} \\implies v = \\sqrt{gR}$."
-                    },
-                    {
-                        title: "Unit 3 - MCQ 6: Force from Potential Energy",
-                        text: "The potential energy function of a conservative system is given by $U(x) = 4x^3 - 5x$. What is the force $F(x)$ acting on the particle at $x = 2\\text{ m}$?",
-                        options: ["-43 N", "43 N", "-27 N", "37 N"],
-                        correctIndex: 0,
-                        hint: "Force and potential energy are related by $F(x) = -\\frac{dU}{dx}$.",
-                        explanation: "$F(x) = -\\frac{d}{dx}(4x^3 - 5x) = -(12x^2 - 5)$. At $x = 2$, $F(2) = -(12(4) - 5) = -43\\text{ N}$."
-                    }
-                ];
-            } else {
-                activeQuestions = [
-                    {
-                        title: "Unit 1 & 2 - FRQ 1: Resistive Force & Differential Equations",
-                        text: "A projectile of mass $m = 2.0\\text{ kg}$ is dropped from rest in a viscous fluid that exerts a drag force $F_D = -4v$.<br><br>" +
-                              "<b>(a)</b> Write the differential equation for the velocity $v(t)$ of the object.<br>" +
-                              "<b>(b)</b> Derive the expression for $v(t)$ as an explicit function of time.<br>" +
-                              "<b>(c)</b> Calculate the numerical terminal velocity of the object (take $g = 9.8\\text{ m/s}^2$).",
-                        options: ["View Multi-part Solution below"],
-                        correctIndex: 0,
-                        hint: "Use Newton's 2nd Law: $m\\frac{dv}{dt} = mg - bv$. Separate variables and integrate.",
-                        explanation: "<b>(a)</b> $2\\frac{dv}{dt} = 2(9.8) - 4v \\implies \\frac{dv}{dt} = 9.8 - 2v$.<br>" +
-                                     "<b>(b)</b> $\\int_0^v \\frac{dv}{9.8 - 2v} = \\int_0^t dt \\implies -\\frac{1}{2}\\ln\\left(\\frac{9.8-2v}{9.8}\\right) = t \\implies v(t) = 4.9(1 - e^{-2t})\\text{ m/s}$.<br>" +
-                                     "<b>(c)</b> As $t \\to \\infty$, $v_T = 4.9\\text{ m/s}$ (or $v_T = \\frac{mg}{b} = \\frac{2(9.8)}{4} = 4.9\\text{ m/s}$)."
-                    },
-                    {
-                        title: "Unit 2 & 3 - FRQ 2: Block-Spring System on Incline",
-                        text: "A block of mass $m = 3.0\\text{ kg}$ is placed against a compressed spring ($k = 600\\text{ N/m}$) on an incline of angle $\\theta = 30^\\circ$. The spring is compressed by $x = 0.4\\text{ m}$ from its equilibrium and released.<br><br>" +
-                              "<b>(a)</b> If the incline is frictionless, find the total distance $d$ the block travels up the incline before coming to rest.<br>" +
-                              "<b>(b)</b> If coefficient of kinetic friction is $\\mu_k = 0.2$, calculate the new maximum distance $d'$ traveled up the incline.",
-                        options: ["View Multi-part Solution below"],
-                        correctIndex: 0,
-                        hint: "Apply Conservation of Mechanical Energy: $E_i = E_f$. In part (b), include work done by friction $W_f = f_k d = (\\mu_k mg \\cos\\theta) d$.",
-                        explanation: "<b>(a)</b> $\\frac{1}{2}kx^2 = mg h = mg(d \\sin 30^\\circ)$.<br>" +
-                                     "$\\frac{1}{2}(600)(0.4)^2 = (3.0)(9.8)(0.5)d \\implies 48 = 14.7 d \\implies d \\approx 3.27\\text{ m}$.<br><br>" +
-                                     "<b>(b)</b> $\\frac{1}{2}kx^2 = mg(d' \\sin 30^\\circ) + \\mu_k mg \\cos 30^\\circ d'$.<br>" +
-                                     "$48 = 14.7 d' + (0.2)(3.0)(9.8)(0.866)d' = 14.7 d' + 5.09 d' = 19.79 d' \\implies d' \\approx 2.43\\text{ m}$."
-                    }
-                ];
-            }
-        } else {
+        document.getElementById('practice-mode-label').innerText = `${mode} Mode (Unit ${currentUnit})`;
+        
+        if (currentSubject === 'physics' && physicsQuestionBank[currentUnit]) {
+            activeQuestions = physicsQuestionBank[currentUnit][mode] || [];
+        }
+        
+        if (!activeQuestions || activeQuestions.length === 0) {
             activeQuestions = [
                 {
-                    title: "Calculus Unit 1 - MCQ 1",
-                    text: "Evaluate $\\lim_{x \\to 0} \\frac{\\sin(5x)}{x}$.",
-                    options: ["5", "1", "0", "Undefined"],
+                    title: `Unit ${currentUnit} - ${mode} Question`,
+                    text: `Sample question for ${currentSubject === 'calc' ? 'AP Calculus AB' : 'AP Physics C'} Unit ${currentUnit}.`,
+                    options: ["Option A", "Option B", "Option C", "Option D"],
                     correctIndex: 0,
-                    hint: "Use L'Hôpital's Rule or standard limit $\\lim_{u \\to 0}\\frac{\\sin u}{u} = 1$.",
-                    explanation: "$\\lim_{x \\to 0} \\frac{5\\cos(5x)}{1} = 5$."
+                    hint: "Hint for this unit question.",
+                    explanation: "Step-by-step solution for this problem."
                 }
             ];
         }
 
         showScreen('screen-practice');
         loadQuestion(0);
+    }
+
+    function quitPractice() {
+        showScreen('screen-summary');
     }
 
     function loadQuestion(index) {
